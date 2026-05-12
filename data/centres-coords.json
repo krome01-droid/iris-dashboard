@@ -1,0 +1,2001 @@
+{
+  "auto-ecole-inris-conflans-sainte-honorine": {
+    "lat": 49.006076,
+    "lon": 2.119553,
+    "name": "AUTO-ÉCOLE INRI'S CONFLANS-SAINTE-HONORINE",
+    "ville": "Conflans-Sainte-Honorine",
+    "adresse": "30 rue Pierre Le Guen – Conflans-Sainte-Honorine",
+    "codePostal": "78700"
+  },
+  "point-de-rdv-mairie-de-stains": {
+    "lat": 48.9562865,
+    "lon": 2.3832567,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE STAINS",
+    "ville": "Mairie-De-Stains",
+    "adresse": "Mairie de Stains",
+    "codePostal": "93240"
+  },
+  "point-de-rdv-ecouen-ezanville": {
+    "lat": 49.0229548,
+    "lon": 2.3626417,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV D'ÉCOUEN - ÉZANVILLE",
+    "ville": "Ecouen-Ezanville",
+    "adresse": "Gare d'Écouan-Ézanville, 95460 Ézanville",
+    "codePostal": "95460"
+  },
+  "point-de-rdv-gare-de-groslay": {
+    "lat": 48.9848499,
+    "lon": 2.3554206,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE GROSLAY",
+    "ville": "Gare-De-Groslay",
+    "adresse": "Gare de Groslay, 95410 Groslay",
+    "codePostal": "95410"
+  },
+  "point-de-rdv-gare-de-noisiel": {
+    "lat": 48.8435764,
+    "lon": 2.615537,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE NOISIEL",
+    "ville": "Gare-De-Noisiel",
+    "adresse": "Gare de Noisiel",
+    "codePostal": "77186"
+  },
+  "point-de-rdv-gare-de-villiers-le-bel-gonesse-arnouville": {
+    "lat": 48.9938294,
+    "lon": 2.4171877,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE VILLIERS-LE-BEL - GONESSE - ARNOUVILLE",
+    "ville": "Gare-De-Villiers-Le-Bel-Gonesse-Arnouville",
+    "adresse": "Gare de de Villiers-le-Bel – Gonesse – Arnouville",
+    "codePostal": "95400"
+  },
+  "point-de-rdv-gare-de-val-de-fontenay": {
+    "lat": 48.0965112,
+    "lon": 2.7723071,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE VAL  DE FONTENAY",
+    "ville": "Gare-De-Val-De-Fontenay",
+    "adresse": "Gare de Val de Fontenay",
+    "codePostal": "94120"
+  },
+  "point-de-rdv-mairie-de-livry-gargan": {
+    "lat": 48.919385,
+    "lon": 2.5382129,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE LIVRY-GARGAN",
+    "ville": "Mairie-De-Livry-Gargan",
+    "adresse": "Mairie de Livry-Gargan, 93190 Livry-Gargan",
+    "codePostal": "93190"
+  },
+  "point-de-rdv-mairie-de-courbevoie": {
+    "lat": 48.8937727,
+    "lon": 2.2428803,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE COURBEVOIE",
+    "ville": "Mairie-De-Courbevoie",
+    "adresse": "Mairie de Courbevoie, 92400 Courbevoie",
+    "codePostal": "92400"
+  },
+  "point-de-rdv-mairie-de-vaux-le-penil": {
+    "lat": 48.525656,
+    "lon": 2.6841611,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE VAUX-LE-PÉNIL",
+    "ville": "Mairie-De-Vaux-Le-Penil",
+    "adresse": "Mairie de Vaux-le-Pénil",
+    "codePostal": "77000"
+  },
+  "point-de-rdv-mairie-de-saint-leu-la-foret": {
+    "lat": 49.0191346,
+    "lon": 2.242613,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE SAINT-LEU-LA-FORET",
+    "ville": "Mairie-De-Saint-Leu-La-Foret",
+    "adresse": "Mairie de Saint-Leu-la-Forêt, 95320 Saint-Leu-la-Forêt",
+    "codePostal": "95320"
+  },
+  "point-de-rdv-mairie-de-bonneuil-sur-marne": {
+    "lat": 48.7738204,
+    "lon": 2.4879649,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE BONNEUIL-SUR-MARNE",
+    "ville": "Mairie-De-Bonneuil-Sur-Marne",
+    "adresse": "Gare de Sucy - Bonneuil, 94360 Bonneuil-sur-Marne",
+    "codePostal": "94360"
+  },
+  "point-de-rdv-mairie-de-limeil-brevannes": {
+    "lat": 48.7491885,
+    "lon": 2.4805145,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE LIMEIL-BRÉVANNES",
+    "ville": "Mairie-De-Limeil-Brevannes",
+    "adresse": "Mairie de Limeil-Brévannes",
+    "codePostal": "94450"
+  },
+  "point-de-rdv-mairie-de-maisons-alfort": {
+    "lat": 48.8013009,
+    "lon": 2.4318722,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MAISONS-ALFORT",
+    "ville": "Mairie-De-Maisons-Alfort",
+    "adresse": "Mairie de Maisons-Alfort",
+    "codePostal": " 94700 "
+  },
+  "point-de-rdv-mairie-de-montfermeil-feenf": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MONTFERMEIL",
+    "ville": "Mairie-De-Montfermeil-Feenf",
+    "error": "no_match"
+  },
+  "point-de-rdv-gare-du-val-d-argenteuil": {
+    "lat": 49.0195181,
+    "lon": 2.1536913,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DU VAL D'ARGENTEUIL",
+    "ville": "Gare-Du-Val-D-Argenteuil",
+    "adresse": "Gare DU VAL D'ARGENTEUIL",
+    "codePostal": "95100"
+  },
+  "point-de-rdv-mairie-de-claye-souilly": {
+    "lat": 48.9460802,
+    "lon": 2.6882608,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CLAYE-SOUILLY",
+    "ville": "Mairie-De-Claye-Souilly",
+    "adresse": "Mairie DE CLAYE-SOUILLY",
+    "codePostal": "77410"
+  },
+  "point-de-rdv-mairie-de-vaujours": {
+    "lat": 48.9333525,
+    "lon": 2.5674549,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE VAUJOURS",
+    "ville": "Mairie-De-Vaujours",
+    "adresse": "Mairie DE VAUJOURS",
+    "codePostal": "93410"
+  },
+  "point-de-rdv-mairie-de-mantes-la-jolie": {
+    "lat": 48.9779798,
+    "lon": 1.7135298,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MANTES-LA-JOLIE",
+    "ville": "Mairie-De-Mantes-La-Jolie",
+    "adresse": "Mairie DE MANTES-LA-JOLIE",
+    "codePostal": "78200"
+  },
+  "point-de-rdv-mairie-de-champs-sur-marne-8bdf6": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CHAMPS-SUR-MARNE",
+    "ville": "Mairie-De-Champs-Sur-Marne-8bdf6",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-cormeilles-en-parisis": {
+    "lat": 48.9757545,
+    "lon": 2.1990854,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CORMEILLES-EN-PARISIS",
+    "ville": "Mairie-De-Cormeilles-En-Parisis",
+    "adresse": "Mairie DE CORMEILLES-EN-PARISIS",
+    "codePostal": "95240"
+  },
+  "point-de-rdv-mairie-de-dugny": {
+    "lat": 48.9746018,
+    "lon": 2.4315697,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE DUGNY",
+    "ville": "Mairie-De-Dugny",
+    "adresse": "Mairie DE DUGNY",
+    "codePostal": "93440"
+  },
+  "point-de-rdv-mairie-de-viry-chtillon": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV  MAIRIE DE VIRY-CHÂTILLON",
+    "ville": "Mairie-De-Viry-Chtillon",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-grigny": {
+    "lat": 50.3855255,
+    "lon": 2.0667953,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE GRIGNY",
+    "ville": "Mairie-De-Grigny",
+    "adresse": "Mairie DE GRIGNY",
+    "codePostal": "91350"
+  },
+  "point-de-rdv-mairie-de-bagnolet": {
+    "lat": 48.8689553,
+    "lon": 2.4164271,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE BAGNOLET",
+    "ville": "Mairie-De-Bagnolet",
+    "adresse": "Mairie DE BAGNOLET",
+    "codePostal": "93170"
+  },
+  "point-de-rdv-mairie-de-bondoufle": {
+    "lat": 48.6132399,
+    "lon": 2.3801793,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE BONDOUFLE",
+    "ville": "Mairie-De-Bondoufle",
+    "adresse": "Mairie DE BONDOUFLE",
+    "codePostal": "91070"
+  },
+  "point-de-rdv-mairie-de-porte-de-montreuil": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE PORTE DE MONTREUIL",
+    "ville": "Mairie-De-Porte-De-Montreuil",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-porte-de-bagnolet": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE PORTE DE BAGNOLET",
+    "ville": "Mairie-De-Porte-De-Bagnolet",
+    "error": "no_match"
+  },
+  "point-de-rdv-montigny-le-bretonneux": {
+    "lat": 48.7694686,
+    "lon": 2.0406509,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MONTIGNY-LE-BRETONNEUX",
+    "ville": "Montigny-Le-Bretonneux",
+    "adresse": "MONTIGNY-LE-BRETONNEUX",
+    "codePostal": "78180"
+  },
+  "point-de-rdv-mairie-de-massy": {
+    "lat": 46.4891435,
+    "lon": 4.6011148,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MASSY",
+    "ville": "Mairie-De-Massy",
+    "adresse": "Mairie DE MASSY",
+    "codePostal": "91300"
+  },
+  "point-de-rdv-mairie-de-tigery": {
+    "lat": 48.6393611,
+    "lon": 2.5093856,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE TIGERY",
+    "ville": "Mairie-De-Tigery",
+    "adresse": "Mairie DE TIGERY",
+    "codePostal": "91250"
+  },
+  "point-de-rdv-mairie-de-chtillon": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CHÂTILLON",
+    "ville": "Mairie-De-Chtillon",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-fontainebleau": {
+    "lat": 48.4598371,
+    "lon": 2.5304693,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE FONTAINEBLEAU",
+    "ville": "Mairie-De-Fontainebleau",
+    "adresse": "Mairie DE FONTAINEBLEAU",
+    "codePostal": "77300"
+  },
+  "point-de-rdv-mairie-de-saint-maur-des-fosss": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE SAINT-MAUR-DES-FOSSÉS",
+    "ville": "Mairie-De-Saint-Maur-Des-Fosss",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-chatou": {
+    "lat": 48.8898969,
+    "lon": 2.1575298,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CHATOU",
+    "ville": "Mairie-De-Chatou",
+    "adresse": "Mairie DE CHATOU",
+    "codePostal": "78400"
+  },
+  "point-de-rdv-mairie-de-ivry-sur-seine": {
+    "lat": 48.8118145,
+    "lon": 2.3877561,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE D'IVRY-SUR-SEINE",
+    "ville": "Mairie-De-Ivry-Sur-Seine",
+    "adresse": "Mairie D'IVRY-SUR-SEINE",
+    "codePostal": "94200"
+  },
+  "point-de-rdv-mairie-de-bourg-la-reine": {
+    "lat": 48.7788915,
+    "lon": 2.3158078,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE BOURG-LA-REINE",
+    "ville": "Mairie-De-Bourg-La-Reine",
+    "adresse": "Mairie DE BOURG-LA-REINE",
+    "codePostal": "92340"
+  },
+  "point-de-rdv-mairie-de-villeneuve-le-roi": {
+    "lat": 48.7334501,
+    "lon": 2.408283,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE VILLENEUVE-LE-ROI",
+    "ville": "Mairie-De-Villeneuve-Le-Roi",
+    "adresse": "Mairie DE VILLENEUVE-LE-ROI",
+    "codePostal": "94290"
+  },
+  "point-de-rdv-mairie-de-bry-sur-marne": {
+    "lat": 48.8352675,
+    "lon": 2.5195994,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE BRY-SUR-MARNE",
+    "ville": "Mairie-De-Bry-Sur-Marne",
+    "adresse": "Mairie DE BRY-SUR-MARNE",
+    "codePostal": "94360"
+  },
+  "point-de-rdv-mairie-de-villabe": {
+    "lat": 48.5886263,
+    "lon": 2.4524502,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE VILLABÉ",
+    "ville": "Mairie-De-Villabe",
+    "adresse": "Mairie DE VILLABÉ",
+    "codePostal": "91100"
+  },
+  "point-de-rdv-mairie-de-mennecy": {
+    "lat": 48.5667793,
+    "lon": 2.4344918,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MENNECY",
+    "ville": "Mairie-De-Mennecy",
+    "adresse": "Mairie DE MENNECY",
+    "codePostal": "91540"
+  },
+  "point-de-rdv-mairie-de-arpajon": {
+    "lat": 48.5945135,
+    "lon": 2.2556537,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE ARPAJON",
+    "ville": "Mairie-De-Arpajon",
+    "adresse": "Mairie DE ARPAJON",
+    "codePostal": "91290"
+  },
+  "point-de-rdv-mairie-de-gennevilliers": {
+    "lat": 48.9250222,
+    "lon": 2.294392,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE GENNEVILLIERS",
+    "ville": "Mairie-De-Gennevilliers",
+    "adresse": "Mairie DE GENNEVILLIERS",
+    "codePostal": "92230"
+  },
+  "point-de-rdv-mairie-de-villeneuve-saint-georges": {
+    "lat": 48.7490615,
+    "lon": 2.4346799,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE VILLENEUVE-SAINT-GEORGES",
+    "ville": "Mairie-De-Villeneuve-Saint-Georges",
+    "adresse": "Mairie DE VILLENEUVE-SAINT-GEORGES",
+    "codePostal": "94190"
+  },
+  "point-de-rdv-mairie-du-blanc-mesnil": {
+    "lat": 48.9387773,
+    "lon": 2.4636247,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE LE BLANC-MESNIL",
+    "ville": "Mairie-Du-Blanc-Mesnil",
+    "adresse": "Mairie DE LE BLANC-MESNIL",
+    "codePostal": "93150"
+  },
+  "point-de-rdv-mairie-de-acheres": {
+    "lat": 48.9607012,
+    "lon": 2.068545,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE ACHÈRES",
+    "ville": "Mairie-De-Acheres",
+    "adresse": "Mairie DE ACHÈRES",
+    "codePostal": "78260"
+  },
+  "ppoint-de-rdv-mairie-de-kremlin-bicetre": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE KREMLIN-BICÊTRE",
+    "ville": "Ppoint-De-Rdv-Mairie-De-Kremlin-Bicetre",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-candor": {
+    "lat": 49.6275705,
+    "lon": 2.8962908,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CANDOR",
+    "ville": "Mairie-De-Candor",
+    "adresse": "Mairie DE CANDOR",
+    "codePostal": "2490"
+  },
+  "point-de-rdv-mairie-de-evry-courcouronnes": {
+    "lat": 48.6293865,
+    "lon": 2.412971,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV HÔTEL DE VILLE D'EVRY-COURCOURONNES",
+    "ville": "Mairie-De-Evry-Courcouronnes",
+    "adresse": "Hôtel De Ville D'EVRY-COURCOURONNES",
+    "codePostal": "91000"
+  },
+  "point-de-rdv-mairie-de-hyres": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE HYÈRES",
+    "ville": "Mairie-De-Hyres",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-rueil-malmaison": {
+    "lat": 48.8779254,
+    "lon": 2.1805751,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE RUEIL-MALMAISON",
+    "ville": "Mairie-De-Rueil-Malmaison",
+    "adresse": "Mairie DE RUEIL-MALMAISON",
+    "codePostal": "92500"
+  },
+  "point-de-rdv-mairie-de-compiegne": {
+    "lat": 49.5568539,
+    "lon": 2.904657,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE COMPIÈGNE",
+    "ville": "Mairie-De-Compiegne",
+    "adresse": "Mairie DE COMPIÈGNE",
+    "codePostal": "60200"
+  },
+  "point-de-rdv-mairie-de-bagneux": {
+    "lat": 48.7958543,
+    "lon": 2.3023161,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE BAGNEUX",
+    "ville": "Mairie-De-Bagneux",
+    "adresse": "Mairie DE BAGNEUX",
+    "codePostal": "92220"
+  },
+  "point-de-rdv-mairie-de-maisons-laffitte": {
+    "lat": 48.946092,
+    "lon": 2.1448152,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MAISONS-LAFFITTE",
+    "ville": "Mairie-De-Maisons-Laffitte",
+    "adresse": "Mairie DE MAISONS-LAFFITTE",
+    "codePostal": "78600"
+  },
+  "point-de-rdv-mairie-de-aulnay-sous-bois": {
+    "lat": 48.934252,
+    "lon": 2.5000622,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE D'AULNAY-SOUS-BOIS",
+    "ville": "Mairie-De-Aulnay-Sous-Bois",
+    "adresse": "Mairie D'AULNAY-SOUS-BOIS",
+    "codePostal": "93600"
+  },
+  "point-de-rdv-mairie-de-rungis": {
+    "lat": 48.7485083,
+    "lon": 2.3472691,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE RUNGIS",
+    "ville": "Mairie-De-Rungis",
+    "adresse": "Mairie DE RUNGIS",
+    "codePostal": "94150"
+  },
+  "point-de-rdv-mairie-de-sarcelles": {
+    "lat": 49.0273441,
+    "lon": 2.3266776,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE SARCELLES",
+    "ville": "Mairie-De-Sarcelles",
+    "adresse": "Mairie DE SARCELLES",
+    "codePostal": "95200"
+  },
+  "point-de-rdv-mairie-de-saint-pierre-du-perray": {
+    "lat": 48.6129505,
+    "lon": 2.4941669,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE SAINT-PIERRE-DU-PERRAY",
+    "ville": "Mairie-De-Saint-Pierre-Du-Perray",
+    "adresse": "Mairie DE SAINT-PIERRE-DU-PERRAY",
+    "codePostal": "91280"
+  },
+  "point-de-rdv-mairie-de-gonesse": {
+    "lat": 48.9865727,
+    "lon": 2.4501593,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE GONESSE",
+    "ville": "Mairie-De-Gonesse",
+    "adresse": "Mairie DE GONESSE",
+    "codePostal": "95500"
+  },
+  "point-de-rdv-mairie-de-margny-les-compiegne": {
+    "lat": 49.424043,
+    "lon": 2.818976,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MARGNY-LES-COMPIEGNE",
+    "ville": "Mairie-De-Margny-Les-Compiegne",
+    "adresse": "Mairie DE MARGNY-LES-COMPIEGNE",
+    "codePostal": "60280"
+  },
+  "point-de-rdv-mairie-de-chevilly-larue": {
+    "lat": 48.7702014,
+    "lon": 2.348735,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CHEVILLY-LARUE",
+    "ville": "Mairie-De-Chevilly-Larue",
+    "adresse": "Mairie DE CHEVILLY-LARUE",
+    "codePostal": "94550"
+  },
+  "point-de-rdv-mairie-de-neuilly-plaisance": {
+    "lat": 48.8607461,
+    "lon": 2.5063551,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE NEUILLY-PLAISANCE",
+    "ville": "Mairie-De-Neuilly-Plaisance",
+    "adresse": "Mairie DE NEUILLY-PLAISANCE",
+    "codePostal": "93360"
+  },
+  "point-de-rdv--mairie-de-levallois-perret": {
+    "lat": 48.8926283,
+    "lon": 2.2887315,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE LEVALLOIS-PERRET",
+    "ville": "Mairie-De-Levallois-Perret",
+    "adresse": "Mairie DE LEVALLOIS-PERRET",
+    "codePostal": "92300"
+  },
+  "point-de-rdv-mairie-de-persan": {
+    "lat": 49.150762,
+    "lon": 2.2762888,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE PERSAN",
+    "ville": "Mairie-De-Persan",
+    "adresse": "Mairie DE PERSAN",
+    "codePostal": "95340"
+  },
+  "point-de-rdv-mairie-de-fontenay-sous-bois": {
+    "lat": 48.8465893,
+    "lon": 2.4724207,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE FONTENAY-SOUS-BOIS",
+    "ville": "Mairie-De-Fontenay-Sous-Bois",
+    "adresse": "Mairie DE FONTENAY-SOUS-BOIS",
+    "codePostal": "94120"
+  },
+  "point-de-rdv-mairie-de-vincennes": {
+    "lat": 48.847835,
+    "lon": 2.4407849,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE VINCENNES",
+    "ville": "Mairie-De-Vincennes",
+    "adresse": "Mairie DE VINCENNES",
+    "codePostal": "94300"
+  },
+  "point-de-rdv-mairie-de-nogent-sur-marne": {
+    "lat": 48.8352675,
+    "lon": 2.5195994,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE NOGENT-SUR-MARNE",
+    "ville": "Mairie-De-Nogent-Sur-Marne",
+    "adresse": "Mairie DE NOGENT-SUR-MARNE",
+    "codePostal": "94130"
+  },
+  "point-de-rdv-mairie-de-chalon-sur-saone": {
+    "lat": 46.797457,
+    "lon": 4.7602767,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CHALON-SUR-SAÔNE",
+    "ville": "Mairie-De-Chalon-Sur-Saone",
+    "adresse": "Mairie DE CHALON-SUR-SAÔNE",
+    "codePostal": "71100"
+  },
+  "point-de-rdv-mairie-de-noisy-le-grand-c8d49": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE NOISY-LE-GRAND",
+    "ville": "Mairie-De-Noisy-Le-Grand-C8d49",
+    "error": "no_match"
+  },
+  "point-de-rdv-mairie-de-maurepas": {
+    "lat": 49.9903425,
+    "lon": 2.8470085,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MAUREPAS",
+    "ville": "Mairie-De-Maurepas",
+    "adresse": "Mairie DE MAUREPAS",
+    "codePostal": "78310"
+  },
+  "point-de-rdv-mairie-de-garges-les-gonesse": {
+    "lat": 48.9717085,
+    "lon": 2.4006091,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE GARGES-LÈS-GONESSE",
+    "ville": "Mairie-De-Garges-Les-Gonesse",
+    "adresse": "Mairie DE GARGES-LÈS-GONESSE",
+    "codePostal": "95140"
+  },
+  "point-de-rdv-mairie-de-clamart": {
+    "lat": 48.7996229,
+    "lon": 2.2630131,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE CLAMART",
+    "ville": "Mairie-De-Clamart",
+    "adresse": "Mairie DE CLAMART",
+    "codePostal": "92140"
+  },
+  "point-de-rdv-mairie-de-antony": {
+    "lat": 48.7821513,
+    "lon": 2.2622232,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE D'ANTONY",
+    "ville": "Mairie-De-Antony",
+    "adresse": "Mairie D'ANTONY",
+    "codePostal": "92160"
+  },
+  "point-de-rdv-mairie-argenteuil": {
+    "lat": 48.9911062,
+    "lon": 2.2575657,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE D'ARGENTEUIL",
+    "ville": "Mairie-Argenteuil",
+    "adresse": "Mairie D'ARGENTEUIL",
+    "codePostal": "95100"
+  },
+  "point-de-rdv-mairie-de-pierrefitte-sur-seine": {
+    "lat": 48.963461,
+    "lon": 2.3602253,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE PIERREFITTE-SUR-SEINE",
+    "ville": "Mairie-De-Pierrefitte-Sur-Seine",
+    "adresse": "Mairie DE PIERREFITTE-SUR-SEINE",
+    "codePostal": "93380"
+  },
+  "point-de-rdv-mairie-de-fleury-merogis": {
+    "lat": 48.629931,
+    "lon": 2.360641,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE FLEURY-MÉROGIS",
+    "ville": "Mairie-De-Fleury-Merogis",
+    "adresse": "Mairie DE FLEURY-MÉROGIS",
+    "codePostal": "91700"
+  },
+  "point-de-rdv-mairie-de-les-ulis": {
+    "lat": 48.682472,
+    "lon": 2.1705243,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DES ULIS",
+    "ville": "Mairie-De-Les-Ulis",
+    "adresse": "Mairie DES ULIS",
+    "codePostal": "91940"
+  },
+  "point-de-rdv-mairie-de-saint-remy-les-chevreuse": {
+    "lat": 48.7059431,
+    "lon": 2.0726321,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE SAINT-RÉMY-LÈS-CHEVREUSE",
+    "ville": "Mairie-De-Saint-Remy-Les-Chevreuse",
+    "adresse": "Mairie DE SAINT-RÉMY-LÈS-CHEVREUSE",
+    "codePostal": "78470"
+  },
+  "point-de-rdv-mairie-de-combs-la-ville": {
+    "lat": 48.6649311,
+    "lon": 2.5653851,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE COMBS-LA-VILLE",
+    "ville": "Mairie-De-Combs-La-Ville",
+    "adresse": "Mairie DE COMBS-LA-VILLE",
+    "codePostal": "77380"
+  },
+  "point-de-rdv-mairie-de-orsay": {
+    "lat": 48.6982113,
+    "lon": 2.187161,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE ORSAY",
+    "ville": "Mairie-De-Orsay",
+    "adresse": "Mairie DE ORSAY",
+    "codePostal": "91400"
+  },
+  "point-de-rdv-mairie-de-bezons": {
+    "lat": 48.924437,
+    "lon": 2.215853,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE BEZONS",
+    "ville": "Mairie-De-Bezons",
+    "adresse": "Mairie DE BEZONS",
+    "codePostal": "95870"
+  },
+  "point-de-rdv-mairie-de-meudon-val-fleury": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MEUDON VAL FLEURY",
+    "ville": "Mairie-De-Meudon-Val-Fleury",
+    "error": "no_match"
+  },
+  "point-de-rdv-val-d-argenteuil": {
+    "lat": 49.0195181,
+    "lon": 2.1536913,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE VAL D'ARGENTEUIL",
+    "ville": "Val-D-Argenteuil",
+    "adresse": "Gare de Val d'Argenteuil",
+    "codePostal": "95100"
+  },
+  "point-de-rdv-mairie-de-montmagny": {
+    "lat": 48.9741944,
+    "lon": 2.3472542,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE MONTMAGNY",
+    "ville": "Mairie-De-Montmagny",
+    "adresse": "Mairie de Montmagny",
+    "codePostal": "95360"
+  },
+  "point-de-rdv-claye-souilly": {
+    "lat": 48.9455534,
+    "lon": 2.6663883,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CLAYE-SOUILLY",
+    "ville": "Claye-Souilly",
+    "adresse": "Centre Commercial Claye Souilly",
+    "codePostal": "77410"
+  },
+  "point-de-rdv-mairie-de-nangis": {
+    "lat": 48.5547003,
+    "lon": 3.0138312,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE DE NANGIS",
+    "ville": "Mairie-De-Nangis",
+    "adresse": "Mairie de Nangis",
+    "codePostal": "77370"
+  },
+  "point-de-rdv-inris-lycee-de-mennecy": {
+    "lat": 48.5641899,
+    "lon": 2.4386427,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV LYCÉE DE MENNECY",
+    "ville": "Lycee-De-Mennecy",
+    "adresse": "Lycée de Mennecy",
+    "codePostal": "91540"
+  },
+  "point-de-rdv-cormeilles-en-parisis": {
+    "lat": 48.975983,
+    "lon": 2.1996347,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CORMEILLES-EN-PARISIS",
+    "ville": "Cormeilles-En-Parisis",
+    "adresse": "Mairie de Cormeilles-en-Parisis",
+    "codePostal": "95240"
+  },
+  "point-de-rdv-parking-de-la-gare-noisy-champs": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE NOISY-CHAMPS",
+    "ville": "Parking-De-La-Gare-Noisy-Champs",
+    "error": "no_match"
+  },
+  "point-de-rdv-gare-de-bussy-saint-georges": {
+    "lat": 48.8364039,
+    "lon": 2.7085449,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE BUSSY-SAINT-GEORGES",
+    "ville": "Gare-De-Bussy-Saint-Georges",
+    "adresse": "Gare de Bussy-Saint-Georges",
+    "codePostal": "77600"
+  },
+  "point-de-rdv-gare-de-sannois": {
+    "lat": 48.9701515,
+    "lon": 2.2638255,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE SANNOIS",
+    "ville": "Gare-De-Sannois",
+    "adresse": "Gare de Sannois, Val d'Oise",
+    "codePostal": "95110"
+  },
+  "point-de-rdv-gare-de-nogent-le-perreux": {
+    "lat": 48.8395678,
+    "lon": 2.4952899,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE NOGENT - LE PERREUX",
+    "ville": "Gare-De-Nogent-Le-Perreux",
+    "adresse": "Gare de Nogent–Le Perreux, Nogent-sur-Marne",
+    "codePostal": "94130"
+  },
+  "point-de-rdv-mairie-de-enghien-les-bains": {
+    "lat": 48.9698344,
+    "lon": 2.307038,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE D'ENGHIEN-LES-BAINS",
+    "ville": "Mairie-De-Enghien-Les-Bains",
+    "adresse": "Mairie d'Enghien-les-Bains 95880",
+    "codePostal": "95880"
+  },
+  "point-de-rdv-mairie-de-epinay-sur-seine": {
+    "lat": 48.9515207,
+    "lon": 2.3134098,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE D'ÉPINAY-SUR-SEINE",
+    "ville": "Mairie-De-Epinay-Sur-Seine",
+    "adresse": "Mairie d'Épinay-sur-Seine 93800",
+    "codePostal": "93800"
+  },
+  "point-de-rdv-villabe": {
+    "lat": 48.5926627,
+    "lon": 2.4612969,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV VILLABÉ",
+    "ville": "Villabe",
+    "adresse": "Gare de Villabé, 91100 Villabé",
+    "codePostal": ""
+  },
+  "point-de-rdv-villeneuve-saint-georges": {
+    "lat": 48.7295925,
+    "lon": 2.4470993,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV VILLENEUVE-SAINT-GEORGES",
+    "ville": "Villeneuve-Saint-Georges",
+    "adresse": "Gare de Villeneuve-Saint-Georges , 94190 Villeneuve-Saint-Georges",
+    "codePostal": ""
+  },
+  "point-de-rdv-villeneuve-le-roi": {
+    "lat": 48.7397199,
+    "lon": 2.4235361,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV VILLENEUVE-LE-ROI",
+    "ville": "Villeneuve-Le-Roi",
+    "adresse": "Gare de Villeneuve-le-Roi, 94290 Villeneuve-le-Roi",
+    "codePostal": ""
+  },
+  "point-de-rdv-vigneux-sur-seine": {
+    "lat": 48.7082665,
+    "lon": 2.4145,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV VIGNEUX-SUR-SEINE",
+    "ville": "Vigneux-Sur-Seine",
+    "adresse": "Gare de Vigneux-sur-Seine, 91270 Vigneux-sur-Seine",
+    "codePostal": ""
+  },
+  "point-de-rdv-vaujours": {
+    "lat": 48.9347847,
+    "lon": 2.5667143,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV VAUJOURS",
+    "ville": "Vaujours",
+    "adresse": "Vaujours, 93410 Vaujours",
+    "codePostal": ""
+  },
+  "point-de-rdv-vaux-le-penil": {
+    "lat": 48.5255542,
+    "lon": 2.6831642,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV VAUX-LE-PÉNIL",
+    "ville": "Vaux-Le-Penil",
+    "adresse": "Gare de Vaux-le-Pénil, 77000 Vaux-le-Pénil",
+    "codePostal": ""
+  },
+  "point-de-rdv-saint-remy-les-chevreuse": {
+    "lat": 48.7028614,
+    "lon": 2.0709476,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAINT-RÉMY-LÈS-CHEVREUSE",
+    "ville": "Saint-Remy-Les-Chevreuse",
+    "adresse": "Gare de Saint-Rémy-lès-Chevreuse, 78470 Saint-Rémy-lès-Chevreuse",
+    "codePostal": ""
+  },
+  "point-de-rdv-valenton": {
+    "lat": 48.7484982,
+    "lon": 2.4731722,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV VALENTON",
+    "ville": "Valenton",
+    "adresse": "Valenton, 94460 Valenton",
+    "codePostal": ""
+  },
+  "point-de-rdv-toulon": {
+    "lat": 43.1284792,
+    "lon": 5.9292306,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV TOULON",
+    "ville": "Toulon",
+    "adresse": "Gare de Toulon, 83000 Toulon",
+    "codePostal": ""
+  },
+  "point-de-rdv-torcy": {
+    "lat": 48.839389,
+    "lon": 2.6546402,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV TORCY",
+    "ville": "Torcy",
+    "adresse": "Gare de Torcy, 77200 Torcy",
+    "codePostal": ""
+  },
+  "point-de-rdv-tigery": {
+    "lat": 48.6499052,
+    "lon": 2.5206488,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV TIGERY",
+    "ville": "Tigery",
+    "adresse": "Tigery, 91250 Tigery",
+    "codePostal": ""
+  },
+  "point-de-rdv-taverny": {
+    "lat": 49.0265888,
+    "lon": 2.2234971,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV TAVERNY",
+    "ville": "Taverny",
+    "adresse": "Gare de Houilles-Carrières-sur-Seine, 95150 Houilles-Carrières-sur-Seine",
+    "codePostal": ""
+  },
+  "point-de-rdv-tassin-la-demi-lune": {
+    "lat": 45.7615348,
+    "lon": 4.7588313,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV TASSIN-LA-DEMI-LUNE",
+    "ville": "Tassin-La-Demi-Lune",
+    "adresse": "Gare de Tassin, 69244 Tassin-la-Demi-Lune",
+    "codePostal": ""
+  },
+  "point-de-rdv-saint-etienne": {
+    "lat": 49.5467575,
+    "lon": 1.7077153,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAINT-ÉTIENNE",
+    "ville": "Saint-Etienne",
+    "adresse": "Mairie de Saint-Étienne, 42000 Saint-Étienne",
+    "codePostal": ""
+  },
+  "point-de-rdv-suresnes": {
+    "lat": 48.8682076,
+    "lon": 2.2216198,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SURESNES",
+    "ville": "Suresnes",
+    "adresse": "Gare de Suresnes, 92150 Suresnes",
+    "codePostal": ""
+  },
+  "point-de-rdv-inris-sevran": {
+    "lat": 48.9358937,
+    "lon": 2.5354008,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SEVRAN",
+    "ville": "Sevran",
+    "adresse": "Gare de Sevran-Livry, 93270 Sevran",
+    "codePostal": ""
+  },
+  "ppoint-de-rdv-savigny-le-temple": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAVIGNY-LE-TEMPLE",
+    "ville": "Ppoint-De-Rdv-Savigny-Le-Temple",
+    "error": "no_match"
+  },
+  "point-de-rdv-savigny-sur-orge": {
+    "lat": 48.6761856,
+    "lon": 2.3514352,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAVIGNY-SUR-ORGE",
+    "ville": "Savigny-Sur-Orge",
+    "adresse": "2 Place de la Gare, 91600 Savigny-sur-Orge",
+    "codePostal": ""
+  },
+  "point-de-rdv-inris-sarcelles": {
+    "lat": 49.0991888,
+    "lon": 2.5251228,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SARCELLES",
+    "ville": "Sarcelles",
+    "adresse": "Gare de Sarcelles, 95200 Sarcelles",
+    "codePostal": ""
+  },
+  "point-de-rdv-saint-ouen-laumone": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAINT-OUEN-L'AUMÔNE",
+    "ville": "Saint-Ouen-Laumone",
+    "error": "no_match"
+  },
+  "point-de-rdv-sainte-genevieve-des-bois": {
+    "lat": 48.6407872,
+    "lon": 2.3259129,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAINTE-GENEVIÈVE-DES-BOIS",
+    "ville": "Sainte-Genevieve-Des-Bois",
+    "adresse": "4 avenue Charlie Chaplin , 91700 Sainte-Genviève-des-Bois",
+    "codePostal": ""
+  },
+  "point-de-rdv-saint-pierre-du-perray": {
+    "lat": 48.6050886,
+    "lon": 2.5124951,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAINT-PIERRE-DU-PERRAY",
+    "ville": "Saint-Pierre-Du-Perray",
+    "adresse": "Saint-Pierre-du-Perray, 91280 Saint-Pierre-du-Perray",
+    "codePostal": ""
+  },
+  "point-de-rdv-saint-germain-les-corbeil": {
+    "lat": 48.6198186,
+    "lon": 2.4900135,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV SAINT-GERMAIN-LÈS-CORBEIL",
+    "ville": "Saint-Germain-Les-Corbeil",
+    "adresse": "Saint-Germain-lès-Corbeil, 91250 Saint-Germain-lès-Corbeil",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-pontault-combault": {
+    "lat": 48.8009132,
+    "lon": 2.6068064,
+    "name": "AUTO-ECOLE INRI'S PONTAULT-COMBAULT",
+    "ville": "Pontault-Combault",
+    "adresse": "41 Avenue de la République - Pontault-Combault, 77340 Pontault-Combault",
+    "codePostal": "77340"
+  },
+  "point-de-rdv-montmagny": {
+    "lat": 48.9748254,
+    "lon": 2.3408238,
+    "name": "AUTO-ECOLE IINRI'S - POINT DE RDV MONTMAGNY",
+    "ville": "Montmagny",
+    "adresse": "Gare de Montmagny, 95360 Montmagny",
+    "codePostal": ""
+  },
+  "point-de-rdv-hyeres": {
+    "lat": 43.1089173,
+    "lon": 6.1250241,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV HYÈRES",
+    "ville": "Hyeres",
+    "adresse": "Gare de Hyéres, 83400 Hyéres",
+    "codePostal": ""
+  },
+  "point-de-rdv-hagondange": {
+    "lat": 49.2561288,
+    "lon": 6.1648868,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV HAGONDANGE",
+    "ville": "Hagondange",
+    "adresse": "Gare de Hagondange, 57300 Hagondange",
+    "codePostal": ""
+  },
+  "point-de-rdv-houilles-carrieres-sur-seine": {
+    "lat": 48.9195413,
+    "lon": 2.1868344,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV HOUILLES-CARRIÈRES-SUR-SEINE",
+    "ville": "Houilles-Carrieres-Sur-Seine",
+    "adresse": "Gare de Houilles-Carrières-sur-Seine, 78124. Houilles-Carrières-sur-Seine",
+    "codePostal": ""
+  },
+  "point-de-rdv-herblay": {
+    "lat": 49.0025026,
+    "lon": 2.1282659,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV HERBLAY",
+    "ville": "Herblay",
+    "adresse": "Gare de Herblay, 95220 Herblay",
+    "codePostal": ""
+  },
+  "point-de-rdv-grigny": {
+    "lat": 48.6532967,
+    "lon": 2.3948237,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GRIGNY",
+    "ville": "Grigny",
+    "adresse": "Gare de Grigny Centre, 91350 Grigny",
+    "codePostal": ""
+  },
+  "point-de-rdv-gonesse": {
+    "lat": 48.976527,
+    "lon": 2.390265,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GONESSE",
+    "ville": "Gonesse",
+    "adresse": "Gare de Gonesse, 95500 Gonesse",
+    "codePostal": ""
+  },
+  "point-de-rdv-grenoble": {
+    "lat": 45.1900013,
+    "lon": 5.7150089,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GRENOBLE",
+    "ville": "Grenoble",
+    "adresse": "Gare de Grenoble, 38000 Grenoble",
+    "codePostal": ""
+  },
+  "point-de-rdv-gif-sur-yvette": {
+    "lat": 48.6978784,
+    "lon": 2.1368082,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GIF-SUR-YVETTE",
+    "ville": "Gif-Sur-Yvette",
+    "adresse": "Gare de Gif-Sur-Yvette, 91190 GIF-SUR-YVETTE",
+    "codePostal": ""
+  },
+  "point-de-rdv-gournay-en-bray": {
+    "lat": 49.4824323,
+    "lon": 1.7120003,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GOURNAY-EN-BRAY",
+    "ville": "Gournay-En-Bray",
+    "adresse": "Piscine de Gournay-en-Bray, 76220 Gournay-en-Bray",
+    "codePostal": ""
+  },
+  "point-de-rdv-gentilly": {
+    "lat": 48.8153656,
+    "lon": 2.3483549,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GENTILLY",
+    "ville": "Gentilly",
+    "adresse": "Parking de la station de métro ​de Gentilly, 94250 Gentilly",
+    "codePostal": ""
+  },
+  "point-de-rdv-gennevilliers": {
+    "lat": 48.9254221,
+    "lon": 2.2940122,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GENNEVILLIERS",
+    "ville": "Gennevilliers",
+    "adresse": "Gare de Gennevilliers, 92036 Gennevilliers",
+    "codePostal": "92036 "
+  },
+  "point-de-rdv-garges-les-gonesse": {
+    "lat": 48.9773308,
+    "lon": 2.3946642,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARGES-LÈS-GONESSE",
+    "ville": "Garges-Les-Gonesse",
+    "adresse": "Gare de Garges-lès-Gonesse, 95140 Garges-lès-Gonesse",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-du-vert-galant": {
+    "lat": 48.9455941,
+    "lon": 2.5686869,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DU VERT-GALANT",
+    "ville": "Gare-Du-Vert-Galant",
+    "adresse": "Gare du Vert-Galant, 93420 Villepinte",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-du-val-deurope": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DU VAL D'EUROPE",
+    "ville": "Gare-Du-Val-Deurope",
+    "error": "no_match"
+  },
+  "point-de-rdv-gare-du-parc-de-sceaux": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DU PARC DE SCEAUX",
+    "ville": "Gare-Du-Parc-De-Sceaux",
+    "error": "no_match"
+  },
+  "point-de-rdv-gare-de-villeparisis-mitry-le-neuf": {
+    "lat": 48.9536069,
+    "lon": 2.6035264,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE VILLEPARISIS – MITRY-LE-NEUF",
+    "ville": "Gare-De-Villeparisis-Mitry-Le-Neuf",
+    "adresse": "Gare de Villeparisis – Mitry-le-Neuf , 77290 Mitry-Mory",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-sucy-en-brie": {
+    "lat": 48.7712925,
+    "lon": 2.5081668,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE SUCY-EN-BRIE",
+    "ville": "Gare-De-Sucy-En-Brie",
+    "adresse": "Gare de Sucy-en-Brie, 94370 Sucy-en-Brie",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-sevran-livry": {
+    "lat": 48.9358937,
+    "lon": 2.5354008,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE SEVRAN-LIVRY",
+    "ville": "Gare-De-Sevran-Livry",
+    "adresse": "Gare de Sevran-Livry, 93270 sevran",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-saint-michel-sur-orge": {
+    "lat": 48.6361213,
+    "lon": 2.307221,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE SAINT-MICHEL-SUR-ORGE",
+    "ville": "Gare-De-Saint-Michel-Sur-Orge",
+    "adresse": "Gare de Saint-Michel-sur-Orge, 91240 Saint-Michel-sur-Orge",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-saint-denis": {
+    "lat": -20.8774468,
+    "lon": 55.4569727,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE SAINT-DENIS",
+    "ville": "Gare-De-Saint-Denis",
+    "adresse": "Gare de Saint-Denis, 93200  Saint-Denis",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-rosny-sous-bois": {
+    "lat": 48.870712,
+    "lon": 2.4855793,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE ROSNY-SOUS-BOIS",
+    "ville": "Gare-De-Rosny-Sous-Bois",
+    "adresse": "Gare de Rosny-sous-Bois, 93110 Rosny-sous-Bois",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-pantin": {
+    "lat": 48.8977518,
+    "lon": 2.4003797,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE PANTIN",
+    "ville": "Gare-De-Pantin",
+    "adresse": "Gare de Pantin, 93500 Pantin",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-palaiseau": {
+    "lat": 48.7177604,
+    "lon": 2.2465256,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE PALAISEAU",
+    "ville": "Gare-De-Palaiseau",
+    "adresse": "Gare de Palaiseau, 91120 Palaiseau",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-lyon": {
+    "lat": 48.8443818,
+    "lon": 2.3748001,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE LYON",
+    "ville": "Gare-De-Lyon",
+    "adresse": "Gare de Lyon, 75012 Paris 12ème",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-noisy-le-grand-mont-dest": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE NOISY-LE-GRAND- MONT D’EST",
+    "ville": "Gare-De-Noisy-Le-Grand-Mont-Dest",
+    "error": "no_match"
+  },
+  "point-de-rdv-gare-de-maisons-alfort-alfortville": {
+    "lat": 48.8019775,
+    "lon": 2.426206,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE MAISONS-ALFORT - ALFORTVILLE",
+    "ville": "Gare-De-Maisons-Alfort-Alfortville",
+    "adresse": "Gare de Maisons-Alfort - Alfortville, 94700 Maisons-Alfort",
+    "codePostal": ""
+  },
+  "point-conduite-inris-gare-de-livry-gargan": {
+    "lat": 48.9059138,
+    "lon": 2.5198879,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE LIVRY-GARGAN",
+    "ville": "Gare-De-Livry-Gargan",
+    "adresse": "Gare de Livry-Gargan, 93190 Livry-Gargan",
+    "codePostal": "93190"
+  },
+  "point-de-rdv-gare-de-la-ferte-alais": {
+    "lat": 48.4850676,
+    "lon": 2.3511119,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE LA FERTÉ-ALAIS",
+    "ville": "Gare-De-La-Ferte-Alais",
+    "adresse": "Gare de La Ferté-Alais, 91590 La Ferté-Alais",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-gennevilliers": {
+    "lat": 48.9334989,
+    "lon": 2.3070878,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE GENNEVILLIERS",
+    "ville": "Gare-De-Gennevilliers",
+    "adresse": "Gare de Gennevilliers, 92230 Gennevilliers",
+    "codePostal": ""
+  },
+  "point-conduite-inris-gare-de-creteil-pompadour": {
+    "lat": 48.7716487,
+    "lon": 2.4352357,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE CRÉTEIL-POMPADOUR",
+    "ville": "Gare-De-Creteil-Pompadour",
+    "adresse": "Créteil, 94460 Valenton",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-de-choisy-le-roi": {
+    "lat": 48.7643463,
+    "lon": 2.4107907,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE CHOISY-LE-ROI",
+    "ville": "Gare-De-Choisy-Le-Roi",
+    "adresse": "Gare de Choisy-le-Roi, 94600 Choisy-le-Roi",
+    "codePostal": ""
+  },
+  "point-conduite-inris-gare-de-bagneux": {
+    "lat": 48.8027671,
+    "lon": 2.3185842,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE DE BAGNEUX",
+    "ville": "Gare-De-Bagneux",
+    "adresse": "Gare de Bagneux, 94230 Cachan",
+    "codePostal": ""
+  },
+  "point-conduite-inris-gare-depinay-villetaneuse": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE D'ÉPINAY-VILLETANEUSE",
+    "ville": "Gare-Depinay-Villetaneuse",
+    "error": "no_match"
+  },
+  "point-de-rdv-evry-courcouronnes": {
+    "lat": 48.629966,
+    "lon": 2.4381816,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV FONTAINEBLEAU",
+    "ville": "Evry-Courcouronnes",
+    "adresse": "Gare de Fontainebleau, 77920 Fontainebleau",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-franconville": {
+    "lat": 48.9927121,
+    "lon": 2.236633,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV FRANCONVILLE",
+    "ville": "Franconville",
+    "adresse": "8 rue Maurice Dalesme, 95130 Franconville",
+    "codePostal": "95130"
+  },
+  "point-de-rdv-fontenay-sous-bois": {
+    "lat": 48.8436768,
+    "lon": 2.463059,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV FONTENAY-SOUS-BOIS",
+    "ville": "Fontenay-Sous-Bois",
+    "adresse": "Gare de Fontenay-sous-Bois, 94120 Fontenay-sous-Bois",
+    "codePostal": ""
+  },
+  "point-de-rdv-fleury-merogis": {
+    "lat": 48.6337542,
+    "lon": 2.3521978,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV FLEURY-MÉROGIS",
+    "ville": "Fleury-Merogis",
+    "adresse": "Fleury-Mérogis, 91700 Fleury-Mérogis",
+    "codePostal": ""
+  },
+  "point-de-rdv-evry-courcouronnes-u57l2": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV EVRY-COURCOURONNES",
+    "ville": "Evry-Courcouronnes-U57l2",
+    "error": "no_match"
+  },
+  "point-de-rdv-ermont-eaubonne": {
+    "lat": 48.9820358,
+    "lon": 2.2713503,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV ERMONT-EAUBONNE",
+    "ville": "Ermont-Eaubonne",
+    "adresse": "Gare de Ermont-Eaubonne, 95120 Ermont-Eaubonne",
+    "codePostal": ""
+  },
+  "point-de-rdv-epinay-sur-seine": {
+    "lat": 48.9550556,
+    "lon": 2.3139485,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV EPINAY-SUR-SEINE",
+    "ville": "Epinay-Sur-Seine",
+    "adresse": ", 93800 Épinay-sur-Seine",
+    "codePostal": ""
+  },
+  "point-de-rdv-enghien-les-bains": {
+    "lat": 48.9699732,
+    "lon": 2.3068482,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV ENGHIEN-LES-BAINS",
+    "ville": "Enghien-Les-Bains",
+    "adresse": "Gare de Enghien-les-Bain, 95210 Enghien-les-Bain",
+    "codePostal": ""
+  },
+  "point-de-rdv-dugny": {
+    "lat": 48.9538155,
+    "lon": 2.414733,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV DUGNY",
+    "ville": "Dugny",
+    "adresse": "Gare de  Dugny - La Courneuve, 93440 Dugny",
+    "codePostal": ""
+  },
+  "point-de-rdv-draveil": {
+    "lat": 48.6805921,
+    "lon": 2.4013755,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV DRAVEIL",
+    "ville": "Draveil",
+    "adresse": "La Poste de Draveil, 91210 Draveil",
+    "codePostal": ""
+  },
+  "point-de-rdv-crepy-en-valois": {
+    "lat": 49.237404,
+    "lon": 2.8876784,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CRÉPY-EN-VALOIS",
+    "ville": "Crepy-En-Valois",
+    "adresse": "71 Rue nationale, 60800 Crépy-en-Valois",
+    "codePostal": ""
+  },
+  "point-de-rdv-dammarie-les-lys": {
+    "lat": 48.5145714,
+    "lon": 2.5946014,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV DAMMARIE-LES-LYS",
+    "ville": "Dammarie-Les-Lys",
+    "adresse": "Gare de Dammarie-les-Lys, 77190 Dammarie-les-Lys",
+    "codePostal": ""
+  },
+  "point-de-rdv-drancy": {
+    "lat": 48.9331396,
+    "lon": 2.455267,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV DRANCY",
+    "ville": "Drancy",
+    "adresse": "Gare de Drancy, 93029 Drancy",
+    "codePostal": ""
+  },
+  "point-de-rdv-crosne": {
+    "lat": 48.7164434,
+    "lon": 2.4579862,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CROSNE",
+    "ville": "Crosne",
+    "adresse": "Mairie de Crosne, 91560 Crosne",
+    "codePostal": ""
+  },
+  "point-de-rdv-clichy-la-garenne": {
+    "lat": 48.9028055,
+    "lon": 2.3049093,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CLICHY-LA-GARENNE",
+    "ville": "Clichy-La-Garenne",
+    "adresse": "Mairie de Clichy-la-Garenne, 92110 Clichy-la-Garenne",
+    "codePostal": ""
+  },
+  "point-de-rdv-corbeil-essonnes": {
+    "lat": 48.6072213,
+    "lon": 2.483689,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CORBEIL-ESSONNES",
+    "ville": "Corbeil-Essonnes",
+    "adresse": "98 rue Saint-Spire, 91100 Corbeil-Essonnes",
+    "codePostal": ""
+  },
+  "point-de-rdv-courbevoie": {
+    "lat": 48.8983408,
+    "lon": 2.2475503,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV COURBEVOIE",
+    "ville": "Courbevoie",
+    "adresse": "Gare de Courbevoie, 92400 Courbevoie",
+    "codePostal": "92400"
+  },
+  "point-de-rdv-creil": {
+    "lat": 49.2656037,
+    "lon": 2.4713474,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CREIL",
+    "ville": "Creil",
+    "adresse": "Gare de Creil, 60100 Creil",
+    "codePostal": ""
+  },
+  "point-de-rdv-clermont": {
+    "lat": 49.3842645,
+    "lon": 2.4064304,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CLERMONT",
+    "ville": "Clermont",
+    "adresse": "32 Rue Henri Breuil, 60600 Clermont",
+    "codePostal": ""
+  },
+  "point-de-rdv-compiegne": {
+    "lat": 49.4220569,
+    "lon": 2.8235204,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV COMPIÈGNE",
+    "ville": "Compiegne",
+    "adresse": "Gare de Compiègne, 60200 Compiègne",
+    "codePostal": ""
+  },
+  "point-de-rdv-combs-la-ville": {
+    "lat": 48.6646994,
+    "lon": 2.564877,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV COMBS-LA-VILLE",
+    "ville": "Combs-La-Ville",
+    "adresse": "Gare de Bry-sur-Marne, 77380 Combs-la-Ville",
+    "codePostal": ""
+  },
+  "point-de-rdv-clamart": {
+    "lat": 48.8138044,
+    "lon": 2.2730467,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CLAMART",
+    "ville": "Clamart",
+    "adresse": "Gare de Clamart, 92140 Clamart",
+    "codePostal": ""
+  },
+  "point-de-rdv-chatillon": {
+    "lat": 46.6591772,
+    "lon": 5.7302769,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHÂTILLON",
+    "ville": "Chatillon",
+    "adresse": "Gare de Châtillon Montrouge, 92020 Châtillon",
+    "codePostal": ""
+  },
+  "point-de-rdv-chilly-mazarin": {
+    "lat": 48.7006504,
+    "lon": 2.3083918,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHILLY-MAZARIN",
+    "ville": "Chilly-Mazarin",
+    "adresse": "Gare de Chilly-Mazarin, 91380 Chilly-Mazarin",
+    "codePostal": ""
+  },
+  "point-de-rdv-chevilly-larue": {
+    "lat": 48.7701033,
+    "lon": 2.3488014,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHEVILLY-LARUE",
+    "ville": "Chevilly-Larue",
+    "adresse": "Mairie de Chevilly-Larue, 94550 Chevilly-Larue",
+    "codePostal": ""
+  },
+  "point-de-rdv-chelles": {
+    "lat": 48.8740765,
+    "lon": 2.580946,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHELLES",
+    "ville": "Chelles",
+    "adresse": "Gare de Chelles, 77500 Chelles",
+    "codePostal": ""
+  },
+  "point-de-rdv-champs-sur-marne": {
+    "lat": 48.8526892,
+    "lon": 2.6027219,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHAMPS-SUR-MARNE",
+    "ville": "Champs-Sur-Marne",
+    "adresse": "Gare RER Noisy-Champs, 77420 Champs-sur-Marne",
+    "codePostal": ""
+  },
+  "point-de-rdv-chantilly": {
+    "lat": 49.1866452,
+    "lon": 2.4590992,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHANTILLY",
+    "ville": "Chantilly",
+    "adresse": "Gare de Chantilly, 60500 Chantilly",
+    "codePostal": ""
+  },
+  "point-de-rdv-chatou": {
+    "lat": 48.8847309,
+    "lon": 2.1548335,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHATOU",
+    "ville": "Chatou",
+    "adresse": "Gare de Chatou-Croissy, 78400 Chatou",
+    "codePostal": ""
+  },
+  "point-de-rdv-champigny-sur-marne": {
+    "lat": 48.8159371,
+    "lon": 2.5022663,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHAMPIGNY-SUR-MARNE",
+    "ville": "Champigny-Sur-Marne",
+    "adresse": "Gare de Champigny-sur-Marne, 94017 Champigny-sur-Marne",
+    "codePostal": ""
+  },
+  "point-de-rdv-chalon-sur-saone": {
+    "lat": 46.7816448,
+    "lon": 4.8435798,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CHALON-SUR-SAÔNE",
+    "ville": "Chalon-Sur-Saone",
+    "adresse": "Gare de Chalon-sur-Saône, 71100 Chalon-sur-Saône",
+    "codePostal": ""
+  },
+  "point-de-rdv-cesson": {
+    "lat": 48.5656472,
+    "lon": 2.5938681,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CESSON",
+    "ville": "Cesson",
+    "adresse": "Gare de Cesson, 77240 Cesson",
+    "codePostal": ""
+  },
+  "point-de-rdv-cergy": {
+    "lat": 49.0352658,
+    "lon": 2.07976,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CERGY",
+    "ville": "Cergy",
+    "adresse": "Gare de Cergy-Préfecture, 95000 Cergy",
+    "codePostal": ""
+  },
+  "point-de-rdv-centre-commercial-parinor": {
+    "lat": 48.9565742,
+    "lon": 2.4785353,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CENTRE COMMERCIAL PARINOR",
+    "ville": "Centre-Commercial-Parinor",
+    "adresse": "Le Haut De Galy, 93606 Aulnay-sous-Bois",
+    "codePostal": ""
+  },
+  "point-de-rdv-candor": {
+    "lat": 49.6270308,
+    "lon": 2.8944539,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CANDOR",
+    "ville": "Candor",
+    "adresse": "1 Rue de l'Église, 60310 Candor",
+    "codePostal": ""
+  },
+  "point-de-rdv-caen": {
+    "lat": 49.1775792,
+    "lon": -0.3481256,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV CAEN",
+    "ville": "Caen",
+    "adresse": "Gare de Caen, 14000 Caen",
+    "codePostal": ""
+  },
+  "point-de-rdv-bourg-la-reine": {
+    "lat": 48.7798593,
+    "lon": 2.3132727,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BOURG-LA-REINE",
+    "ville": "Bourg-La-Reine",
+    "adresse": "Gare de Bourg-la-Reine, 92340 Bourg-la-Reine",
+    "codePostal": ""
+  },
+  "point-de-rdv-bretigny-sur-orge": {
+    "lat": 48.60776,
+    "lon": 2.3029914,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BRÉTIGNY-SUR-ORGE",
+    "ville": "Bretigny-Sur-Orge",
+    "adresse": "Gare de Brétigny-sur-Orge, 91220 Brétigny-sur-Orge",
+    "codePostal": ""
+  },
+  "point-de-rdv-bry-sur-marne": {
+    "lat": 48.8373965,
+    "lon": 2.5237892,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BRY-SUR-MARNE",
+    "ville": "Bry-Sur-Marne",
+    "adresse": "Gare de Bry-sur-Marne, 94360 Bry-sur-Marne",
+    "codePostal": ""
+  },
+  "point-de-rdv-brunoy": {
+    "lat": 48.6990251,
+    "lon": 2.5065145,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BRUNOY",
+    "ville": "Brunoy",
+    "adresse": "Gare de Brunoy, 91800 Brunoy",
+    "codePostal": ""
+  },
+  "point-de-rdv-bonneuil-sur-marne": {
+    "lat": 48.7737116,
+    "lon": 2.4869009,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BONNEUIL-SUR-MARNE",
+    "ville": "Bonneuil-Sur-Marne",
+    "adresse": "Gare de Sucy - Bonneuil, 94360 Bonneuil-sur-Marne",
+    "codePostal": "94360"
+  },
+  "point-de-rdv-bondoufle": {
+    "lat": 48.6137157,
+    "lon": 2.3805119,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BONDOUFLE",
+    "ville": "Bondoufle",
+    "adresse": "Gare de Bondoufle, 91070 Bondoufle",
+    "codePostal": ""
+  },
+  "point-de-rdv-bois-colombes": {
+    "lat": 48.9129936,
+    "lon": 2.2726461,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BOIS-COLOMBES",
+    "ville": "Bois-Colombes",
+    "adresse": "Gare de Bois-Colombes, 92270 Bois-Colombes",
+    "codePostal": ""
+  },
+  "point-de-rdv-bobigny": {
+    "lat": 48.910093,
+    "lon": 2.4292727,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BOBIGNY",
+    "ville": "Bobigny",
+    "adresse": "Gare de Bobigny, 93022 Bobigny",
+    "codePostal": ""
+  },
+  "point-de-rdv-bezons": {
+    "lat": 48.9288164,
+    "lon": 2.2113814,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BEZONS",
+    "ville": "Bezons",
+    "adresse": "Bezons, 95870 Bezons",
+    "codePostal": ""
+  },
+  "point-de-rdv-besancon": {
+    "lat": 47.2313463,
+    "lon": 6.0237967,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BESANÇON",
+    "ville": "Besancon",
+    "adresse": "Gare de Besançon, 25056 Besançon",
+    "codePostal": ""
+  },
+  "point-de-rdv-beauvais": {
+    "lat": 49.4263855,
+    "lon": 2.0887137,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BEAUVAIS",
+    "ville": "Beauvais",
+    "adresse": "Gare de Beauvais, 60000 Beauvais",
+    "codePostal": ""
+  },
+  "point-de-rdv-beaumont-sur-oise": {
+    "lat": 49.1419322,
+    "lon": 2.2849324,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BEAUMONT-SUR-OISE",
+    "ville": "Beaumont-Sur-Oise",
+    "adresse": "Gare de Persan - Beaumont, 95340 Houilles-Carrières-sur-Seine",
+    "codePostal": ""
+  },
+  "point-de-rdv-ballancourt-sur-essonne": {
+    "lat": 48.5321637,
+    "lon": 2.3711049,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BALLANCOURT-SUR-ESSONNE",
+    "ville": "Ballancourt-Sur-Essonne",
+    "adresse": "Ballancourt-sur-Essonne, 91610 Ballancourt-sur-Essonne",
+    "codePostal": ""
+  },
+  "point-de-rdv-bagneux": {
+    "lat": 49.458056,
+    "lon": 3.279444,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV BAGNEUX",
+    "ville": "Bagneux",
+    "adresse": "Métro Lucie Aubrac, Rue Nina Simone, 92220 Bagneux",
+    "codePostal": ""
+  },
+  "point-de-rdv-aulnay-sous-bois": {
+    "lat": 48.9238749,
+    "lon": 2.5137904,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV AULNAY-SOUS-BOIS",
+    "ville": "Aulnay-Sous-Bois",
+    "adresse": "Gare de Aulnay-sous-Bois, 93005 Aulnay-sous-Bois",
+    "codePostal": ""
+  },
+  "point-conduite-inris-asnieres-sur-seine": {
+    "lat": 48.9105948,
+    "lon": 2.2890454,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV MAIRIE D'ASNIÈRES-SUR-SEINE",
+    "ville": "Asnieres-Sur-Seine",
+    "adresse": "Gare d'Asnières-sur-Seine, 92600 Asnières-sur-Seine",
+    "codePostal": "92600"
+  },
+  "points-de-rdv-point-de-rdv-aubagne": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV AUBAGNE",
+    "ville": "Points-De-Rdv-Point-De-Rdv-Aubagne",
+    "error": "no_match"
+  },
+  "point-de-rdv-asnieres-quatre-routes": {
+    "lat": 48.9272693,
+    "lon": 2.274577,
+    "name": "PAUTO-ECOLE INRI'S - POINT DE RDV ASNIÈRES - QUATRE ROUTES",
+    "ville": "Asnieres-Quatre-Routes",
+    "adresse": "Asnières-sur-Seine, 9260 Asnières-sur-Seine",
+    "codePostal": "92600"
+  },
+  "point-de-rdv-arpajon": {
+    "lat": 48.5879417,
+    "lon": 2.2510693,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV ARPAJON",
+    "ville": "Arpajon",
+    "adresse": "01 rue gambetta , 91290 Arpajon",
+    "codePostal": ""
+  },
+  "point-de-rdv-argenteuil": {
+    "lat": 48.9463732,
+    "lon": 2.2575117,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV ARGENTEUIL",
+    "ville": "Argenteuil",
+    "adresse": "Gare d'Argenteuil, 95100 Argenteuil",
+    "codePostal": ""
+  },
+  "point-de-rdv-arcueil-cachan": {
+    "lat": 48.7997807,
+    "lon": 2.3280378,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV ARCUEIL-CACHAN",
+    "ville": "Arcueil-Cachan",
+    "adresse": "Gare d'Arcueil-Cachan, 94230 Cachan",
+    "codePostal": ""
+  },
+  "point-de-rdv-antony": {
+    "lat": 48.7554497,
+    "lon": 2.3015241,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV ANTONY",
+    "ville": "Antony",
+    "adresse": "Gare d'Antony, 92160 Antony",
+    "codePostal": ""
+  },
+  "point-de-rdv-inris-acheres": {
+    "lat": 48.9701965,
+    "lon": 2.077719,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV ACHÈRES",
+    "ville": "Acheres",
+    "adresse": "Achères, 78260 Achères",
+    "codePostal": ""
+  },
+  "point-de-rdv-gare-lisle-adam-parmain": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE L'ISLE-ADAM-PARMAIN",
+    "ville": "Gare-Lisle-Adam-Parmain",
+    "error": "no_match"
+  },
+  "point-de-rdv-gare-dasnieres-sur-seine": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ECOLE INRI'S - POINT DE RDV GARE D'ASNIÈRES-SUR-SEINE",
+    "ville": "Gare-Dasnieres-Sur-Seine",
+    "error": "no_match"
+  },
+  "auto-ecole-inris-versailles": {
+    "lat": 48.8096707,
+    "lon": 2.1349099,
+    "name": "AUTO-ÉCOLE INRI'S VERSAILLES",
+    "ville": "Versailles",
+    "adresse": "40 RUE MARECHAL FOCH, 78000 VERSAILLES",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-saint-brice": {
+    "lat": 48.6981206,
+    "lon": -1.3080672,
+    "name": "AUTO-ÉCOLE INRI’S SAINT-BRICE",
+    "ville": "Saint-Brice",
+    "adresse": "Avenue Rhin et Danube Centre Commercial Des Vergers, 95350 Saint-Brice-sous-Forêt",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-saint-hilaire-de-riez": {
+    "lat": 46.7199488,
+    "lon": -1.9461437,
+    "name": "AUTO-ÉCOLE INRIS SAINT-HILAIRE-DE-RIEZ",
+    "ville": "Saint-Hilaire-De-Riez",
+    "adresse": "1 Rue des Mares Angle rue du Petit Verger, 85270 Saint-Hilaires-de-Riez",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-viroflay": {
+    "lat": 48.7998996,
+    "lon": 2.18552,
+    "name": "AUTO-ÉCOLE INRI'S VIROFLAY",
+    "ville": "Viroflay",
+    "adresse": "8 Place de Verdun, 78220 Viroflay",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-villepinte": {
+    "lat": 48.9509009,
+    "lon": 2.5255577,
+    "name": "AUTO-ÉCOLE INRI'S VILLEPINTE",
+    "ville": "Villepinte",
+    "adresse": "182 Boulevard Robert Ballanger, 93420 Villepinte",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-villeneuve-la-garenne": {
+    "lat": 48.9350946,
+    "lon": 2.327169,
+    "name": "AUTO-ÉCOLE INRI'S VILLENEUVE LA GARENNE",
+    "ville": "Villeneuve-La-Garenne",
+    "adresse": "1 avenue de Verdun 92390 Villeneuve-la-Garenne, 92390 VILLENEUVE LA GARENNE",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-villejuif": {
+    "lat": 48.7921098,
+    "lon": 2.3633048,
+    "name": "AUTO-ÉCOLE INRI'S VILLEJUIF",
+    "ville": "Villejuif",
+    "adresse": "34 Place Augustin Rodin, 94800 Villejuif",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-tremblay-en-france": {
+    "lat": 48.9599485,
+    "lon": 2.5719403,
+    "name": "AUTO-ÉCOLE INRI'S TREMBLAY-EN-FRANCE",
+    "ville": "Tremblay-En-France",
+    "adresse": "67 Avenue Henri Barbusse, 93290 Tremblay-en-France",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-thorigny-sur-marne": {
+    "lat": 48.8837251,
+    "lon": 2.7094767,
+    "name": "AUTO-ÉCOLE INRI'S THORIGNY-SUR-MARNE",
+    "ville": "Thorigny-Sur-Marne",
+    "adresse": "16 rue Cornilliot, 77400 Thorigny-sur-Marne",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-ste-marthe": {
+    "lat": 43.3375553,
+    "lon": 5.3920031,
+    "name": "AUTO-ÉCOLE INRI'S STE MARTHE",
+    "ville": "Ste-Marthe",
+    "adresse": "21 Rue Berthelot 13014 Marseille, 13014 MARSEILLE",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-technopole": {
+    "lat": 48.0882053,
+    "lon": -0.7535192,
+    "name": "AUTO-ÉCOLE INRI'S TECHNOPOLE",
+    "ville": "Technopole",
+    "adresse": "4 rue Louis LEPRINCE RINGUET. PARC ALHENA, 13013 MARSEILLE",
+    "codePostal": ""
+  },
+  "inris-sceaux": {
+    "lat": 48.785136,
+    "lon": 2.3011743,
+    "name": "INRI'S SCEAUX",
+    "ville": "Sceaux",
+    "adresse": "70 Avenue Jean Perrin, 92330 Sceaux",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-sainte-croix-neuilly": {
+    "lat": 48.8820695,
+    "lon": 2.2800705,
+    "name": "AUTO-ÉCOLE INRI'S SAINTE CROIX NEUILLY",
+    "ville": "Sainte-Croix-Neuilly",
+    "adresse": "32 Avenue du Roule, 92200 Neuilly-sur-Seine",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-saint-soupplets": {
+    "lat": 49.0352877,
+    "lon": 2.8012279,
+    "name": "AUTO-ÉCOLE INRI'S SAINT-SOUPPLETS",
+    "ville": "Saint-Soupplets",
+    "adresse": "1 rue du 5 Septembre 1914, 77165 Saint-Soupplets",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-saint-fargeau-ponthierry": {
+    "lat": 48.528589,
+    "lon": 2.5464285,
+    "name": "AUTO-ÉCOLE INRI'S SAINT-FARGEAU-PONTHIERRY",
+    "ville": "Saint-Fargeau-Ponthierry",
+    "adresse": "5 rue de Jonville, 77310 Saint-Fargeau-Ponthierry",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-rognac": {
+    "lat": 43.4872341,
+    "lon": 5.2342903,
+    "name": "INRI'S ROGNAC",
+    "ville": "Rognac",
+    "adresse": "4 pins avenue Charles de Gaulles 13340 Rognac, 13340 ROGNAC",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-puteaux": {
+    "lat": 48.8794004,
+    "lon": 2.2406412,
+    "name": "AUTO-ÉCOLE INRI'S PUTEAUX",
+    "ville": "Puteaux",
+    "adresse": "15 Boulevard Richard Wallace, 92800 Puteaux",
+    "codePostal": ""
+  },
+  "inris-nice-saint-roch": {
+    "lat": 43.712669,
+    "lon": 7.284135,
+    "name": "INRI'S NICE SAINT ROCH",
+    "ville": "Nice-Saint-Roch",
+    "adresse": "28 ter Boulevard Jean Baptiste Vérany, 06300 Nice",
+    "codePostal": ""
+  },
+  "point-de-rdv-mairie-divry": {
+    "lat": null,
+    "lon": null,
+    "name": "POINT DE RDV INRI'S IVRY-SUR-SEINE",
+    "ville": "Mairie-Divry",
+    "error": "no_match"
+  },
+  "auto-ecole-inris-nanterre": {
+    "lat": 48.885917,
+    "lon": 2.1976325,
+    "name": "AUTO-ÉCOLE INRI'S NANTERRE",
+    "ville": "Nanterre",
+    "adresse": "16 Avenue Du Maréchal Joffre, 92000 Nanterre",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-melun-centre": {
+    "lat": 48.5408107,
+    "lon": 2.6588711,
+    "name": "AUTO-ÉCOLE INRI'S MELUN CENTRE",
+    "ville": "Melun-Centre",
+    "adresse": "4 Rue des Fossés , 77000 MELUN",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-metro-javel": {
+    "lat": 48.8440825,
+    "lon": 2.2815913,
+    "name": "AUTO-ÉCOLE INRI'S METRO JAVEL",
+    "ville": "Metro-Javel",
+    "adresse": "43 Rue De La Convention 75015 Paris, 75015 PARIS",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-metro-front-populaire": {
+    "lat": 48.906562,
+    "lon": 2.361073,
+    "name": "AUTO-ÉCOLE INRI'S MÉTRO FRONT POPULAIRE",
+    "ville": "Metro-Front-Populaire",
+    "adresse": "17 Rue Proudhon 93210 La Plaine Saint Denis, 93210 LA PLAINE SAINT DENIS",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-lycee-artaud": {
+    "lat": 43.3403951,
+    "lon": 5.4246909,
+    "name": "AUTO-ÉCOLE INRI'S LYCEE ARTAUD",
+    "ville": "Lycee-Artaud",
+    "adresse": "52 Chemin notre Dame de la consolation 13013 Marseille, 13013 MARSEILLE",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-la-courneuve": {
+    "lat": 48.920103,
+    "lon": 2.412114,
+    "name": "AUTO-ÉCOLE INRI'S LA COURNEUVE",
+    "ville": "La-Courneuve",
+    "adresse": "15 avenue Lénine, 93120 La Courneuve",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-le-raincy": {
+    "lat": 48.9016476,
+    "lon": 2.511506,
+    "name": "AUTO-ÉCOLE INRI'S LE RAINCY",
+    "ville": "Le-Raincy",
+    "adresse": "5 Avenue Thiers, 93190 Livry-Gargan",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-gare-de-sartrouville": {
+    "lat": 48.937127,
+    "lon": 2.157229,
+    "name": "AUTO-ÉCOLE INRI'S GARE DE SARTROUVILLE",
+    "ville": "Gare-De-Sartrouville",
+    "adresse": "12 Rue Turgot, 78500 Sartrouville",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-gagny": {
+    "lat": 48.885109,
+    "lon": 2.53432,
+    "name": "AUTO-ÉCOLE INRI'S GAGNY",
+    "ville": "Gagny",
+    "adresse": "13 Rue Henri Maillard, 93220 Gagny",
+    "codePostal": ""
+  },
+  "inris-fresnes": {
+    "lat": 48.7544706,
+    "lon": 2.3220632,
+    "name": "AUTO-ÉCOLE INRI'S FRESNES",
+    "ville": "Fresnes",
+    "adresse": "5 Rue Maurice Ténine, 94260 FRESNES",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-creteil-le-chateau": {
+    "lat": null,
+    "lon": null,
+    "name": "AUTO-ÉCOLE INRI'S CRÉTEIL LE CHÂTEAU",
+    "ville": "Creteil-Le-Chateau",
+    "error": "no_match"
+  },
+  "auto-ecole-inris-colombes": {
+    "lat": 48.923499,
+    "lon": 2.2472087,
+    "name": "AUTO-ÉCOLE INRI'S COLOMBES",
+    "ville": "Colombes",
+    "adresse": "11 Rue Ambroise Paré, 92700 Colombes",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-boulogne": {
+    "lat": 48.8410861,
+    "lon": 2.2272632,
+    "name": "AUTO-ÉCOLE INRI'S BOULOGNE",
+    "ville": "Boulogne",
+    "adresse": "8 Avenue du Maréchal de Lattre de Tassigny, 92100 Boulogne-Billancourt",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-bondy": {
+    "lat": 48.914939,
+    "lon": 2.483908,
+    "name": "AUTO-ÉCOLE INRI'S BONDY",
+    "ville": "Bondy",
+    "adresse": "31 avenue Henri Varagnat, 93140 BONDY",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-boissy-saint-leger": {
+    "lat": 48.7502564,
+    "lon": 2.5129734,
+    "name": "AUTO-ÉCOLE INRI'S BOISSY SAINT-LEGER",
+    "ville": "Boissy-Saint-Leger",
+    "adresse": "3 Rue du Temple, 94470 Boissy-Saint-Léger",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-bagnolet": {
+    "lat": 48.8690621,
+    "lon": 2.4203627,
+    "name": "AUTO-ÉCOLE INRI'S BAGNOLET",
+    "ville": "Bagnolet",
+    "adresse": "7 Rue Malmaison, 93170 Bagnolet",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-aubervilliers": {
+    "lat": 48.915359,
+    "lon": 2.370332,
+    "name": "AUTO-ÉCOLE INRI'S AUBERVILLIERS",
+    "ville": "Aubervilliers",
+    "adresse": "36 Rue du Landy, 93300 Aubervilliers",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-aix-centre": {
+    "lat": 43.5304728,
+    "lon": 5.4507244,
+    "name": "AUTO-ÉCOLE INRI'S AIX CENTRE",
+    "ville": "Aix-Centre",
+    "adresse": "15 Rue Mignet 13100 Aix en Provence, 13100 AIX EN PROVENCE",
+    "codePostal": ""
+  },
+  "inris-aix-jourdan": {
+    "lat": null,
+    "lon": null,
+    "name": "INRI'S AIX JOURDAN",
+    "ville": "Aix-Jourdan",
+    "error": "no_match"
+  },
+  "auto-ecole-inris-athis-mons": {
+    "lat": 48.7079878,
+    "lon": 2.3888044,
+    "name": "AUTO-ÉCOLE INRI'S ATHIS MONS",
+    "ville": "Athis-Mons",
+    "adresse": "77 bis Avenue François Mitterand, 91200 Athis Mons",
+    "codePostal": ""
+  },
+  "auto-ecole-inris-kremlin-bicetre": {
+    "lat": 48.810328,
+    "lon": 2.3622359,
+    "name": "AUTO-ÉCOLE INRI'S KREMLIN-BICÊTRE",
+    "ville": "Kremlin-Bicetre",
+    "adresse": "Le Kremlin-Bicêtre, 94270 Le Kremlin-Bicêtre",
+    "codePostal": ""
+  }
+}

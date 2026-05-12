@@ -1,0 +1,1275 @@
+{
+  "startedAt": "2026-05-12T14:06:13.878Z",
+  "slugs": [
+    {
+      "slug": "auto-ecole-inris-aix-centre",
+      "ok": true,
+      "durationMs": 1957
+    },
+    {
+      "slug": "auto-ecole-inris-athis-mons",
+      "ok": true,
+      "durationMs": 1271
+    },
+    {
+      "slug": "auto-ecole-inris-aubervilliers",
+      "ok": true,
+      "durationMs": 1189
+    },
+    {
+      "slug": "auto-ecole-inris-bagnolet",
+      "ok": true,
+      "durationMs": 1133
+    },
+    {
+      "slug": "auto-ecole-inris-boissy-saint-leger",
+      "ok": true,
+      "durationMs": 1309
+    },
+    {
+      "slug": "auto-ecole-inris-bondy",
+      "ok": true,
+      "durationMs": 1312
+    },
+    {
+      "slug": "auto-ecole-inris-boulogne",
+      "ok": true,
+      "durationMs": 1350
+    },
+    {
+      "slug": "auto-ecole-inris-colombes",
+      "ok": true,
+      "durationMs": 1371
+    },
+    {
+      "slug": "auto-ecole-inris-conflans-sainte-honorine",
+      "ok": true,
+      "durationMs": 1935
+    },
+    {
+      "slug": "auto-ecole-inris-creteil-le-chateau",
+      "ok": true,
+      "durationMs": 1311
+    },
+    {
+      "slug": "auto-ecole-inris-franconville",
+      "ok": true,
+      "durationMs": 1380
+    },
+    {
+      "slug": "auto-ecole-inris-gagny",
+      "ok": true,
+      "durationMs": 4369
+    },
+    {
+      "slug": "auto-ecole-inris-gare-de-sartrouville",
+      "ok": true,
+      "durationMs": 2023
+    },
+    {
+      "slug": "auto-ecole-inris-kremlin-bicetre",
+      "ok": true,
+      "durationMs": 2158
+    },
+    {
+      "slug": "auto-ecole-inris-la-courneuve",
+      "ok": true,
+      "durationMs": 1259
+    },
+    {
+      "slug": "auto-ecole-inris-le-raincy",
+      "ok": true,
+      "durationMs": 1520
+    },
+    {
+      "slug": "auto-ecole-inris-lycee-artaud",
+      "ok": true,
+      "durationMs": 1491
+    },
+    {
+      "slug": "auto-ecole-inris-melun-centre",
+      "ok": true,
+      "durationMs": 1101
+    },
+    {
+      "slug": "auto-ecole-inris-metro-front-populaire",
+      "ok": true,
+      "durationMs": 1393
+    },
+    {
+      "slug": "auto-ecole-inris-metro-javel",
+      "ok": true,
+      "durationMs": 1652
+    },
+    {
+      "slug": "auto-ecole-inris-nanterre",
+      "ok": true,
+      "durationMs": 1203
+    },
+    {
+      "slug": "auto-ecole-inris-pontault-combault",
+      "ok": true,
+      "durationMs": 1197
+    },
+    {
+      "slug": "auto-ecole-inris-puteaux",
+      "ok": true,
+      "durationMs": 1372
+    },
+    {
+      "slug": "auto-ecole-inris-rognac",
+      "ok": true,
+      "durationMs": 1447
+    },
+    {
+      "slug": "auto-ecole-inris-saint-brice",
+      "ok": true,
+      "durationMs": 1191
+    },
+    {
+      "slug": "auto-ecole-inris-saint-fargeau-ponthierry",
+      "ok": true,
+      "durationMs": 1672
+    },
+    {
+      "slug": "auto-ecole-inris-saint-hilaire-de-riez",
+      "ok": true,
+      "durationMs": 1126
+    },
+    {
+      "slug": "auto-ecole-inris-saint-soupplets",
+      "ok": true,
+      "durationMs": 1068
+    },
+    {
+      "slug": "auto-ecole-inris-sainte-croix-neuilly",
+      "ok": true,
+      "durationMs": 1357
+    },
+    {
+      "slug": "auto-ecole-inris-ste-marthe",
+      "ok": true,
+      "durationMs": 1253
+    },
+    {
+      "slug": "auto-ecole-inris-technopole",
+      "ok": true,
+      "durationMs": 1431
+    },
+    {
+      "slug": "auto-ecole-inris-thorigny-sur-marne",
+      "ok": true,
+      "durationMs": 2824
+    },
+    {
+      "slug": "auto-ecole-inris-tremblay-en-france",
+      "ok": true,
+      "durationMs": 2630
+    },
+    {
+      "slug": "auto-ecole-inris-versailles",
+      "ok": true,
+      "durationMs": 1703
+    },
+    {
+      "slug": "auto-ecole-inris-villejuif",
+      "ok": true,
+      "durationMs": 1619
+    },
+    {
+      "slug": "auto-ecole-inris-villeneuve-la-garenne",
+      "ok": true,
+      "durationMs": 2459
+    },
+    {
+      "slug": "auto-ecole-inris-villepinte",
+      "ok": true,
+      "durationMs": 1669
+    },
+    {
+      "slug": "auto-ecole-inris-viroflay",
+      "ok": true,
+      "durationMs": 1479
+    },
+    {
+      "slug": "inris-aix-jourdan",
+      "ok": true,
+      "durationMs": 1314
+    },
+    {
+      "slug": "inris-fresnes",
+      "ok": true,
+      "durationMs": 1515
+    },
+    {
+      "slug": "inris-nice-saint-roch",
+      "ok": true,
+      "durationMs": 1216
+    },
+    {
+      "slug": "inris-sceaux",
+      "ok": true,
+      "durationMs": 1380
+    },
+    {
+      "slug": "point-conduite-inris-asnieres-sur-seine",
+      "ok": true,
+      "durationMs": 1141
+    },
+    {
+      "slug": "point-conduite-inris-gare-de-bagneux",
+      "ok": true,
+      "durationMs": 1288
+    },
+    {
+      "slug": "point-conduite-inris-gare-de-creteil-pompadour",
+      "ok": true,
+      "durationMs": 1413
+    },
+    {
+      "slug": "point-conduite-inris-gare-de-livry-gargan",
+      "ok": true,
+      "durationMs": 1404
+    },
+    {
+      "slug": "point-conduite-inris-gare-depinay-villetaneuse",
+      "ok": true,
+      "durationMs": 1277
+    },
+    {
+      "slug": "point-de-rdv--mairie-de-levallois-perret",
+      "ok": true,
+      "durationMs": 1418
+    },
+    {
+      "slug": "point-de-rdv-antony",
+      "ok": true,
+      "durationMs": 1385
+    },
+    {
+      "slug": "point-de-rdv-arcueil-cachan",
+      "ok": true,
+      "durationMs": 1631
+    },
+    {
+      "slug": "point-de-rdv-argenteuil",
+      "ok": true,
+      "durationMs": 2026
+    },
+    {
+      "slug": "point-de-rdv-arpajon",
+      "ok": true,
+      "durationMs": 1917
+    },
+    {
+      "slug": "point-de-rdv-asnieres-quatre-routes",
+      "ok": true,
+      "durationMs": 1618
+    },
+    {
+      "slug": "point-de-rdv-aulnay-sous-bois",
+      "ok": true,
+      "durationMs": 1279
+    },
+    {
+      "slug": "point-de-rdv-bagneux",
+      "ok": true,
+      "durationMs": 1210
+    },
+    {
+      "slug": "point-de-rdv-ballancourt-sur-essonne",
+      "ok": true,
+      "durationMs": 1290
+    },
+    {
+      "slug": "point-de-rdv-beaumont-sur-oise",
+      "ok": true,
+      "durationMs": 1007
+    },
+    {
+      "slug": "point-de-rdv-beauvais",
+      "ok": true,
+      "durationMs": 1153
+    },
+    {
+      "slug": "point-de-rdv-besancon",
+      "ok": true,
+      "durationMs": 1026
+    },
+    {
+      "slug": "point-de-rdv-bezons",
+      "ok": true,
+      "durationMs": 1397
+    },
+    {
+      "slug": "point-de-rdv-bobigny",
+      "ok": true,
+      "durationMs": 1030
+    },
+    {
+      "slug": "point-de-rdv-bois-colombes",
+      "ok": true,
+      "durationMs": 1166
+    },
+    {
+      "slug": "point-de-rdv-bondoufle",
+      "ok": true,
+      "durationMs": 1737
+    },
+    {
+      "slug": "point-de-rdv-bonneuil-sur-marne",
+      "ok": true,
+      "durationMs": 1332
+    },
+    {
+      "slug": "point-de-rdv-bourg-la-reine",
+      "ok": true,
+      "durationMs": 2380
+    },
+    {
+      "slug": "point-de-rdv-bretigny-sur-orge",
+      "ok": true,
+      "durationMs": 2175
+    },
+    {
+      "slug": "point-de-rdv-brunoy",
+      "ok": true,
+      "durationMs": 2251
+    },
+    {
+      "slug": "point-de-rdv-bry-sur-marne",
+      "ok": true,
+      "durationMs": 1372
+    },
+    {
+      "slug": "point-de-rdv-caen",
+      "ok": true,
+      "durationMs": 2060
+    },
+    {
+      "slug": "point-de-rdv-candor",
+      "ok": true,
+      "durationMs": 1482
+    },
+    {
+      "slug": "point-de-rdv-centre-commercial-parinor",
+      "ok": true,
+      "durationMs": 1142
+    },
+    {
+      "slug": "point-de-rdv-cergy",
+      "ok": true,
+      "durationMs": 1285
+    },
+    {
+      "slug": "point-de-rdv-cesson",
+      "ok": true,
+      "durationMs": 1444
+    },
+    {
+      "slug": "point-de-rdv-chalon-sur-saone",
+      "ok": true,
+      "durationMs": 1172
+    },
+    {
+      "slug": "point-de-rdv-champigny-sur-marne",
+      "ok": true,
+      "durationMs": 1336
+    },
+    {
+      "slug": "point-de-rdv-champs-sur-marne",
+      "ok": true,
+      "durationMs": 1817
+    },
+    {
+      "slug": "point-de-rdv-chantilly",
+      "ok": true,
+      "durationMs": 2405
+    },
+    {
+      "slug": "point-de-rdv-chatillon",
+      "ok": true,
+      "durationMs": 2312
+    },
+    {
+      "slug": "point-de-rdv-chatou",
+      "ok": true,
+      "durationMs": 1135
+    },
+    {
+      "slug": "point-de-rdv-chelles",
+      "ok": true,
+      "durationMs": 1660
+    },
+    {
+      "slug": "point-de-rdv-chevilly-larue",
+      "ok": true,
+      "durationMs": 1155
+    },
+    {
+      "slug": "point-de-rdv-chilly-mazarin",
+      "ok": true,
+      "durationMs": 1625
+    },
+    {
+      "slug": "point-de-rdv-clamart",
+      "ok": true,
+      "durationMs": 1318
+    },
+    {
+      "slug": "point-de-rdv-claye-souilly",
+      "ok": true,
+      "durationMs": 1182
+    },
+    {
+      "slug": "point-de-rdv-clermont",
+      "ok": true,
+      "durationMs": 1353
+    },
+    {
+      "slug": "point-de-rdv-clichy-la-garenne",
+      "ok": true,
+      "durationMs": 1451
+    },
+    {
+      "slug": "point-de-rdv-combs-la-ville",
+      "ok": true,
+      "durationMs": 1181
+    },
+    {
+      "slug": "point-de-rdv-compiegne",
+      "ok": true,
+      "durationMs": 1462
+    },
+    {
+      "slug": "point-de-rdv-corbeil-essonnes",
+      "ok": true,
+      "durationMs": 1794
+    },
+    {
+      "slug": "point-de-rdv-cormeilles-en-parisis",
+      "ok": true,
+      "durationMs": 1277
+    },
+    {
+      "slug": "point-de-rdv-courbevoie",
+      "ok": true,
+      "durationMs": 1352
+    },
+    {
+      "slug": "point-de-rdv-creil",
+      "ok": true,
+      "durationMs": 1120
+    },
+    {
+      "slug": "point-de-rdv-crepy-en-valois",
+      "ok": true,
+      "durationMs": 1252
+    },
+    {
+      "slug": "point-de-rdv-crosne",
+      "ok": true,
+      "durationMs": 1172
+    },
+    {
+      "slug": "point-de-rdv-dammarie-les-lys",
+      "ok": true,
+      "durationMs": 1214
+    },
+    {
+      "slug": "point-de-rdv-drancy",
+      "ok": true,
+      "durationMs": 1186
+    },
+    {
+      "slug": "point-de-rdv-draveil",
+      "ok": true,
+      "durationMs": 1449
+    },
+    {
+      "slug": "point-de-rdv-dugny",
+      "ok": true,
+      "durationMs": 1478
+    },
+    {
+      "slug": "point-de-rdv-ecouen-ezanville",
+      "ok": true,
+      "durationMs": 1130
+    },
+    {
+      "slug": "point-de-rdv-enghien-les-bains",
+      "ok": true,
+      "durationMs": 1042
+    },
+    {
+      "slug": "point-de-rdv-epinay-sur-seine",
+      "ok": true,
+      "durationMs": 1225
+    },
+    {
+      "slug": "point-de-rdv-ermont-eaubonne",
+      "ok": true,
+      "durationMs": 1407
+    },
+    {
+      "slug": "point-de-rdv-evry-courcouronnes-u57l2",
+      "ok": true,
+      "durationMs": 1146
+    },
+    {
+      "slug": "point-de-rdv-evry-courcouronnes",
+      "ok": true,
+      "durationMs": 1389
+    },
+    {
+      "slug": "point-de-rdv-fleury-merogis",
+      "ok": true,
+      "durationMs": 1329
+    },
+    {
+      "slug": "point-de-rdv-fontenay-sous-bois",
+      "ok": true,
+      "durationMs": 1293
+    },
+    {
+      "slug": "point-de-rdv-gare-dasnieres-sur-seine",
+      "ok": true,
+      "durationMs": 1303
+    },
+    {
+      "slug": "point-de-rdv-gare-de-bussy-saint-georges",
+      "ok": true,
+      "durationMs": 1316
+    },
+    {
+      "slug": "point-de-rdv-gare-de-choisy-le-roi",
+      "ok": true,
+      "durationMs": 3146
+    },
+    {
+      "slug": "point-de-rdv-gare-de-gennevilliers",
+      "ok": true,
+      "durationMs": 1260
+    },
+    {
+      "slug": "point-de-rdv-gare-de-groslay",
+      "ok": true,
+      "durationMs": 2194
+    },
+    {
+      "slug": "point-de-rdv-gare-de-la-ferte-alais",
+      "ok": true,
+      "durationMs": 1826
+    },
+    {
+      "slug": "point-de-rdv-gare-de-lyon",
+      "ok": true,
+      "durationMs": 1072
+    },
+    {
+      "slug": "point-de-rdv-gare-de-maisons-alfort-alfortville",
+      "ok": true,
+      "durationMs": 1302
+    },
+    {
+      "slug": "point-de-rdv-gare-de-nogent-le-perreux",
+      "ok": true,
+      "durationMs": 1339
+    },
+    {
+      "slug": "point-de-rdv-gare-de-noisiel",
+      "ok": true,
+      "durationMs": 1053
+    },
+    {
+      "slug": "point-de-rdv-gare-de-noisy-le-grand-mont-dest",
+      "ok": true,
+      "durationMs": 1057
+    },
+    {
+      "slug": "point-de-rdv-gare-de-palaiseau",
+      "ok": true,
+      "durationMs": 1066
+    },
+    {
+      "slug": "point-de-rdv-gare-de-pantin",
+      "ok": true,
+      "durationMs": 1033
+    },
+    {
+      "slug": "point-de-rdv-gare-de-rosny-sous-bois",
+      "ok": true,
+      "durationMs": 1194
+    },
+    {
+      "slug": "point-de-rdv-gare-de-saint-denis",
+      "ok": true,
+      "durationMs": 2092
+    },
+    {
+      "slug": "point-de-rdv-gare-de-saint-michel-sur-orge",
+      "ok": true,
+      "durationMs": 1758
+    },
+    {
+      "slug": "point-de-rdv-gare-de-sannois",
+      "ok": true,
+      "durationMs": 2377
+    },
+    {
+      "slug": "point-de-rdv-gare-de-sevran-livry",
+      "ok": true,
+      "durationMs": 2134
+    },
+    {
+      "slug": "point-de-rdv-gare-de-sucy-en-brie",
+      "ok": true,
+      "durationMs": 1543
+    },
+    {
+      "slug": "point-de-rdv-gare-de-val-de-fontenay",
+      "ok": true,
+      "durationMs": 1285
+    },
+    {
+      "slug": "point-de-rdv-gare-de-villeparisis-mitry-le-neuf",
+      "ok": true,
+      "durationMs": 1565
+    },
+    {
+      "slug": "point-de-rdv-gare-de-villiers-le-bel-gonesse-arnouville",
+      "ok": true,
+      "durationMs": 1148
+    },
+    {
+      "slug": "point-de-rdv-gare-du-parc-de-sceaux",
+      "ok": true,
+      "durationMs": 1045
+    },
+    {
+      "slug": "point-de-rdv-gare-du-val-d-argenteuil",
+      "ok": true,
+      "durationMs": 1213
+    },
+    {
+      "slug": "point-de-rdv-gare-du-val-deurope",
+      "ok": true,
+      "durationMs": 1451
+    },
+    {
+      "slug": "point-de-rdv-gare-du-vert-galant",
+      "ok": true,
+      "durationMs": 1532
+    },
+    {
+      "slug": "point-de-rdv-gare-lisle-adam-parmain",
+      "ok": true,
+      "durationMs": 1155
+    },
+    {
+      "slug": "point-de-rdv-garges-les-gonesse",
+      "ok": true,
+      "durationMs": 1092
+    },
+    {
+      "slug": "point-de-rdv-gennevilliers",
+      "ok": true,
+      "durationMs": 1207
+    },
+    {
+      "slug": "point-de-rdv-gentilly",
+      "ok": true,
+      "durationMs": 1255
+    },
+    {
+      "slug": "point-de-rdv-gif-sur-yvette",
+      "ok": true,
+      "durationMs": 1479
+    },
+    {
+      "slug": "point-de-rdv-gonesse",
+      "ok": true,
+      "durationMs": 1138
+    },
+    {
+      "slug": "point-de-rdv-gournay-en-bray",
+      "ok": true,
+      "durationMs": 1099
+    },
+    {
+      "slug": "point-de-rdv-grenoble",
+      "ok": true,
+      "durationMs": 1287
+    },
+    {
+      "slug": "point-de-rdv-grigny",
+      "ok": true,
+      "durationMs": 1203
+    },
+    {
+      "slug": "point-de-rdv-hagondange",
+      "ok": true,
+      "durationMs": 1889
+    },
+    {
+      "slug": "point-de-rdv-herblay",
+      "ok": true,
+      "durationMs": 1453
+    },
+    {
+      "slug": "point-de-rdv-houilles-carrieres-sur-seine",
+      "ok": true,
+      "durationMs": 1154
+    },
+    {
+      "slug": "point-de-rdv-hyeres",
+      "ok": true,
+      "durationMs": 2404
+    },
+    {
+      "slug": "point-de-rdv-inris-acheres",
+      "ok": true,
+      "durationMs": 1203
+    },
+    {
+      "slug": "point-de-rdv-inris-lycee-de-mennecy",
+      "ok": true,
+      "durationMs": 1130
+    },
+    {
+      "slug": "point-de-rdv-inris-sarcelles",
+      "ok": true,
+      "durationMs": 1461
+    },
+    {
+      "slug": "point-de-rdv-inris-sevran",
+      "ok": true,
+      "durationMs": 1058
+    },
+    {
+      "slug": "point-de-rdv-mairie-argenteuil",
+      "ok": true,
+      "durationMs": 1040
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-acheres",
+      "ok": true,
+      "durationMs": 1058
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-antony",
+      "ok": true,
+      "durationMs": 1058
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-arpajon",
+      "ok": true,
+      "durationMs": 2235
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-aulnay-sous-bois",
+      "ok": true,
+      "durationMs": 2421
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-bagneux",
+      "ok": true,
+      "durationMs": 1186
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-bagnolet",
+      "ok": true,
+      "durationMs": 1346
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-bezons",
+      "ok": true,
+      "durationMs": 1324
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-bondoufle",
+      "ok": true,
+      "durationMs": 1410
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-bonneuil-sur-marne",
+      "ok": true,
+      "durationMs": 1234
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-bourg-la-reine",
+      "ok": true,
+      "durationMs": 1595
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-bry-sur-marne",
+      "ok": true,
+      "durationMs": 1859
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-candor",
+      "ok": true,
+      "durationMs": 1039
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-chalon-sur-saone",
+      "ok": true,
+      "durationMs": 1146
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-champs-sur-marne-8bdf6",
+      "ok": true,
+      "durationMs": 2362
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-chatou",
+      "ok": true,
+      "durationMs": 1288
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-chevilly-larue",
+      "ok": true,
+      "durationMs": 1029
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-chtillon",
+      "ok": true,
+      "durationMs": 996
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-clamart",
+      "ok": true,
+      "durationMs": 1399
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-claye-souilly",
+      "ok": true,
+      "durationMs": 1224
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-combs-la-ville",
+      "ok": true,
+      "durationMs": 1592
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-compiegne",
+      "ok": true,
+      "durationMs": 1109
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-cormeilles-en-parisis",
+      "ok": true,
+      "durationMs": 21129
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-courbevoie",
+      "ok": true,
+      "durationMs": 1248
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-dugny",
+      "ok": true,
+      "durationMs": 1210
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-enghien-les-bains",
+      "ok": true,
+      "durationMs": 1161
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-epinay-sur-seine",
+      "ok": true,
+      "durationMs": 1493
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-evry-courcouronnes",
+      "ok": true,
+      "durationMs": 1129
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-fleury-merogis",
+      "ok": true,
+      "durationMs": 1239
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-fontainebleau",
+      "ok": true,
+      "durationMs": 1101
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-fontenay-sous-bois",
+      "ok": true,
+      "durationMs": 1291
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-garges-les-gonesse",
+      "ok": true,
+      "durationMs": 1413
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-gennevilliers",
+      "ok": true,
+      "durationMs": 1103
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-gonesse",
+      "ok": true,
+      "durationMs": 1744
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-grigny",
+      "ok": true,
+      "durationMs": 1359
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-hyres",
+      "ok": true,
+      "durationMs": 1023
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-ivry-sur-seine",
+      "ok": true,
+      "durationMs": 1077
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-les-ulis",
+      "ok": true,
+      "durationMs": 1060
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-limeil-brevannes",
+      "ok": true,
+      "durationMs": 1160
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-livry-gargan",
+      "ok": true,
+      "durationMs": 1434
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-maisons-alfort",
+      "ok": true,
+      "durationMs": 1566
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-maisons-laffitte",
+      "ok": true,
+      "durationMs": 1612
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-mantes-la-jolie",
+      "ok": true,
+      "durationMs": 1672
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-margny-les-compiegne",
+      "ok": true,
+      "durationMs": 1966
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-massy",
+      "ok": true,
+      "durationMs": 1069
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-maurepas",
+      "ok": true,
+      "durationMs": 1039
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-mennecy",
+      "ok": true,
+      "durationMs": 1113
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-meudon-val-fleury",
+      "ok": true,
+      "durationMs": 1024
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-montfermeil-feenf",
+      "ok": true,
+      "durationMs": 2761
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-montmagny",
+      "ok": true,
+      "durationMs": 2120
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-nangis",
+      "ok": true,
+      "durationMs": 1294
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-neuilly-plaisance",
+      "ok": true,
+      "durationMs": 1094
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-nogent-sur-marne",
+      "ok": true,
+      "durationMs": 1536
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-noisy-le-grand-c8d49",
+      "ok": true,
+      "durationMs": 1106
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-orsay",
+      "ok": true,
+      "durationMs": 1130
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-persan",
+      "ok": true,
+      "durationMs": 1156
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-pierrefitte-sur-seine",
+      "ok": true,
+      "durationMs": 1329
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-porte-de-bagnolet",
+      "ok": true,
+      "durationMs": 1532
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-porte-de-montreuil",
+      "ok": true,
+      "durationMs": 1137
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-rueil-malmaison",
+      "ok": true,
+      "durationMs": 1304
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-rungis",
+      "ok": true,
+      "durationMs": 1141
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-saint-leu-la-foret",
+      "ok": true,
+      "durationMs": 1423
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-saint-maur-des-fosss",
+      "ok": true,
+      "durationMs": 1717
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-saint-pierre-du-perray",
+      "ok": true,
+      "durationMs": 1141
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-saint-remy-les-chevreuse",
+      "ok": true,
+      "durationMs": 1653
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-sarcelles",
+      "ok": true,
+      "durationMs": 1490
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-stains",
+      "ok": true,
+      "durationMs": 1486
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-tigery",
+      "ok": true,
+      "durationMs": 1137
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-vaujours",
+      "ok": true,
+      "durationMs": 1100
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-vaux-le-penil",
+      "ok": true,
+      "durationMs": 1138
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-villabe",
+      "ok": true,
+      "durationMs": 1069
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-villeneuve-le-roi",
+      "ok": true,
+      "durationMs": 1222
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-villeneuve-saint-georges",
+      "ok": true,
+      "durationMs": 1144
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-vincennes",
+      "ok": true,
+      "durationMs": 1572
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-viry-chtillon",
+      "ok": true,
+      "durationMs": 1181
+    },
+    {
+      "slug": "point-de-rdv-mairie-divry",
+      "ok": true,
+      "durationMs": 1175
+    },
+    {
+      "slug": "point-de-rdv-mairie-du-blanc-mesnil",
+      "ok": true,
+      "durationMs": 1309
+    },
+    {
+      "slug": "point-de-rdv-montigny-le-bretonneux",
+      "ok": true,
+      "durationMs": 1216
+    },
+    {
+      "slug": "point-de-rdv-montmagny",
+      "ok": true,
+      "durationMs": 1292
+    },
+    {
+      "slug": "point-de-rdv-parking-de-la-gare-noisy-champs",
+      "ok": true,
+      "durationMs": 1248
+    },
+    {
+      "slug": "point-de-rdv-saint-etienne",
+      "ok": true,
+      "durationMs": 3809
+    },
+    {
+      "slug": "point-de-rdv-saint-germain-les-corbeil",
+      "ok": true,
+      "durationMs": 1107
+    },
+    {
+      "slug": "point-de-rdv-saint-ouen-laumone",
+      "ok": true,
+      "durationMs": 1383
+    },
+    {
+      "slug": "point-de-rdv-saint-pierre-du-perray",
+      "ok": true,
+      "durationMs": 1227
+    },
+    {
+      "slug": "point-de-rdv-saint-remy-les-chevreuse",
+      "ok": true,
+      "durationMs": 1110
+    },
+    {
+      "slug": "point-de-rdv-sainte-genevieve-des-bois",
+      "ok": true,
+      "durationMs": 1635
+    },
+    {
+      "slug": "point-de-rdv-savigny-sur-orge",
+      "ok": true,
+      "durationMs": 1484
+    },
+    {
+      "slug": "point-de-rdv-suresnes",
+      "ok": true,
+      "durationMs": 1528
+    },
+    {
+      "slug": "point-de-rdv-tassin-la-demi-lune",
+      "ok": true,
+      "durationMs": 1301
+    },
+    {
+      "slug": "point-de-rdv-taverny",
+      "ok": true,
+      "durationMs": 1438
+    },
+    {
+      "slug": "point-de-rdv-tigery",
+      "ok": true,
+      "durationMs": 1297
+    },
+    {
+      "slug": "point-de-rdv-torcy",
+      "ok": true,
+      "durationMs": 1375
+    },
+    {
+      "slug": "point-de-rdv-toulon",
+      "ok": true,
+      "durationMs": 1210
+    },
+    {
+      "slug": "point-de-rdv-val-d-argenteuil",
+      "ok": true,
+      "durationMs": 1136
+    },
+    {
+      "slug": "point-de-rdv-valenton",
+      "ok": true,
+      "durationMs": 1612
+    },
+    {
+      "slug": "point-de-rdv-vaujours",
+      "ok": true,
+      "durationMs": 1241
+    },
+    {
+      "slug": "point-de-rdv-vaux-le-penil",
+      "ok": true,
+      "durationMs": 1342
+    },
+    {
+      "slug": "point-de-rdv-vigneux-sur-seine",
+      "ok": true,
+      "durationMs": 1068
+    },
+    {
+      "slug": "point-de-rdv-villabe",
+      "ok": true,
+      "durationMs": 1018
+    },
+    {
+      "slug": "point-de-rdv-villeneuve-le-roi",
+      "ok": true,
+      "durationMs": 1068
+    },
+    {
+      "slug": "point-de-rdv-villeneuve-saint-georges",
+      "ok": true,
+      "durationMs": 1514
+    },
+    {
+      "slug": "points-de-rdv-point-de-rdv-aubagne",
+      "ok": true,
+      "durationMs": 1501
+    },
+    {
+      "slug": "ppoint-de-rdv-mairie-de-kremlin-bicetre",
+      "ok": true,
+      "durationMs": 1577
+    },
+    {
+      "slug": "ppoint-de-rdv-savigny-le-temple",
+      "ok": true,
+      "durationMs": 1187
+    }
+  ],
+  "stats": {
+    "ok": 253,
+    "fail": 0
+  },
+  "finishedAt": "2026-05-12T14:12:36.107Z"
+}

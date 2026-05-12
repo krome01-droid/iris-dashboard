@@ -1,0 +1,88 @@
+# ============================================
+# IRIS Dashboard — Deploy to Hostinger VPS
+# Étape 1 : build image → push GHCR
+# Étape 2 : Hostinger pull image → run container
+# ============================================
+name: Deploy IRIS Dashboard
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image to GHCR
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/krome01-droid/iris-dashboard:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push iris-cron to GHCR
+        uses: docker/build-push-action@v6
+        with:
+          context: ./cron
+          push: true
+          tags: ghcr.io/krome01-droid/iris-cron:latest
+          cache-from: type=gha,scope=cron
+          cache-to: type=gha,mode=max,scope=cron
+
+      - name: Deploy to Hostinger VPS
+        uses: hostinger/deploy-on-vps@v1
+        with:
+          api-key: ${{ secrets.HOSTINGER_API_KEY }}
+          virtual-machine: ${{ vars.HOSTINGER_VM_ID }}
+          personal-token: ${{ secrets.GH_PAT }}
+          project-name: iris-dashboard
+          docker-compose-path: docker-compose.yml
+          environment-variables: |
+            NODE_ENV=production
+            PORT=3848
+            HOSTNAME=0.0.0.0
+            NEXTAUTH_URL=https://agent.autoecole-inris.com/admin-iris
+            NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+            ADMIN_USERNAME=${{ vars.ADMIN_USERNAME }}
+            ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}
+            ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
+            WP_URL=https://autoecole-inris.com
+            WP_USERNAME=${{ secrets.WP_USERNAME }}
+            WP_APP_PASSWORD=${{ secrets.WP_APP_PASSWORD }}
+            MYSQL_PROXY_URL=https://autoecole-inris.com/wp-json/iris/v1/db
+            MYSQL_PROXY_SECRET=${{ secrets.MYSQL_PROXY_SECRET }}
+            GHL_PIT=${{ secrets.GHL_PIT }}
+            GHL_API_V1_KEY=${{ secrets.GHL_API_V1_KEY }}
+            GHL_LOCATION_ID=${{ vars.GHL_LOCATION_ID }}
+            GHL_USER_ID=${{ vars.GHL_USER_ID }}
+            ONESIGNAL_APP_ID=${{ vars.ONESIGNAL_APP_ID }}
+            ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY }}
+            KIE_API_KEY=${{ secrets.KIE_API_KEY }}
+            FAL_API_KEY=${{ secrets.FAL_API_KEY }}
+            APIFY_API_TOKEN=${{ secrets.APIFY_API_TOKEN }}
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
+            GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }}
+            GA4_PROPERTY_ID=${{ vars.GA4_PROPERTY_ID }}
+            SEARCH_CONSOLE_SITE_URL=sc-domain:autoecole-inris.com
+            CRON_SECRET=${{ secrets.CRON_SECRET }}

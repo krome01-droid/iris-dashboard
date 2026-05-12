@@ -1,0 +1,24 @@
+{
+  "uploadDetails": {
+    "acl": "public-read",
+    "bucket": "webflow-prod-assets",
+    "X-Amz-Algorithm": "AWS4-HMAC-SHA256",
+    "X-Amz-Credential": "AKIAQLLHWD6MEJGETLST/20260512/us-east-1/s3/aws4_request",
+    "X-Amz-Date": "20260512T085834Z",
+    "key": "67c976202edb4724b88395f9/6a02ebba605cce120cc63f0f_inris-og-default.jpg",
+    "Policy": "eyJleHBpcmF0aW9uIjoiMjAyNi0wNi0yM1QwMDo1ODozNFoiLCJjb25kaXRpb25zIjpbWyJzdGFydHMtd2l0aCIsIiRrZXkiLCI2N2M5NzYyMDJlZGI0NzI0Yjg4Mzk1ZjkvIl0seyJjYWNoZS1jb250cm9sIjoibWF4LWFnZT0zMTUzNjAwMCJ9LHsiQ29udGVudC1UeXBlIjoiaW1hZ2UvanBlZyJ9LHsic3VjY2Vzc19hY3Rpb25fc3RhdHVzIjoiMjAxIn0sWyJzdGFydHMtd2l0aCIsIiRDb250ZW50LVR5cGUiLCJpbWFnZS9qcGVnIl0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsMCwzMTQ1NzI4MF0seyJhY2wiOiJwdWJsaWMtcmVhZCJ9LHsiYnVja2V0Ijoid2ViZmxvdy1wcm9kLWFzc2V0cyJ9LHsiWC1BbXotQWxnb3JpdGhtIjoiQVdTNC1ITUFDLVNIQTI1NiJ9LHsiWC1BbXotQ3JlZGVudGlhbCI6IkFLSUFRTExIV0Q2TUVKR0VUTFNULzIwMjYwNTEyL3VzLWVhc3QtMS9zMy9hd3M0X3JlcXVlc3QifSx7IlgtQW16LURhdGUiOiIyMDI2MDUxMlQwODU4MzRaIn0seyJrZXkiOiI2N2M5NzYyMDJlZGI0NzI0Yjg4Mzk1ZjkvNmEwMmViYmE2MDVjY2UxMjBjYzYzZjBmX2lucmlzLW9nLWRlZmF1bHQuanBnIn1dfQ==",
+    "X-Amz-Signature": "03b769d44809ace3456433724cd83d7a326c3050ea90475d5b50d82ec0443736",
+    "success_action_status": "201",
+    "content-type": "image/jpeg",
+    "Cache-Control": "max-age=31536000"
+  },
+  "contentType": "image/jpeg",
+  "id": "6a02ebba605cce120cc63f0f",
+  "parentFolder": null,
+  "uploadUrl": "https://webflow-prod-assets.s3.amazonaws.com/",
+  "assetUrl": "https://s3.amazonaws.com/webflow-prod-assets/67c976202edb4724b88395f9/6a02ebba605cce120cc63f0f_inris-og-default.jpg",
+  "hostedUrl": "https://cdn.prod.website-files.com/67c976202edb4724b88395f9/6a02ebba605cce120cc63f0f_inris-og-default.jpg",
+  "originalFileName": "inris-og-default.jpg",
+  "createdOn": "2026-05-12T08:58:34.753Z",
+  "lastUpdated": "2026-05-12T08:58:34.753Z"
+}

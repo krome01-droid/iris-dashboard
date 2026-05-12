@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-05-12T00:03:07.407Z",
+  "slugs": [
+    {
+      "slug": "point-de-rdv-mairie-de-stains",
+      "ok": true,
+      "durationMs": 49213
+    },
+    {
+      "slug": "point-de-rdv-ecouen-ezanville",
+      "ok": true,
+      "durationMs": 52803
+    },
+    {
+      "slug": "point-de-rdv-gare-de-groslay",
+      "ok": true,
+      "durationMs": 43049
+    },
+    {
+      "slug": "point-de-rdv-gare-de-noisiel",
+      "ok": true,
+      "durationMs": 41981
+    },
+    {
+      "slug": "point-de-rdv-gare-de-villiers-le-bel-gonesse-arnouville",
+      "ok": true,
+      "durationMs": 41778
+    },
+    {
+      "slug": "point-de-rdv-gare-de-val-de-fontenay",
+      "ok": true,
+      "durationMs": 44198
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-livry-gargan",
+      "ok": true,
+      "durationMs": 41905
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-courbevoie",
+      "ok": true,
+      "durationMs": 40579
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-vaux-le-penil",
+      "ok": true,
+      "durationMs": 43741
+    },
+    {
+      "slug": "point-de-rdv-mairie-de-saint-leu-la-foret",
+      "ok": true,
+      "durationMs": 43746
+    }
+  ],
+  "stats": {
+    "ok": 10,
+    "seoFail": 0,
+    "writeFail": 0
+  },
+  "finishedAt": "2026-05-12T00:10:30.421Z"
+}
