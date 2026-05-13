@@ -49,7 +49,7 @@ services:
 
       # Resend (transactionnel + newsletter)
       - RESEND_API_KEY=${RESEND_API_KEY}
-      - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-newsletter@autoecole-inris.com}
+      - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-iris@agent.autoecole-inris.com}
       - RESEND_AUDIENCE_ID=${RESEND_AUDIENCE_ID}
 
       # OneSignal (push web)
