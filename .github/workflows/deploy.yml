@@ -2,6 +2,7 @@
 # IRIS Dashboard — Deploy to Hostinger VPS
 # Étape 1 : build image → push GHCR
 # Étape 2 : Hostinger pull image → run container
+# Stack cible : Webflow (PAS WordPress)
 # ============================================
 name: Deploy IRIS Dashboard
 
@@ -64,16 +65,24 @@ jobs:
             NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
             ADMIN_USERNAME=${{ vars.ADMIN_USERNAME }}
             ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}
+            IRIS_PREVIEW_EMAIL=${{ vars.IRIS_PREVIEW_EMAIL }}
             ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
-            WP_URL=https://autoecole-inris.com
-            WP_USERNAME=${{ secrets.WP_USERNAME }}
-            WP_APP_PASSWORD=${{ secrets.WP_APP_PASSWORD }}
-            MYSQL_PROXY_URL=https://autoecole-inris.com/wp-json/iris/v1/db
-            MYSQL_PROXY_SECRET=${{ secrets.MYSQL_PROXY_SECRET }}
-            GHL_PIT=${{ secrets.GHL_PIT }}
-            GHL_API_V1_KEY=${{ secrets.GHL_API_V1_KEY }}
+            ANTHROPIC_MODEL_FAST=claude-sonnet-4-6
+            ANTHROPIC_MODEL_DEEP=claude-opus-4-7
+            WF_API_KEY=${{ secrets.WF_API_KEY }}
+            WF_SITE_ID=${{ vars.WF_SITE_ID }}
+            WF_COLLECTION_ID_PERMIS_BLOGS=${{ vars.WF_COLLECTION_ID_PERMIS_BLOGS }}
+            WF_COLLECTION_ID_CODE_BLOGS=${{ vars.WF_COLLECTION_ID_CODE_BLOGS }}
+            WF_COLLECTION_ID_POINTS_DE_RDV=${{ vars.WF_COLLECTION_ID_POINTS_DE_RDV }}
+            WF_COLLECTION_ID_LEXIQUES=${{ vars.WF_COLLECTION_ID_LEXIQUES }}
+            WF_COLLECTION_ID_PRODUCTS=${{ vars.WF_COLLECTION_ID_PRODUCTS }}
+            WF_COLLECTION_ID_SKUS=${{ vars.WF_COLLECTION_ID_SKUS }}
+            WF_COLLECTION_ID_CATEGORIES=${{ vars.WF_COLLECTION_ID_CATEGORIES }}
+            GHL_API_KEY=${{ secrets.GHL_API_KEY }}
             GHL_LOCATION_ID=${{ vars.GHL_LOCATION_ID }}
-            GHL_USER_ID=${{ vars.GHL_USER_ID }}
+            RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+            RESEND_FROM_EMAIL=newsletter@autoecole-inris.com
+            RESEND_AUDIENCE_ID=${{ vars.RESEND_AUDIENCE_ID }}
             ONESIGNAL_APP_ID=${{ vars.ONESIGNAL_APP_ID }}
             ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY }}
             KIE_API_KEY=${{ secrets.KIE_API_KEY }}
@@ -84,5 +93,8 @@ jobs:
             GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
             GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }}
             GA4_PROPERTY_ID=${{ vars.GA4_PROPERTY_ID }}
-            SEARCH_CONSOLE_SITE_URL=sc-domain:autoecole-inris.com
+            SEARCH_CONSOLE_SITE_URL=${{ vars.SEARCH_CONSOLE_SITE_URL }}
+            NEXT_PUBLIC_MAPBOX_TOKEN=${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }}
+            SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             CRON_SECRET=${{ secrets.CRON_SECRET }}
