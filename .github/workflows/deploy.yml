@@ -88,6 +88,7 @@ jobs:
             KIE_API_KEY=${{ secrets.KIE_API_KEY }}
             FAL_API_KEY=${{ secrets.FAL_API_KEY }}
             APIFY_API_TOKEN=${{ secrets.APIFY_API_TOKEN }}
+            DATAFORSEO_API_KEY=${{ secrets.DATAFORSEO_API_KEY }}
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
             GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}

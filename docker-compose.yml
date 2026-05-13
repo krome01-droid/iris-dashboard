@@ -63,6 +63,9 @@ services:
       # Apify (scraping/veille)
       - APIFY_API_TOKEN=${APIFY_API_TOKEN}
 
+      # DataForSEO (SERP, keywords, backlinks)
+      - DATAFORSEO_API_KEY=${DATAFORSEO_API_KEY}
+
       # Google (GA4 + Search Console)
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
