@@ -66,6 +66,11 @@ services:
       # DataForSEO (SERP, keywords, backlinks)
       - DATAFORSEO_API_KEY=${DATAFORSEO_API_KEY}
 
+      # Supabase (stockage / historique)
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+
       # Google (GA4 + Search Console)
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
