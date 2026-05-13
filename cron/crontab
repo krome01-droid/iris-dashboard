@@ -15,3 +15,6 @@
 
 # Rapport SEO — Dimanche à 6h
 0 6 * * 0 /usr/local/bin/call-cron.sh seo-report
+
+# Tracking positions SERP (DataForSEO) — Lundi à 7h
+0 7 * * 1 /usr/local/bin/call-cron.sh seo-positions

@@ -10,7 +10,7 @@ cat > /usr/local/bin/call-cron.sh << EOF
 ENDPOINT="\$1"
 TS=\$(date '+%Y-%m-%d %H:%M:%S')
 echo "[\$TS] -> \$ENDPOINT"
-curl -sS --max-time 60 \\
+curl -sS --max-time 600 \\
   -H "Authorization: Bearer ${CRON_SECRET}" \\
   "${IRIS_BASE_URL}/api/cron/\$ENDPOINT" \\
   || echo "[\$TS] !! \$ENDPOINT failed"
