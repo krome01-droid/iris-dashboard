@@ -125,8 +125,10 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
       - "--log.level=DEBUG"  # DEBUG — verbose logs
       - "--accesslog=true"
+    configs:
+      - source: traefik_dynamic
+        target: /etc/traefik/dynamic.yml
     volumes:
-      - "./deploy/traefik-dynamic.yml:/etc/traefik/dynamic.yml:ro"
       - "traefik_letsencrypt:/letsencrypt"
     logging:
       driver: "json-file"
@@ -154,3 +156,22 @@ services:
 volumes:
   traefik_letsencrypt:
     driver: local
+
+configs:
+  traefik_dynamic:
+    content: |
+      http:
+        routers:
+          iris-dashboard:
+            rule: "Host(`agent.autoecole-inris.com`)"
+            entryPoints:
+              - websecure
+            service: iris-dashboard
+            tls:
+              certResolver: letsencrypt
+        services:
+          iris-dashboard:
+            loadBalancer:
+              servers:
+                - url: "http://host.docker.internal:3848"
+              passHostHeader: true
