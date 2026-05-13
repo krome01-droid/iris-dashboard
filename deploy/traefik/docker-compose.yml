@@ -1,0 +1,47 @@
+# ============================================
+# Traefik v3 — Reverse proxy + Let's Encrypt TLS
+# Listens on :80 + :443, routes by docker labels
+# Required by iris-dashboard (which has traefik.* labels)
+# ============================================
+
+services:
+  traefik:
+    image: traefik:v3.2
+    container_name: traefik
+    restart: unless-stopped
+    network_mode: host
+    command:
+      # API & dashboard (off in prod, on locally if needed)
+      - "--api.dashboard=false"
+      - "--api.insecure=false"
+
+      # Docker provider — auto-discover other containers via labels
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--entrypoints.websecure.address=:443"
+
+      # Let's Encrypt (TLS-ALPN-01 challenge — needs port 443 free)
+      - "--certificatesresolvers.letsencrypt.acme.email=al@crome-management.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+
+      # Logs
+      - "--log.level=INFO"
+      - "--accesslog=true"
+
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
