@@ -1,0 +1,22 @@
+# ============================================
+# Traefik v3 — dynamic config (file provider)
+# Bypass docker discovery (Hostinger sandbox issue)
+# Routes via host-gateway (iris-dashboard expose :3848 sur l'host)
+# ============================================
+
+http:
+  routers:
+    iris-dashboard:
+      rule: "Host(`agent.autoecole-inris.com`)"
+      entryPoints:
+        - websecure
+      service: iris-dashboard
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    iris-dashboard:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:3848"
+        passHostHeader: true
