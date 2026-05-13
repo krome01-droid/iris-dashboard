@@ -100,32 +100,46 @@ export async function GET(req: Request) {
     return Response.json({ error: "RESEND_API_KEY manquant" }, { status: 503 })
   }
 
-  const keywords = buildWeeklyTrackingKeywords()
-  const results: SerpPositionResult[] = []
-  const errors: string[] = []
+  try {
+    const keywords = buildWeeklyTrackingKeywords()
+    const results: SerpPositionResult[] = []
+    const errors: string[] = []
 
-  // Run in parallel batches of 5 to avoid rate limits
-  const BATCH = 5
-  for (let i = 0; i < keywords.length; i += BATCH) {
-    const batch = keywords.slice(i, i + BATCH)
-    const batchResults = await Promise.allSettled(batch.map((k) => getPosition({ keyword: k })))
-    batchResults.forEach((r, idx) => {
-      if (r.status === "fulfilled") results.push(r.value)
-      else errors.push(`${batch[idx]}: ${r.reason instanceof Error ? r.reason.message : String(r.reason)}`)
+    // Run in parallel batches of 5 to avoid rate limits
+    const BATCH = 5
+    for (let i = 0; i < keywords.length; i += BATCH) {
+      const batch = keywords.slice(i, i + BATCH)
+      const batchResults = await Promise.allSettled(batch.map((k) => getPosition({ keyword: k })))
+      batchResults.forEach((r, idx) => {
+        if (r.status === "fulfilled") results.push(r.value)
+        else errors.push(`${batch[idx]}: ${r.reason instanceof Error ? r.reason.message : String(r.reason)}`)
+      })
+    }
+
+    if (!results.length) {
+      return Response.json(
+        { success: false, error: "Aucune position récupérée", errors },
+        { status: 502 },
+      )
+    }
+
+    const html = renderHtml(results)
+    const { id } = await sendEmail({
+      to: REPORT_RECIPIENT,
+      subject: `[Iris SEO] Rapport positions · ${new Date().toLocaleDateString("fr-FR")}`,
+      html,
     })
+
+    return Response.json({
+      success: true,
+      emailId: id,
+      keywordsTracked: results.length,
+      errors: errors.length ? errors : undefined,
+    })
+  } catch (err) {
+    return Response.json(
+      { success: false, error: err instanceof Error ? err.message : String(err) },
+      { status: 500 },
+    )
   }
-
-  const html = renderHtml(results)
-  const { id } = await sendEmail({
-    to: REPORT_RECIPIENT,
-    subject: `[Iris SEO] Rapport positions · ${new Date().toLocaleDateString("fr-FR")}`,
-    html,
-  })
-
-  return Response.json({
-    success: true,
-    emailId: id,
-    keywordsTracked: results.length,
-    errors: errors.length ? errors : undefined,
-  })
 }
