@@ -81,12 +81,16 @@ services:
       # Cron secret (interne, auth des jobs)
       - CRON_SECRET=${CRON_SECRET}
 
+    networks:
+      - web
+
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.iris-dashboard.rule=Host(`agent.autoecole-inris.com`) && PathPrefix(`/admin-iris`)"
+      - "traefik.docker.network=iris-dashboard_web"
+      - "traefik.http.routers.iris-dashboard.rule=Host(`agent.autoecole-inris.com`)"
       - "traefik.http.routers.iris-dashboard.entrypoints=websecure"
       - "traefik.http.routers.iris-dashboard.tls.certresolver=letsencrypt"
-      - "traefik.http.services.iris-dashboard.loadbalancer.server.url=http://127.0.0.1:3848"
+      - "traefik.http.services.iris-dashboard.loadbalancer.server.port=3848"
 
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3848/admin-iris/api/auth/session"]
@@ -101,15 +105,54 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  # ============================================
+  # Traefik v3 — reverse proxy + Let's Encrypt
+  # Co-located avec iris-dashboard pour partager le network "web"
+  # ============================================
+  traefik:
+    image: traefik:v3.2
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    command:
+      - "--api.dashboard=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=iris-dashboard_web"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.email=al@crome-management.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--log.level=INFO"
+      - "--accesslog=true"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "traefik_letsencrypt:/letsencrypt"
+    networks:
+      - web
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
   iris-cron:
     image: ghcr.io/krome01-droid/iris-cron:latest
     pull_policy: always
     container_name: iris-cron
     restart: unless-stopped
-    network_mode: host
+    networks:
+      - web
     environment:
       - CRON_SECRET=${CRON_SECRET}
-      - IRIS_BASE_URL=http://127.0.0.1:3848/admin-iris
+      - IRIS_BASE_URL=http://iris-dashboard:3848/admin-iris
       - TZ=Europe/Paris
     depends_on:
       - iris-dashboard
@@ -118,3 +161,11 @@ services:
       options:
         max-size: "5m"
         max-file: "3"
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+  traefik_letsencrypt:
+    driver: local
