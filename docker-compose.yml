@@ -86,7 +86,6 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=iris-dashboard_web"
       - "traefik.http.routers.iris-dashboard.rule=Host(`agent.autoecole-inris.com`)"
       - "traefik.http.routers.iris-dashboard.entrypoints=websecure"
       - "traefik.http.routers.iris-dashboard.tls.certresolver=letsencrypt"
@@ -120,7 +119,6 @@ services:
       - "--api.dashboard=false"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=iris-dashboard_web"
       - "--providers.docker.endpoint=unix:///var/run/docker.sock"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
