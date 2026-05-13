@@ -78,7 +78,7 @@ jobs:
             WF_COLLECTION_ID_PRODUCTS=${{ vars.WF_COLLECTION_ID_PRODUCTS }}
             WF_COLLECTION_ID_SKUS=${{ vars.WF_COLLECTION_ID_SKUS }}
             WF_COLLECTION_ID_CATEGORIES=${{ vars.WF_COLLECTION_ID_CATEGORIES }}
-            GHL_API_KEY=${{ secrets.GHL_API_KEY }}
+            GHL_PIT=${{ secrets.GHL_PIT }}
             GHL_LOCATION_ID=${{ vars.GHL_LOCATION_ID }}
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
             RESEND_FROM_EMAIL=newsletter@autoecole-inris.com

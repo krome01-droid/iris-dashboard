@@ -30,25 +30,35 @@ const CONNECTION_META: Record<
   string,
   { label: string; icon: typeof Globe; description: string }
 > = {
-  wordpress: {
-    label: "WordPress",
+  webflow: {
+    label: "Webflow",
     icon: Globe,
-    description: "REST API — autoecole-inris.com",
+    description: "CMS v2 — autoecole-inris.com",
+  },
+  supabase: {
+    label: "Supabase",
+    icon: Database,
+    description: "Postgres — historique, conversations, articles",
   },
   ghl: {
     label: "GoHighLevel",
     icon: MessageSquare,
-    description: "API v1 + v2 (PIT) — Contacts, emails, social",
+    description: "API v2 (PIT) — CRM, calendrier, social",
   },
   claude: {
     label: "Claude API",
     icon: Bot,
-    description: "Anthropic — Agent IRIS",
+    description: "Anthropic — Agent Iris",
   },
-  mysql: {
-    label: "MySQL",
-    icon: Database,
-    description: "o2switch — Tables wp_iris_*",
+  dataforseo: {
+    label: "DataForSEO",
+    icon: Search,
+    description: "SERP, keywords, on-page, backlinks",
+  },
+  resend: {
+    label: "Resend",
+    icon: MessageSquare,
+    description: "Transactionnel + newsletter",
   },
   onesignal: {
     label: "OneSignal",
@@ -63,17 +73,17 @@ const CONNECTION_META: Record<
   fal: {
     label: "Fal.ai",
     icon: ImageIcon,
-    description: "Génération d'images IA (flux-pro) — fallback auto",
+    description: "Génération d'images IA (flux-pro) — fallback",
   },
   apify: {
     label: "Apify",
     icon: Search,
-    description: "Scraping SERP Google & contenu web",
+    description: "Scraping web & veille",
   },
-  ga4: {
-    label: "GA4 / Search Console",
+  google: {
+    label: "Google (GA4 + Search Console)",
     icon: BarChart3,
-    description: "Google Analytics & SEO",
+    description: "OAuth2 — Analytics & SEO",
   },
 }
 

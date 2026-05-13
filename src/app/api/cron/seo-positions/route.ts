@@ -2,8 +2,9 @@
 // Lundi 7h Paris. Email résumé envoyé à al@crome-management.com
 import { getPosition, type SerpPositionResult } from "@/lib/dataforseo/serp"
 import { buildWeeklyTrackingKeywords } from "@/lib/dataforseo/priority-keywords"
-import { isDataForSeoConfigured } from "@/lib/dataforseo/client"
+import { isDataForSeoConfigured, DEFAULT_TARGET_DOMAIN } from "@/lib/dataforseo/client"
 import { sendEmail, isResendConfigured } from "@/lib/resend/client"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 
 export const maxDuration = 300 // 5 min — DataForSEO live SERP ≈ 3-5s × 55 keywords
 
@@ -123,6 +124,27 @@ export async function GET(req: Request) {
       )
     }
 
+    // Persist to Supabase (best-effort, ne bloque pas l'email si échoue)
+    let persistedCount = 0
+    if (isSupabaseConfigured()) {
+      try {
+        const rows = results.map((r) => ({
+          keyword: r.keyword,
+          target_domain: r.target ?? DEFAULT_TARGET_DOMAIN,
+          position: r.position,
+          url: r.url,
+          total_results: r.totalResults,
+        }))
+        const { error, count } = await getServiceClient()
+          .from("iris_seo_positions")
+          .insert(rows, { count: "exact" })
+        if (!error) persistedCount = count ?? rows.length
+        else errors.push(`supabase insert: ${error.message}`)
+      } catch (e) {
+        errors.push(`supabase: ${e instanceof Error ? e.message : String(e)}`)
+      }
+    }
+
     const html = renderHtml(results)
     const { id } = await sendEmail({
       to: REPORT_RECIPIENT,
@@ -134,6 +156,7 @@ export async function GET(req: Request) {
       success: true,
       emailId: id,
       keywordsTracked: results.length,
+      persistedToSupabase: persistedCount,
       errors: errors.length ? errors : undefined,
     })
   } catch (err) {
