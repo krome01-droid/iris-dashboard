@@ -765,4 +765,64 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
       required: ["id"],
     },
   },
+  {
+    name: "seo_check_position",
+    description:
+      "DataForSEO — vérifie la position d'autoecole-inris.com (ou autre domaine) sur Google France pour un mot-clé. Renvoie position absolue + top 10 SERP. Utiliser pour mesurer où se classe le site sur 'auto école [ville]', 'permis [ville]', etc.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        keyword: { type: "string", description: "Mot-clé à tester (ex: 'auto école Marseille')" },
+        target: {
+          type: "string",
+          description: "Domaine cible (défaut: autoecole-inris.com)",
+        },
+      },
+      required: ["keyword"],
+    },
+  },
+  {
+    name: "seo_keyword_research",
+    description:
+      "DataForSEO — recherche de mots-clés. Mode 'volumes' : volume + concurrence pour une liste exacte. Mode 'suggestions' : suggestions à partir d'un seed avec volumes + difficulté. Utiliser pour identifier les opportunités SEO par ville/intent.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        mode: { type: "string", enum: ["volumes", "suggestions"] },
+        keywords: {
+          type: "array",
+          items: { type: "string" },
+          description: "Liste de mots-clés (mode volumes)",
+        },
+        seed: { type: "string", description: "Mot-clé seed (mode suggestions, ex: 'permis de conduire')" },
+        limit: { type: "number", description: "Nombre max de suggestions (défaut 50)" },
+      },
+    },
+  },
+  {
+    name: "seo_competitor_analysis",
+    description:
+      "DataForSEO — analyse concurrentielle. Mode 'ranked' : keywords sur lesquels un concurrent (ornikar.com, lepermislibre.fr, envoituresimone.com, vroomvroom.fr) se classe top 20. Mode 'gap' : content gap = keywords que le concurrent rank mais pas autoecole-inris.com. Utiliser pour identifier opportunités de contenu.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        domain: { type: "string", description: "Domaine concurrent (ex: ornikar.com)" },
+        mode: { type: "string", enum: ["ranked", "gap"] },
+        limit: { type: "number", description: "Nombre max résultats (défaut 100)" },
+      },
+      required: ["domain"],
+    },
+  },
+  {
+    name: "seo_onpage_audit",
+    description:
+      "DataForSEO — audit on-page instantané d'une URL. Renvoie score 0-100, title/H1/meta, performance (LCP, TTI), issues critiques et warnings. Utiliser pour vérifier la santé SEO d'une page (ex: page ville Webflow).",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        url: { type: "string", description: "URL complète à auditer (https://…)" },
+      },
+      required: ["url"],
+    },
+  },
 ]

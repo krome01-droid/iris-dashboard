@@ -19,6 +19,10 @@ import {
   getContact,
 } from "@/lib/ghl/crm"
 import { createItem, updateItem, listItems, publishItem, markdownToWebflowRichText } from "@/lib/webflow/client"
+import { getPosition } from "@/lib/dataforseo/serp"
+import { getKeywordVolumes, getKeywordSuggestions } from "@/lib/dataforseo/keywords"
+import { getRankedKeywords, getContentGap } from "@/lib/dataforseo/competitors"
+import { auditUrl } from "@/lib/dataforseo/onpage"
 
 type ToolHandler = (input: Record<string, unknown>) => Promise<unknown>
 
@@ -939,6 +943,48 @@ const toolHandlers: Record<string, ToolHandler> = {
     const id = Number(input.id)
     await execute("DELETE FROM wp_iris_editorial_calendar WHERE id = ?", [id])
     return { success: true, id, message: `Événement #${id} supprimé du calendrier éditorial.` }
+  },
+
+  async seo_check_position(input) {
+    return await getPosition({
+      keyword: String(input.keyword),
+      target: input.target ? String(input.target) : undefined,
+    })
+  },
+
+  async seo_keyword_research(input) {
+    const mode = (input.mode as "volumes" | "suggestions") ?? (input.seed ? "suggestions" : "volumes")
+    if (mode === "suggestions") {
+      if (!input.seed) throw new Error("seed requis pour mode 'suggestions'")
+      const data = await getKeywordSuggestions({
+        seed: String(input.seed),
+        limit: input.limit ? Number(input.limit) : undefined,
+      })
+      return { mode, count: data.length, data }
+    }
+    const keywords = Array.isArray(input.keywords) ? (input.keywords as string[]) : []
+    if (!keywords.length) throw new Error("keywords[] requis pour mode 'volumes'")
+    const data = await getKeywordVolumes({ keywords })
+    return { mode, count: data.length, data }
+  },
+
+  async seo_competitor_analysis(input) {
+    if (!input.domain) throw new Error("domain requis")
+    const mode = (input.mode as "ranked" | "gap") ?? "ranked"
+    if (mode === "gap") {
+      const data = await getContentGap({ competitorDomain: String(input.domain) })
+      return { mode, count: data.length, data: data.slice(0, 100) }
+    }
+    const data = await getRankedKeywords({
+      domain: String(input.domain),
+      limit: input.limit ? Number(input.limit) : 100,
+    })
+    return { mode, count: data.length, data }
+  },
+
+  async seo_onpage_audit(input) {
+    if (!input.url) throw new Error("url requis")
+    return await auditUrl(String(input.url))
   },
 }
 
