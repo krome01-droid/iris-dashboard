@@ -621,10 +621,15 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
   {
     name: "publish_webflow_item",
     description:
-      "Crée un item (article/page) dans une collection Webflow via la Content API v2. Convertit le contenu Markdown en rich text Webflow. Peut créer en brouillon ou publier directement. Requiert WF_API_KEY, WF_COLLECTION_ID dans les ENV vars.",
+      "Crée un item (article/page) dans une collection Webflow via la Content API v2. Convertit le contenu Markdown en rich text Webflow. Peut créer en brouillon ou publier directement. Requiert WF_API_KEY dans les ENV vars et un collection_id explicite (7 collections disponibles : PERMIS_BLOGS, CODE_BLOGS, POINTS_DE_RDV, LEXIQUES, PRODUCTS, SKUS, CATEGORIES).",
     input_schema: {
       type: "object" as const,
       properties: {
+        collection_id: {
+          type: "string",
+          description:
+            "ID de la collection cible (obligatoire). Ex: 67c976212edb4724b8839729 = articles permis, 67f3cadace1bbcd2670c8e4e = articles code.",
+        },
         title: { type: "string", description: "Titre de l'item" },
         slug: { type: "string", description: "Slug URL (ex: mon-article)" },
         content_markdown: {
@@ -648,7 +653,7 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
           description: "Champs supplémentaires propres à la collection (catégorie, auteur, image…)",
         },
       },
-      required: ["title", "slug", "content_markdown"],
+      required: ["collection_id", "title", "slug", "content_markdown"],
     },
   },
   {
@@ -661,7 +666,7 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
         item_id: { type: "string", description: "ID Webflow de l'item à modifier" },
         collection_id: {
           type: "string",
-          description: "ID de la collection (optionnel — utilise WF_COLLECTION_ID par défaut)",
+          description: "ID de la collection contenant l'item (obligatoire)",
         },
         title: { type: "string", description: "Nouveau titre (optionnel)" },
         content_markdown: {
@@ -679,19 +684,19 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
           description: "Champs supplémentaires à mettre à jour",
         },
       },
-      required: ["item_id"],
+      required: ["item_id", "collection_id"],
     },
   },
   {
     name: "list_webflow_items",
     description:
-      "Liste les items d'une collection Webflow (articles, pages…). Utile pour trouver l'ID d'un item existant avant de le mettre à jour.",
+      "Liste les items d'une collection Webflow (articles, pages…). Utile pour trouver l'ID d'un item existant avant de le mettre à jour. Collections disponibles : 67c976212edb4724b8839729 (PERMIS_BLOGS, 139 articles), 67f3cadace1bbcd2670c8e4e (CODE_BLOGS, 312 articles), 67ebdb2c5b536cee781ef623 (POINTS_DE_RDV, 413 centres), 67d3e470b6482baaa37000f0 (LEXIQUES, 20 termes), 67c976212edb4724b8839753 (PRODUCTS), 67c976212edb4724b8839703 (SKUS), 67c976212edb4724b8839773 (CATEGORIES).",
     input_schema: {
       type: "object" as const,
       properties: {
         collection_id: {
           type: "string",
-          description: "ID de la collection (optionnel — utilise WF_COLLECTION_ID par défaut)",
+          description: "ID de la collection à lister (obligatoire)",
         },
         limit: {
           type: "number",
@@ -702,7 +707,7 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
           description: "Décalage pour la pagination (défaut: 0)",
         },
       },
-      required: [],
+      required: ["collection_id"],
     },
   },
 

@@ -1,23 +1,6 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth/options"
-import { query, execute } from "@/lib/db/connection"
-import { runMigrations } from "@/lib/db/migrate"
-
-// A Promise stored at module level so concurrent requests in the same serverless
-// instance share one migration run. Resets to null on failure so the next cold
-// start retries automatically.
-let migrationPromise: Promise<void> | null = null
-
-async function ensureTables() {
-  if (!migrationPromise) {
-    migrationPromise = runMigrations()
-      .then(() => undefined)
-      .catch(() => {
-        migrationPromise = null // allow retry on next request
-      })
-  }
-  await migrationPromise
-}
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 
 export async function GET() {
   const session = await getServerSession(authOptions)
@@ -25,21 +8,19 @@ export async function GET() {
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
-  await ensureTables()
+  if (!isSupabaseConfigured()) return Response.json([])
 
-  try {
-    const conversations = await query<{
-      id: number
-      title: string | null
-      created_at: string
-      updated_at: string
-    }>(
-      "SELECT id, title, created_at, updated_at FROM wp_iris_conversations ORDER BY updated_at DESC LIMIT 30",
-    )
-    return Response.json(conversations)
-  } catch {
-    return Response.json([])
-  }
+  const email = session.user?.email ?? null
+  const sb = getServiceClient()
+  const q = sb
+    .from("iris_conversations")
+    .select("id, title, created_at, updated_at")
+    .order("updated_at", { ascending: false })
+    .limit(30)
+
+  const { data, error } = email ? await q.eq("user_email", email) : await q
+  if (error) return Response.json([])
+  return Response.json(data ?? [])
 }
 
 export async function POST(req: Request) {
@@ -48,9 +29,16 @@ export async function POST(req: Request) {
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
+  if (!isSupabaseConfigured()) {
+    return Response.json(
+      { error: "Supabase non configuré (SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY manquants)" },
+      { status: 503 },
+    )
+  }
+
   const body = await req.json()
   const { id, title, messages } = body as {
-    id?: number
+    id?: string
     title?: string
     messages: unknown[]
   }
@@ -59,24 +47,34 @@ export async function POST(req: Request) {
     return Response.json({ error: "Messages requis" }, { status: 400 })
   }
 
-  await ensureTables()
-
-  const messagesJson = JSON.stringify(messages)
+  const email = session.user?.email ?? "iris@autoecole-inris.com"
+  const sb = getServiceClient()
 
   try {
     if (id) {
-      await execute(
-        "UPDATE wp_iris_conversations SET title = ?, messages_json = ? WHERE id = ?",
-        [title || null, messagesJson, id],
-      )
+      const { error } = await sb
+        .from("iris_conversations")
+        .update({
+          title: title || null,
+          messages_json: messages,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", id)
+      if (error) throw new Error(error.message)
       return Response.json({ success: true, id })
-    } else {
-      const result = await execute(
-        "INSERT INTO wp_iris_conversations (title, messages_json) VALUES (?, ?)",
-        [title || null, messagesJson],
-      )
-      return Response.json({ success: true, id: result.insertId })
     }
+
+    const { data, error } = await sb
+      .from("iris_conversations")
+      .insert({
+        user_email: email,
+        title: title || null,
+        messages_json: messages,
+      })
+      .select("id")
+      .single()
+    if (error) throw new Error(error.message)
+    return Response.json({ success: true, id: data.id })
   } catch (err) {
     return Response.json(
       { error: err instanceof Error ? err.message : "Erreur sauvegarde" },

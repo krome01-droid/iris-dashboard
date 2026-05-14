@@ -7,16 +7,16 @@ export function useAiChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isStreaming, setIsStreaming] = useState(false)
   const [currentToolCalls, setCurrentToolCalls] = useState<ToolCallResult[]>([])
-  const [conversationId, setConversationId] = useState<number | null>(null)
+  const [conversationId, setConversationId] = useState<string | null>(null)
   // Ref mirrors state so closures in sendMessage always read the latest id
   // without being recreated on every id change.
-  const conversationIdRef = useRef<number | null>(null)
+  const conversationIdRef = useRef<string | null>(null)
   const [lastSavedAt, setLastSavedAt] = useState<number>(0)
   const [saveError, setSaveError] = useState<string | null>(null)
   const abortRef = useRef<AbortController | null>(null)
 
   const saveConversation = useCallback(
-    async (msgs: ChatMessage[], convId: number | null) => {
+    async (msgs: ChatMessage[], convId: string | null) => {
       if (msgs.length === 0) return convId
 
       const firstUserMsg = msgs.find((m) => m.role === "user")
@@ -33,7 +33,7 @@ export function useAiChat() {
         if (res.ok) {
           setSaveError(null)
           const data = await res.json()
-          return data.id as number
+          return data.id as string
         }
         const err = await res.json().catch(() => ({ error: `HTTP ${res.status}` }))
         setSaveError(err.error ?? `Sauvegarde échouée (${res.status})`)
@@ -233,7 +233,7 @@ export function useAiChat() {
     abortRef.current?.abort()
   }, [])
 
-  const loadConversation = useCallback(async (id: number) => {
+  const loadConversation = useCallback(async (id: string) => {
     try {
       const res = await fetch(`/admin-iris/api/conversations/${id}`)
       if (res.ok) {

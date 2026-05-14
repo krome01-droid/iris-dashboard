@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth/options"
-import { query, execute } from "@/lib/db/connection"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 
 export async function GET(
   _req: Request,
@@ -11,32 +11,33 @@ export async function GET(
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
-  const { id } = await params
-
-  try {
-    const rows = await query<{
-      id: number
-      title: string | null
-      messages_json: string
-      created_at: string
-      updated_at: string
-    }>("SELECT * FROM wp_iris_conversations WHERE id = ?", [Number(id)])
-
-    if (rows.length === 0) {
-      return Response.json({ error: "Conversation introuvable" }, { status: 404 })
-    }
-
-    const conv = rows[0]
-    return Response.json({
-      ...conv,
-      messages: JSON.parse(conv.messages_json),
-    })
-  } catch (err) {
-    return Response.json(
-      { error: err instanceof Error ? err.message : "Erreur" },
-      { status: 500 },
-    )
+  if (!isSupabaseConfigured()) {
+    return Response.json({ error: "Supabase non configuré" }, { status: 503 })
   }
+
+  const { id } = await params
+  const sb = getServiceClient()
+
+  const { data, error } = await sb
+    .from("iris_conversations")
+    .select("id, title, messages_json, created_at, updated_at")
+    .eq("id", id)
+    .maybeSingle()
+
+  if (error) {
+    return Response.json({ error: error.message }, { status: 500 })
+  }
+  if (!data) {
+    return Response.json({ error: "Conversation introuvable" }, { status: 404 })
+  }
+
+  return Response.json({
+    id: data.id,
+    title: data.title,
+    created_at: data.created_at,
+    updated_at: data.updated_at,
+    messages: Array.isArray(data.messages_json) ? data.messages_json : [],
+  })
 }
 
 export async function DELETE(
@@ -48,15 +49,16 @@ export async function DELETE(
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
-  const { id } = await params
-
-  try {
-    await execute("DELETE FROM wp_iris_conversations WHERE id = ?", [Number(id)])
-    return Response.json({ success: true })
-  } catch (err) {
-    return Response.json(
-      { error: err instanceof Error ? err.message : "Erreur" },
-      { status: 500 },
-    )
+  if (!isSupabaseConfigured()) {
+    return Response.json({ error: "Supabase non configuré" }, { status: 503 })
   }
+
+  const { id } = await params
+  const sb = getServiceClient()
+
+  const { error } = await sb.from("iris_conversations").delete().eq("id", id)
+  if (error) {
+    return Response.json({ error: error.message }, { status: 500 })
+  }
+  return Response.json({ success: true })
 }

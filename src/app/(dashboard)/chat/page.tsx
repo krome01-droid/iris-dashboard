@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Plus, MessageSquare, Trash2, Download, ClipboardCopy, AlertTriangle } from "lucide-react"
 
 interface ConversationSummary {
-  id: number
+  id: string
   title: string | null
   updated_at: string
 }
@@ -79,7 +79,7 @@ export default function ChatPage() {
     navigator.clipboard.writeText(text)
   }
 
-  const handleDelete = async (id: number, e: React.MouseEvent) => {
+  const handleDelete = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation()
     try {
       await fetch(`/admin-iris/api/conversations/${id}`, { method: "DELETE" })

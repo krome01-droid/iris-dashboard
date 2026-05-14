@@ -810,8 +810,12 @@ const toolHandlers: Record<string, ToolHandler> = {
   // ─── CMS Webflow ──────────────────────────────────────────────────────────
 
   async publish_webflow_item(input) {
-    const collectionId = process.env.WF_COLLECTION_ID ?? ""
-    if (!collectionId) throw new Error("WF_COLLECTION_ID manquant dans les variables d'environnement")
+    const collectionId = input.collection_id ? String(input.collection_id) : ""
+    if (!collectionId) {
+      throw new Error(
+        "collection_id requis — utiliser un des IDs disponibles : WF_COLLECTION_ID_PERMIS_BLOGS (articles permis), _CODE_BLOGS (articles code), _POINTS_DE_RDV, _LEXIQUES, _PRODUCTS, _SKUS, _CATEGORIES",
+      )
+    }
 
     const richText = markdownToWebflowRichText(String(input.content_markdown ?? ""))
     const isDraft = !input.publish
@@ -844,10 +848,10 @@ const toolHandlers: Record<string, ToolHandler> = {
   },
 
   async update_webflow_item(input) {
-    const collectionId = input.collection_id
-      ? String(input.collection_id)
-      : (process.env.WF_COLLECTION_ID ?? "")
-    if (!collectionId) throw new Error("WF_COLLECTION_ID manquant dans les variables d'environnement")
+    const collectionId = input.collection_id ? String(input.collection_id) : ""
+    if (!collectionId) {
+      throw new Error("collection_id requis pour update_webflow_item")
+    }
 
     const fields: Record<string, unknown> = {}
     if (input.title) fields["name"] = String(input.title)
@@ -872,10 +876,12 @@ const toolHandlers: Record<string, ToolHandler> = {
   },
 
   async list_webflow_items(input) {
-    const collectionId = input.collection_id
-      ? String(input.collection_id)
-      : (process.env.WF_COLLECTION_ID ?? "")
-    if (!collectionId) throw new Error("WF_COLLECTION_ID manquant dans les variables d'environnement")
+    const collectionId = input.collection_id ? String(input.collection_id) : ""
+    if (!collectionId) {
+      throw new Error(
+        "collection_id requis — IDs disponibles : 67c976212edb4724b8839729 (PERMIS_BLOGS, 139 articles), 67f3cadace1bbcd2670c8e4e (CODE_BLOGS, 312 articles), 67ebdb2c5b536cee781ef623 (POINTS_DE_RDV, 413 centres), 67d3e470b6482baaa37000f0 (LEXIQUES, 20 termes), 67c976212edb4724b8839753 (PRODUCTS), 67c976212edb4724b8839703 (SKUS), 67c976212edb4724b8839773 (CATEGORIES)",
+      )
+    }
 
     const res = await listItems(collectionId, {
       limit: input.limit ? Number(input.limit) : 20,
