@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk"
-import { listPosts } from "@/lib/wordpress/client"
+import { listAllArticles, type IrisArticle } from "@/lib/webflow/client"
 import { scheduleSocialPost } from "@/lib/ghl/social-planner"
-import { execute, query } from "@/lib/db/connection"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 
 export async function GET(req: Request) {
   if (req.headers.get("Authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -9,41 +9,46 @@ export async function GET(req: Request) {
   }
 
   try {
-    // Get recent published articles (last 7 days)
-    const posts = await listPosts({ per_page: 10, status: "publish" })
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return Response.json({ status: "error", error: "ANTHROPIC_API_KEY manquant" }, { status: 500 })
+    }
+
+    const articles = await listAllArticles().catch(() => [] as IrisArticle[])
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-    const recentPosts = posts.filter((p) => p.date >= sevenDaysAgo)
+    const recentArticles = articles
+      .filter((a) => a.date >= sevenDaysAgo)
+      .sort((a, b) => (a.date < b.date ? 1 : -1))
+      .slice(0, 10)
 
-    if (recentPosts.length === 0) {
-      return Response.json({ status: "ok", message: "Aucun article recent a promouvoir", scheduled: 0 })
+    if (recentArticles.length === 0) {
+      return Response.json({ status: "ok", message: "Aucun article récent à promouvoir", scheduled: 0 })
     }
 
-    // Check which articles already have social posts in our DB
-    let existingPostIds: number[] = []
-    try {
-      const rows = await query<{ wp_post_id: number }>(
-        "SELECT DISTINCT CAST(JSON_EXTRACT(meta_json, '$.wp_post_id') AS UNSIGNED) as wp_post_id FROM wp_iris_social_posts WHERE created_at >= ?",
-        [sevenDaysAgo],
-      )
-      existingPostIds = rows.map((r) => r.wp_post_id).filter(Boolean)
-    } catch {
-      // DB may not be migrated
+    const sb = isSupabaseConfigured() ? getServiceClient() : null
+
+    // Articles déjà promus cette semaine (clé = webflow id stocké dans meta_json.article_id)
+    const promotedIds = new Set<string>()
+    if (sb) {
+      const { data } = await sb
+        .from("iris_social_posts")
+        .select("media_urls")
+        .gte("created_at", sevenDaysAgo)
+      for (const row of data ?? []) {
+        const meta = row.media_urls as { article_id?: string } | null
+        if (meta?.article_id) promotedIds.add(meta.article_id)
+      }
     }
 
-    // Filter articles without social posts
-    const articlesToPromote = recentPosts
-      .filter((p) => !existingPostIds.includes(p.id))
-      .slice(0, 3) // Max 3 per run
+    const articlesToPromote = recentArticles.filter((a) => !promotedIds.has(a.id)).slice(0, 3)
 
     if (articlesToPromote.length === 0) {
-      return Response.json({ status: "ok", message: "Tous les articles recents ont deja des posts", scheduled: 0 })
+      return Response.json({ status: "ok", message: "Tous les articles récents ont déjà des posts", scheduled: 0 })
     }
 
-    // Generate social posts with Claude
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
     const articlesText = articlesToPromote
-      .map((p, i) => `${i + 1}. "${p.title.rendered}" — ${p.link}`)
+      .map((a, i) => `${i + 1}. "${a.title}" — ${a.url}`)
       .join("\n")
 
     const response = await client.messages.create({
@@ -54,17 +59,17 @@ export async function GET(req: Request) {
           role: "user",
           content: `Tu es IRIS, community manager pour autoecole-inris.com.
 
-Genere des posts Facebook pour promouvoir ces articles. Chaque post doit :
+Génère des posts Facebook pour promouvoir ces articles. Chaque post doit :
 - Accrocher avec une question ou un chiffre
-- Etre engageant et accessible (cible : 17-25 ans)
+- Être engageant et accessible (cible : 17-25 ans)
 - Inclure 3-5 hashtags pertinents
-- Faire 100-200 caracteres (hors hashtags)
-- NE PAS inclure le lien (il sera ajoute automatiquement)
+- Faire 100-200 caractères (hors hashtags)
+- NE PAS inclure le lien (il sera ajouté automatiquement)
 
 Articles :
 ${articlesText}
 
-Reponds en JSON : { "posts": [{ "article_index": number, "text": string, "hashtags": ["tag1", "tag2"] }] }`,
+Réponds en JSON : { "posts": [{ "article_index": number, "text": string, "hashtags": ["tag1", "tag2"] }] }`,
         },
       ],
     })
@@ -79,21 +84,20 @@ Reponds en JSON : { "posts": [{ "article_index": number, "text": string, "hashta
         socialPosts = parsed.posts ?? []
       }
     } catch {
-      return Response.json({ status: "error", error: "Impossible de parser la reponse Claude" }, { status: 500 })
+      return Response.json({ status: "error", error: "Impossible de parser la réponse Claude" }, { status: 500 })
     }
 
-    // Schedule posts for today at different times
     let scheduled = 0
-    const baseHour = 12 // noon
+    const baseHour = 12
 
     for (const post of socialPosts) {
       const article = articlesToPromote[post.article_index - 1]
       if (!article) continue
 
       const scheduleTime = new Date()
-      scheduleTime.setHours(baseHour + scheduled * 3, 0, 0, 0) // Space 3h apart
+      scheduleTime.setHours(baseHour + scheduled * 3, 0, 0, 0)
       if (scheduleTime < new Date()) {
-        scheduleTime.setDate(scheduleTime.getDate() + 1) // Tomorrow if time has passed
+        scheduleTime.setDate(scheduleTime.getDate() + 1)
       }
 
       try {
@@ -102,22 +106,17 @@ Reponds en JSON : { "posts": [{ "article_index": number, "text": string, "hashta
           text: post.text,
           hashtags: post.hashtags,
           scheduled_at: scheduleTime.toISOString(),
-          link_url: article.link,
+          link_url: article.url,
         })
 
-        // Log to DB
-        try {
-          await execute(
-            `INSERT INTO wp_iris_social_posts (platform, scheduled_at, status, caption, media_urls)
-             VALUES ('facebook', ?, 'scheduled', ?, ?)`,
-            [
-              scheduleTime.toISOString().slice(0, 19).replace("T", " "),
-              `${post.text}\n\n${post.hashtags.map((h) => `#${h}`).join(" ")}`,
-              JSON.stringify({ link: article.link, wp_post_id: article.id }),
-            ],
-          )
-        } catch {
-          // DB logging failure doesn't block scheduling
+        if (sb) {
+          await sb.from("iris_social_posts").insert({
+            platform: "facebook",
+            scheduled_at: scheduleTime.toISOString(),
+            status: "scheduled",
+            caption: `${post.text}\n\n${post.hashtags.map((h) => `#${h}`).join(" ")}`,
+            media_urls: { link: article.url, article_id: article.id, article_slug: article.slug },
+          })
         }
 
         scheduled++
@@ -128,7 +127,7 @@ Reponds en JSON : { "posts": [{ "article_index": number, "text": string, "hashta
 
     return Response.json({
       status: "ok",
-      articles_found: recentPosts.length,
+      articles_found: recentArticles.length,
       articles_promoted: articlesToPromote.length,
       posts_scheduled: scheduled,
     })

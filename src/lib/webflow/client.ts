@@ -174,3 +174,90 @@ export async function publishItem(
     body: JSON.stringify({ itemIds: [itemId] }),
   })
 }
+
+// ─── Articles normalisés (cron jobs IRIS) ────────────────────────────────────
+
+/**
+ * Forme unifiée d'un article Webflow utilisée par les cron jobs IRIS.
+ * Remplace l'ancien `WPPost` du temps WordPress.
+ */
+export interface IrisArticle {
+  id: string
+  collectionId: string
+  collection: "permis" | "code"
+  title: string
+  slug: string
+  url: string
+  date: string         // ISO — lastPublished sinon lastUpdated sinon createdOn
+  content: string      // HTML (blog-post-richt-text)
+  summary: string      // texte court (blog-post-summary)
+  isDraft: boolean
+  isArchived: boolean
+}
+
+const SITE_BASE_URL = "https://autoecole-inris.com"
+
+const BLOG_COLLECTIONS: { id: string; label: "permis" | "code" }[] = [
+  { id: process.env.WF_COLLECTION_ID_PERMIS_BLOGS ?? "67c976212edb4724b8839729", label: "permis" },
+  { id: process.env.WF_COLLECTION_ID_CODE_BLOGS ?? "67f3cadace1bbcd2670c8e4e", label: "code" },
+]
+
+function asString(v: unknown): string {
+  if (typeof v === "string") return v
+  if (v == null) return ""
+  return String(v)
+}
+
+function normalizeArticle(
+  item: WebflowItem,
+  collectionId: string,
+  label: "permis" | "code",
+): IrisArticle {
+  const fd = item.fieldData ?? {}
+  const slug = asString(fd.slug)
+  return {
+    id: item.id,
+    collectionId,
+    collection: label,
+    title: asString(fd.name),
+    slug,
+    url: slug ? `${SITE_BASE_URL}/${label === "code" ? "code" : "permis"}/${slug}` : SITE_BASE_URL,
+    date: item.lastPublished ?? item.lastUpdated ?? item.createdOn ?? new Date(0).toISOString(),
+    content: asString(fd["blog-post-richt-text"]),
+    summary: asString(fd["blog-post-summary"]),
+    isDraft: item.isDraft ?? false,
+    isArchived: item.isArchived ?? false,
+  }
+}
+
+/**
+ * Liste TOUS les items d'une collection en paginant (limit max Webflow = 100).
+ */
+export async function listAllItems(collectionId: string): Promise<WebflowItem[]> {
+  const all: WebflowItem[] = []
+  const limit = 100
+  let offset = 0
+  // Garde-fou : on plafonne à 50 pages (5 000 items) — bien plus que les ~450 actuels.
+  for (let page = 0; page < 50; page++) {
+    const res = await listItems(collectionId, { limit, offset })
+    all.push(...res.items)
+    const total = res.pagination?.total ?? 0
+    offset += limit
+    if (offset >= total || res.items.length === 0) break
+  }
+  return all
+}
+
+/**
+ * Liste TOUS les articles publiés (Permis + Code) sous une forme normalisée.
+ * Exclut les drafts et les archived.
+ */
+export async function listAllArticles(): Promise<IrisArticle[]> {
+  const perCollection = await Promise.all(
+    BLOG_COLLECTIONS.map(async ({ id, label }) => {
+      const items = await listAllItems(id).catch(() => [] as WebflowItem[])
+      return items.map((it) => normalizeArticle(it, id, label))
+    }),
+  )
+  return perCollection.flat().filter((a) => !a.isDraft && !a.isArchived)
+}

@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk"
-import { execute } from "@/lib/db/connection"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 
 const RSS_FEEDS = [
   "https://www.securite-routiere.gouv.fr/rss.xml",
@@ -106,22 +106,23 @@ Reponds en JSON : { "alerts": [{ "title": string, "relevance": string, "article_
       // If parsing fails, store raw analysis
     }
 
-    // Save high-priority alerts to content_log as article ideas
+    // Save high-priority alerts to Supabase as article ideas
     let saved = 0
-    for (const alert of alerts.filter((a) => a.priority === "high" || a.priority === "medium")) {
-      try {
-        await execute(
-          `INSERT INTO wp_iris_content_log (title, type, status, content_markdown, meta_json, created_by)
-           VALUES (?, 'article', 'draft', ?, ?, 'iris-veille')`,
-          [
-            alert.title,
-            `**Idee d'article (veille auto):**\n\n${alert.article_idea}\n\n**Source:** ${alert.source_url}\n\n**Pertinence:** ${alert.relevance}`,
-            JSON.stringify({ source: "cron_veille", priority: alert.priority }),
-          ],
-        )
-        saved++
-      } catch {
-        // DB may not be migrated yet
+    const sb = isSupabaseConfigured() ? getServiceClient() : null
+    if (sb) {
+      const rows = alerts
+        .filter((a) => a.priority === "high" || a.priority === "medium")
+        .map((alert) => ({
+          title: alert.title,
+          type: "article",
+          status: "draft",
+          content_markdown: `**Idée d'article (veille auto) :**\n\n${alert.article_idea}\n\n**Source :** ${alert.source_url}\n\n**Pertinence :** ${alert.relevance}`,
+          meta_json: { source: "cron_veille", priority: alert.priority, source_url: alert.source_url },
+          created_by: "iris-veille",
+        }))
+      if (rows.length) {
+        const { error } = await sb.from("iris_content_log").insert(rows)
+        if (!error) saved = rows.length
       }
     }
 

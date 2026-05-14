@@ -1,26 +1,24 @@
 import Anthropic from "@anthropic-ai/sdk"
-import { listAllPosts, listAllPages, type WPPost } from "@/lib/wordpress/client"
-import { execute, query } from "@/lib/db/connection"
+import { listAllArticles, type IrisArticle } from "@/lib/webflow/client"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 
 interface LinkStats {
   slug: string
   title: string
-  type: "post" | "page"
+  collection: "permis" | "code"
   date: string
   wordCount: number
   outgoingInternal: number
   incomingInternal: number
 }
 
-function analyzeContent(items: { post: WPPost; type: "post" | "page" }[], siteHost: string): LinkStats[] {
-  // Build slug → incoming-count map by parsing every item's HTML for hrefs targeting siteHost
+function analyzeContent(articles: IrisArticle[]): LinkStats[] {
   const incomingBySlug = new Map<string, number>()
   const stats: Omit<LinkStats, "incomingInternal">[] = []
-
   const hrefRe = /href=["']([^"']+)["']/gi
 
-  for (const { post, type } of items) {
-    const html = post.content?.rendered ?? ""
+  for (const article of articles) {
+    const html = article.content
     const text = html.replace(/<[^>]+>/g, " ")
     const wordCount = text.split(/\s+/).filter(Boolean).length
 
@@ -28,11 +26,10 @@ function analyzeContent(items: { post: WPPost; type: "post" | "page" }[], siteHo
     let m: RegExpExecArray | null
     while ((m = hrefRe.exec(html)) !== null) {
       const href = m[1]
-      if (!href.includes(siteHost)) continue
+      if (!href.includes("autoecole-inris.com")) continue
       outgoingInternal++
-      // Extract slug from URL path (last non-empty segment)
       try {
-        const u = new URL(href, `https://${siteHost}`)
+        const u = new URL(href, "https://autoecole-inris.com")
         const segments = u.pathname.split("/").filter(Boolean)
         const targetSlug = segments[segments.length - 1]
         if (targetSlug) {
@@ -44,10 +41,10 @@ function analyzeContent(items: { post: WPPost; type: "post" | "page" }[], siteHo
     }
 
     stats.push({
-      slug: post.slug,
-      title: post.title.rendered,
-      type,
-      date: post.date,
+      slug: article.slug,
+      title: article.title,
+      collection: article.collection,
+      date: article.date,
       wordCount,
       outgoingInternal,
     })
@@ -65,7 +62,11 @@ export async function GET(req: Request) {
   const dryRun = url.searchParams.get("dry_run") === "1"
 
   try {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return Response.json({ status: "error", error: "ANTHROPIC_API_KEY manquant" }, { status: 500 })
+    }
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
     const today = new Date().toLocaleDateString("fr-FR", {
       weekday: "long",
       year: "numeric",
@@ -74,31 +75,36 @@ export async function GET(req: Request) {
       timeZone: "Europe/Paris",
     })
 
-    const siteHost = (process.env.WP_URL ?? "").replace(/^https?:\/\//, "").replace(/\/$/, "")
+    const sb = isSupabaseConfigured() ? getServiceClient() : null
 
-    // Full inventory: all posts + all pages, paginated
-    const [posts, pages, recentBriefs, seoReports] = await Promise.all([
-      listAllPosts().catch(() => [] as WPPost[]),
-      listAllPages().catch(() => [] as WPPost[]),
-      query<{ content_markdown: string; meta_json: string; created_at: string }>(
-        `SELECT content_markdown, meta_json, created_at
-         FROM wp_iris_content_log
-         WHERE type = 'brief' AND created_by = 'iris-cron'
-         ORDER BY created_at DESC LIMIT 5`,
-      ).catch(() => []),
-      query<{ data_json: string; created_at: string }>(
-        `SELECT data_json, created_at FROM wp_iris_seo_reports ORDER BY created_at DESC LIMIT 1`,
-      ).catch(() => []),
+    // Inventaire Webflow + briefs récents + dernier rapport SEO (Supabase)
+    const [articles, recentBriefsRes, seoReportsRes] = await Promise.all([
+      listAllArticles().catch(() => [] as IrisArticle[]),
+      sb
+        ? sb
+            .from("iris_content_log")
+            .select("content_markdown, meta_json, created_at")
+            .eq("type", "brief")
+            .eq("created_by", "iris-cron")
+            .order("created_at", { ascending: false })
+            .limit(5)
+        : Promise.resolve({ data: [], error: null }),
+      sb
+        ? sb
+            .from("iris_seo_reports")
+            .select("data_json, created_at")
+            .order("created_at", { ascending: false })
+            .limit(1)
+        : Promise.resolve({ data: [], error: null }),
     ])
 
-    // Compute link/word metrics across the whole site
-    const allItems = [
-      ...posts.map((p) => ({ post: p, type: "post" as const })),
-      ...pages.map((p) => ({ post: p, type: "page" as const })),
-    ]
-    const stats = analyzeContent(allItems, siteHost)
+    const recentBriefs =
+      (recentBriefsRes as { data: { content_markdown: string | null; meta_json: unknown }[] | null }).data ?? []
+    const seoReports =
+      (seoReportsRes as { data: { data_json: unknown }[] | null }).data ?? []
 
-    // Recent (last 7 days)
+    const stats = analyzeContent(articles)
+
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
     const recentStats = stats.filter((s) => new Date(s.date) >= weekAgo)
 
@@ -109,61 +115,54 @@ export async function GET(req: Request) {
     const thin = stats.filter((s) => s.wordCount < 400)
     const recentOrphans = recentStats.filter((s) => s.incomingInternal === 0)
 
-    // Previous brief actions (avoid repeating verbatim)
+    // Actions déjà proposées dans les briefs précédents
     const previousActions: string[] = []
     for (const b of recentBriefs) {
-      try {
-        const meta = JSON.parse(b.meta_json) as { actions?: { title: string }[] }
-        for (const a of meta.actions ?? []) previousActions.push(a.title)
-      } catch {
-        // fall back to scanning markdown
+      const meta = b.meta_json as { actions?: { title: string }[] } | null
+      if (meta?.actions) {
+        for (const a of meta.actions) previousActions.push(a.title)
+      } else if (b.content_markdown) {
         const matches = b.content_markdown.match(/\*\*([^*]+)\*\*/g) ?? []
         previousActions.push(...matches.map((m) => m.replace(/\*\*/g, "").trim()))
       }
     }
 
-    const lastSeoData = seoReports[0]
-      ? (() => {
-          try {
-            return JSON.parse(seoReports[0].data_json)
-          } catch {
-            return null
-          }
-        })()
-      : null
+    const lastSeoData = (seoReports[0]?.data_json as { score?: number } | null) ?? null
 
-    const totalPosts = posts.length
-    const totalPages = pages.length
+    const articlesPermis = articles.filter((a) => a.collection === "permis").length
+    const articlesCode = articles.filter((a) => a.collection === "code").length
+    const totalArticles = articles.length
     const seoScore =
-      lastSeoData?.score ?? Math.min(100, 40 + totalPosts * 0.3 + recentStats.length * 5)
+      lastSeoData?.score ?? Math.min(100, 40 + totalArticles * 0.05 + recentStats.length * 5)
 
     const fmt = (s: LinkStats) =>
-      `${s.slug} (${s.type}, ${s.wordCount}w, in:${s.incomingInternal} out:${s.outgoingInternal})`
+      `${s.slug} (${s.collection}, ${s.wordCount}w, in:${s.incomingInternal} out:${s.outgoingInternal})`
 
     const prompt = `Tu es IRIS, l'agent IA d'autoecole-inris.com — comparateur d'auto-écoles en France.
 
 Date du jour : ${today}
 
-## Inventaire complet (vérifié, pas une estimation)
+## Inventaire complet (Webflow, vérifié)
 
-- Articles publiés : ${totalPosts}
-- Pages publiées : ${totalPages}
+- Articles permis : ${articlesPermis}
+- Articles code : ${articlesCode}
+- Total publiés : ${totalArticles}
 - Publiés cette semaine : ${recentStats.length}
 - Score SEO : ${Math.round(seoScore)}/100
 
 ## Maillage interne — données réelles
 
 **Pages orphelines (0 lien entrant) — ${orphans.length} :**
-${orphans.map(fmt).join("\n") || "aucune"}
+${orphans.slice(0, 30).map(fmt).join("\n") || "aucune"}
 
 **Pages récentes orphelines (cette semaine, 0 lien entrant) — ${recentOrphans.length} :**
 ${recentOrphans.map(fmt).join("\n") || "aucune"}
 
-**Pages pauvres en liens sortants (<3) — ${linkPoor.length}, triées par taille :**
-${linkPoor.map(fmt).join("\n") || "aucune"}
+**Pages pauvres en liens sortants (<3) — ${linkPoor.length}, top 20 triées par taille :**
+${linkPoor.slice(0, 20).map(fmt).join("\n") || "aucune"}
 
 **Pages thin content (<400 mots) — ${thin.length} :**
-${thin.map(fmt).join("\n") || "aucune"}
+${thin.slice(0, 20).map(fmt).join("\n") || "aucune"}
 
 ## Briefs précédents — actions DÉJÀ proposées (NE PAS RÉPÉTER)
 
@@ -216,33 +215,37 @@ Réponds en JSON strict :
       score: number
     }
 
-    if (!dryRun) await execute(
-      `INSERT INTO wp_iris_content_log (title, type, status, content_markdown, meta_json, created_by)
-       VALUES (?, 'brief', 'published', ?, ?, 'iris-cron')`,
-      [
-        `Brief matinal — ${today}`,
-        `## ${today}\n\n**État du site :** ${brief.site_status}\n\n**Actions prioritaires :**\n${brief.actions
-          .map(
-            (a) =>
-              `- [${a.impact.toUpperCase()}] **${a.title}** (${a.time_needed}): ${a.description}${a.target_slugs?.length ? ` — cibles : ${a.target_slugs.join(", ")}` : ""}`,
-          )
-          .join("\n")}\n\n**Idée d'article :** ${brief.article_idea.title}\nMots-clés : ${brief.article_idea.keywords.join(", ")}\n${brief.article_idea.why}\n\n**Alerte :** ${brief.alert}\n\n**Objectif semaine :** ${brief.weekly_goal}`,
-        JSON.stringify({
+    const markdown = `## ${today}\n\n**État du site :** ${brief.site_status}\n\n**Actions prioritaires :**\n${brief.actions
+      .map(
+        (a) =>
+          `- [${a.impact.toUpperCase()}] **${a.title}** (${a.time_needed}): ${a.description}${a.target_slugs?.length ? ` — cibles : ${a.target_slugs.join(", ")}` : ""}`,
+      )
+      .join("\n")}\n\n**Idée d'article :** ${brief.article_idea.title}\nMots-clés : ${brief.article_idea.keywords.join(", ")}\n${brief.article_idea.why}\n\n**Alerte :** ${brief.alert}\n\n**Objectif semaine :** ${brief.weekly_goal}`
+
+    if (!dryRun && sb) {
+      await sb.from("iris_content_log").insert({
+        title: `Brief matinal — ${today}`,
+        type: "brief",
+        status: "published",
+        content_markdown: markdown,
+        meta_json: {
           source: "cron_daily_brief",
           score: brief.score,
           article_idea: brief.article_idea,
           actions: brief.actions,
           inventory: {
-            posts: totalPosts,
-            pages: totalPages,
+            articles: totalArticles,
+            permis: articlesPermis,
+            code: articlesCode,
             orphans: orphans.length,
             recent_orphans: recentOrphans.length,
             link_poor: linkPoor.length,
             thin: thin.length,
           },
-        }),
-      ],
-    )
+        },
+        created_by: "iris-cron",
+      })
+    }
 
     return Response.json({
       status: "ok",
@@ -255,8 +258,9 @@ Réponds en JSON strict :
       alert: brief.alert,
       weekly_goal: brief.weekly_goal,
       inventory: {
-        posts: totalPosts,
-        pages: totalPages,
+        articles: totalArticles,
+        permis: articlesPermis,
+        code: articlesCode,
         recent: recentStats.length,
         orphans: orphans.length,
         recent_orphans: recentOrphans.length,

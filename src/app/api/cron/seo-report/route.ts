@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk"
-import { listPosts } from "@/lib/wordpress/client"
-import { execute } from "@/lib/db/connection"
+import { listAllArticles, type IrisArticle } from "@/lib/webflow/client"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 
 export async function GET(req: Request) {
   if (req.headers.get("Authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -8,22 +8,24 @@ export async function GET(req: Request) {
   }
 
   try {
-    // Get all published posts for SEO analysis
-    const posts = await listPosts({ per_page: 50, status: "publish" })
-    const totalPosts = posts.length
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return Response.json({ status: "error", error: "ANTHROPIC_API_KEY manquant" }, { status: 500 })
+    }
 
-    // Basic SEO metrics from content
+    const articles = await listAllArticles().catch(() => [] as IrisArticle[])
+    const totalArticles = articles.length
+
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-    const newThisWeek = posts.filter((p) => p.date >= sevenDaysAgo).length
+    const newThisWeek = articles.filter((a) => a.date >= sevenDaysAgo).length
 
     // Analyze content quality with Claude
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-    const postsSummary = posts
-      .slice(0, 20)
-      .map((p) => {
-        const contentLength = p.content.rendered.replace(/<[^>]*>/g, "").length
-        return `- "${p.title.rendered}" (${contentLength} chars) — /${p.slug}`
+    const sample = articles.slice(0, 30)
+    const postsSummary = sample
+      .map((a) => {
+        const contentLength = a.content.replace(/<[^>]*>/g, "").length
+        return `- "${a.title}" (${a.collection}, ${contentLength} chars) — /${a.slug}`
       })
       .join("\n")
 
@@ -33,24 +35,24 @@ export async function GET(req: Request) {
       messages: [
         {
           role: "user",
-          content: `Tu es IRIS, expert SEO pour autoecole-inris.com (comparateur de 9800+ auto-ecoles).
+          content: `Tu es IRIS, expert SEO pour autoecole-inris.com (comparateur d'auto-écoles en France, sur Webflow).
 
-Analyse ces articles et genere un rapport SEO hebdomadaire :
+Analyse ces articles et génère un rapport SEO hebdomadaire :
 
-Total articles publies : ${totalPosts}
+Total articles publiés : ${totalArticles}
 Nouveaux cette semaine : ${newThisWeek}
 
-Articles (20 derniers) :
+Échantillon (30 articles) :
 ${postsSummary}
 
-Genere un rapport avec :
-1. Score SEO estime (0-100) base sur la couverture thematique, la frequence de publication, et la qualite des titres/slugs
+Génère un rapport avec :
+1. Score SEO estimé (0-100) basé sur la couverture thématique, la fréquence de publication, la qualité des titres/slugs et la longueur des contenus
 2. Top 3 forces
 3. Top 3 faiblesses
-4. 5 recommandations concretes pour la semaine prochaine
-5. Idees d'articles a fort potentiel SEO
+4. 5 recommandations concrètes pour la semaine prochaine
+5. Idées d'articles à fort potentiel SEO
 
-Reponds en JSON : {
+Réponds en JSON : {
   "score": number,
   "strengths": [string],
   "weaknesses": [string],
@@ -78,40 +80,35 @@ Reponds en JSON : {
       if (!jsonMatch) throw new Error("No JSON")
       report = JSON.parse(jsonMatch[0])
     } catch {
-      return Response.json({ status: "error", error: "Impossible de generer le rapport" }, { status: 500 })
+      return Response.json({ status: "error", error: "Impossible de générer le rapport" }, { status: 500 })
     }
 
-    // Save report to DB
     const periodEnd = new Date()
     const periodStart = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 
-    try {
-      await execute(
-        `INSERT INTO wp_iris_seo_reports (report_type, period_start, period_end, data_json, summary)
-         VALUES ('weekly', ?, ?, ?, ?)`,
-        [
-          periodStart.toISOString().split("T")[0],
-          periodEnd.toISOString().split("T")[0],
-          JSON.stringify({
-            score: report.score,
-            total_posts: totalPosts,
-            new_this_week: newThisWeek,
-            strengths: report.strengths,
-            weaknesses: report.weaknesses,
-            recommendations: report.recommendations,
-            article_ideas: report.article_ideas,
-          }),
-          report.summary,
-        ],
-      )
-    } catch {
-      // DB may not be migrated
+    const sb = isSupabaseConfigured() ? getServiceClient() : null
+    if (sb) {
+      await sb.from("iris_seo_reports").insert({
+        report_type: "weekly",
+        period_start: periodStart.toISOString().slice(0, 10),
+        period_end: periodEnd.toISOString().slice(0, 10),
+        summary: report.summary,
+        data_json: {
+          score: report.score,
+          total_articles: totalArticles,
+          new_this_week: newThisWeek,
+          strengths: report.strengths,
+          weaknesses: report.weaknesses,
+          recommendations: report.recommendations,
+          article_ideas: report.article_ideas,
+        },
+      })
     }
 
     return Response.json({
       status: "ok",
       score: report.score,
-      total_posts: totalPosts,
+      total_articles: totalArticles,
       new_this_week: newThisWeek,
       recommendations: report.recommendations.length,
       article_ideas: report.article_ideas.length,
