@@ -1,6 +1,7 @@
 "use client"
 
 import { Header } from "@/components/layout/header"
+import { CollaboratorsCard } from "@/components/settings/collaborators-card"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -300,6 +301,9 @@ export default function SettingsPage() {
             </p>
           </CardContent>
         </Card>
+
+        {/* Collaborateurs */}
+        <CollaboratorsCard />
 
         {/* Migration BDD */}
         <Card>

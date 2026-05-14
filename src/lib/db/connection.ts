@@ -18,13 +18,19 @@ const PROXY_SECRET = () => process.env.MYSQL_PROXY_SECRET!
 // Escape a value for inline MySQL string interpolation.
 // Safe because: (a) all callers are server-side trusted code, (b) no
 // user-controlled SQL structure — only values go through this path.
-function escapeSqlParam(val: string | number | boolean | null): string {
-  if (val === null) return "NULL"
-  if (typeof val === "number") return String(val)
+function escapeSqlParam(val: string | number | boolean | null | undefined): string {
+  if (val === null || val === undefined) return "NULL"
+  if (typeof val === "number") return Number.isFinite(val) ? String(val) : "NULL"
   if (typeof val === "boolean") return val ? "1" : "0"
+  let str: string
+  try {
+    str = typeof val === "string" ? val : String(val)
+  } catch {
+    return "NULL"
+  }
   return (
     "'" +
-    String(val)
+    str
       .replace(/\\/g, "\\\\")
       .replace(/'/g, "\\'")
       .replace(/\0/g, "\\0")
@@ -53,7 +59,7 @@ async function proxyFetch<T>(body: Record<string, unknown>): Promise<T> {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "X-Iris-Secret": PROXY_SECRET(),
+      "X-Lou-Secret": PROXY_SECRET(),
       "User-Agent": "IrisDashboard/1.0 (Vercel; +https://autoecole-inris.com)",
     },
     body: JSON.stringify(body),

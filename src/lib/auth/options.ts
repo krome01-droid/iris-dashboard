@@ -1,5 +1,40 @@
 import type { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { query, execute } from "@/lib/db/connection"
+import { verifyPassword } from "./password"
+
+type CollaboratorRow = {
+  id: number
+  username: string
+  email: string | null
+  full_name: string | null
+  password_hash: string
+  role: "admin" | "collaborator"
+  active: number
+}
+
+async function findCollaborator(username: string): Promise<CollaboratorRow | null> {
+  try {
+    const rows = await query<CollaboratorRow>(
+      "SELECT id, username, email, full_name, password_hash, role, active FROM wp_iris_collaborators WHERE username = ? AND active = 1 LIMIT 1",
+      [username],
+    )
+    return rows[0] ?? null
+  } catch {
+    return null
+  }
+}
+
+async function touchLastLogin(id: number) {
+  try {
+    await execute(
+      "UPDATE wp_iris_collaborators SET last_login_at = NOW() WHERE id = ?",
+      [id],
+    )
+  } catch {
+    // silent
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -12,7 +47,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) return null
 
-        // Local admin account — credentials stored in ADMIN_USERNAME / ADMIN_PASSWORD env vars
+        // 1. Compte admin local (env vars) — toujours role "admin"
         const adminUser = process.env.ADMIN_USERNAME ?? "iris"
         const adminPass = process.env.ADMIN_PASSWORD
         if (
@@ -24,11 +59,29 @@ export const authOptions: NextAuthOptions = {
             id: "iris",
             name: "Iris",
             email: "iris@autoecole-inris.com",
+            role: "admin",
           }
         }
 
-        // Validate credentials against WordPress REST API
+        // 2. Collaborateur en BDD (admin ou collaborator)
+        const collab = await findCollaborator(credentials.username)
+        if (collab) {
+          const ok = await verifyPassword(credentials.password, collab.password_hash)
+          if (ok) {
+            await touchLastLogin(collab.id)
+            return {
+              id: `collab-${collab.id}`,
+              name: collab.full_name || collab.username,
+              email: collab.email || `${collab.username}@autoecole-inris.com`,
+              role: collab.role,
+            }
+          }
+          return null
+        }
+
+        // 3. Admin WordPress (fallback) — role admin
         const wpUrl = process.env.WP_URL
+        if (!wpUrl) return null
         const creds = Buffer.from(
           `${credentials.username}:${credentials.password}`,
         ).toString("base64")
@@ -42,7 +95,6 @@ export const authOptions: NextAuthOptions = {
 
           const wpUser = await res.json()
 
-          // Only allow administrators
           if (
             !wpUser.capabilities?.administrator &&
             !wpUser.roles?.includes("administrator")
@@ -55,6 +107,7 @@ export const authOptions: NextAuthOptions = {
             name: wpUser.name,
             email: wpUser.email ?? `${credentials.username}@autoecole-inris.com`,
             image: wpUser.avatar_urls?.["96"] ?? null,
+            role: "admin",
           }
         } catch {
           return null
@@ -62,6 +115,22 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user && "role" in user) {
+        const r = (user as { role?: string }).role
+        token.role = r === "admin" ? "admin" : "collaborator"
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        ;(session.user as { role?: string }).role =
+          (token.role as string) ?? "collaborator"
+      }
+      return session
+    },
+  },
   session: {
     strategy: "jwt",
     maxAge: 7 * 24 * 60 * 60, // 7 jours

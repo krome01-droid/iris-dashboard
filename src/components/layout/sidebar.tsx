@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useSession } from "next-auth/react"
 import { cn } from "@/lib/utils"
 import {
   LayoutDashboard,
@@ -18,21 +19,25 @@ import {
 } from "lucide-react"
 
 const NAV_ITEMS = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/chat", label: "Chat IRIS", icon: MessageSquare },
-  { href: "/articles", label: "Articles", icon: FileText },
-  { href: "/social", label: "Social", icon: Share2 },
-  { href: "/newsletter", label: "Newsletter", icon: Mail },
-  { href: "/calendar", label: "Calendrier", icon: CalendarDays },
-  { href: "/seo", label: "SEO / GEO", icon: Search },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/reports", label: "Rapports", icon: FileBarChart },
-  { href: "/costs", label: "Coûts", icon: Wallet },
-  { href: "/settings", label: "Paramètres", icon: Settings },
+  { href: "/", label: "Dashboard", icon: LayoutDashboard, adminOnly: false },
+  { href: "/chat", label: "Chat IRIS", icon: MessageSquare, adminOnly: false },
+  { href: "/articles", label: "Articles", icon: FileText, adminOnly: false },
+  { href: "/social", label: "Social", icon: Share2, adminOnly: false },
+  { href: "/newsletter", label: "Newsletter", icon: Mail, adminOnly: false },
+  { href: "/calendar", label: "Calendrier", icon: CalendarDays, adminOnly: false },
+  { href: "/seo", label: "SEO / GEO", icon: Search, adminOnly: false },
+  { href: "/analytics", label: "Analytics", icon: BarChart3, adminOnly: false },
+  { href: "/reports", label: "Rapports", icon: FileBarChart, adminOnly: false },
+  { href: "/costs", label: "Coûts", icon: Wallet, adminOnly: true },
+  { href: "/settings", label: "Paramètres", icon: Settings, adminOnly: true },
 ]
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
   const pathname = usePathname()
+  const { data: session } = useSession()
+  const role = (session?.user as { role?: string } | undefined)?.role
+  const isAdmin = role === "admin"
+  const items = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin)
 
   return (
     <aside className="flex h-full w-60 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
@@ -49,7 +54,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 px-3 py-4">
-        {NAV_ITEMS.map((item) => {
+        {items.map((item) => {
           const isActive =
             item.href === "/"
               ? pathname === "/"

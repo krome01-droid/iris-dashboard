@@ -1,5 +1,6 @@
 /**
  * Run database migrations via the WP REST proxy on o2switch.
+ * Robust against malformed proxy responses (no toString-on-undefined crash).
  */
 
 import { extractJson } from "./connection"
@@ -17,22 +18,31 @@ export async function runMigrations(): Promise<string[]> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Iris-Secret": proxySecret,
+        "X-Lou-Secret": proxySecret,
       },
       body: JSON.stringify({ action: "migrate" }),
     })
 
+    const raw = await res.text()
+
     if (!res.ok) {
-      const text = await res.text()
-      return [`ERREUR: HTTP ${res.status} — ${text.slice(0, 200)}`]
+      return [`ERREUR: HTTP ${res.status} — ${raw.slice(0, 200)}`]
     }
 
-    // Strip leading WP HTML error divs before parsing (same as connection.ts)
-    const raw = await res.text()
     const clean = extractJson(raw)
-    const data = JSON.parse(clean)
-    return data.results ?? ["Migration terminée"]
+    let data: { results?: unknown } = {}
+    try {
+      data = JSON.parse(clean)
+    } catch {
+      return [`ERREUR: réponse proxy non-JSON — ${raw.slice(0, 200)}`]
+    }
+
+    const results = Array.isArray(data.results)
+      ? data.results.map((r) => (r == null ? "ERREUR: résultat null" : String(r)))
+      : ["Migration terminée (pas de détails)"]
+
+    return results
   } catch (err) {
-    return [`ERREUR: ${err instanceof Error ? err.message : String(err)}`]
+    return [`ERREUR: ${err instanceof Error ? err.message : String(err ?? "inconnue")}`]
   }
 }

@@ -33,6 +33,15 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
+  // Admin-only routes
+  const adminOnlyPaths = ["/settings", "/costs", "/api/collaborators", "/api/db/migrate"]
+  const isAdminPath = adminOnlyPaths.some((p) => pathname.startsWith(p))
+  if (isAdminPath && token.role !== "admin") {
+    const homeUrl = req.nextUrl.clone()
+    homeUrl.pathname = "/"
+    return NextResponse.redirect(homeUrl)
+  }
+
   return NextResponse.next()
 }
 
