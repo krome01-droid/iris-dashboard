@@ -114,7 +114,7 @@ EXACTEMENT ces noms (snake_case avec underscore, pas de tiret) :
 - \`notes_review\` (string — 1 phrase pour Armel)
 - \`jsonld_driving_school\` (string) — JSON-LD valide (sérialisé, pas un objet) du type \`DrivingSchool\` avec @context, @type, name, image (laisser vide ""), address (PostalAddress avec streetAddress, postalCode, addressLocality, addressCountry "FR"), telephone, url (https://www.autoecole-inris.com/points-de-rdv/SLUG), openingHoursSpecification (array d'objets avec dayOfWeek, opens, closes — uniquement les jours ouvrés), priceRange "€€", areaServed (array de string : ville + communes voisines), sameAs []. Le SLUG est dans les données d'entrée.
 - \`jsonld_faq\` (string) — JSON-LD valide sérialisé de type \`FAQPage\` avec mainEntity = array de 3 à 5 questions/réponses qui RECOPIENT exactement les H3-questions et leurs réponses de \`texte_seo_html\`. Pas de question hors HTML.
-- \`jsonld_breadcrumb\` (string) — JSON-LD valide sérialisé de type \`BreadcrumbList\` avec 3 niveaux : Accueil → Points de RDV → Nom du centre.
+- \`jsonld_breadcrumb\` (string) — JSON-LD valide sérialisé de type \`BreadcrumbList\` avec 3 niveaux : position 1 \`{name: "Accueil", item: "https://www.autoecole-inris.com/"}\`, position 2 \`{name: "Points de RDV", item: "https://www.autoecole-inris.com/points-de-rdv"}\`, position 3 \`{name: <Nom du centre>, item: "https://www.autoecole-inris.com/points-de-rdv/SLUG"}\`. JAMAIS \`/centres/\` — ce chemin n'existe pas sur le site, la collection est publiée sur \`/points-de-rdv/\`.
 
 EXEMPLE de sortie attendue (sur une ville fictive "Exempleville") :
 
