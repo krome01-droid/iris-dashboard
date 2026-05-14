@@ -84,7 +84,7 @@ export function ChatMessages({ messages, onSuggestionClick }: ChatMessagesProps)
                 "max-w-[80%] rounded-lg px-4 py-3 text-sm group relative",
                 msg.role === "user"
                   ? "bg-primary text-primary-foreground"
-                  : "bg-muted",
+                  : "border border-border bg-white text-foreground shadow-sm",
               )}
             >
               {/* Copy button for assistant messages */}
@@ -113,7 +113,7 @@ export function ChatMessages({ messages, onSuggestionClick }: ChatMessagesProps)
                 </div>
               ))}
               {msg.role === "assistant" ? (
-                <div className="prose prose-sm max-w-none dark:prose-invert">
+                <div className="prose prose-sm max-w-none leading-relaxed text-foreground prose-headings:text-foreground prose-headings:font-heading prose-headings:font-bold prose-p:text-foreground prose-p:leading-relaxed prose-strong:text-foreground prose-strong:font-semibold prose-li:text-foreground prose-li:my-0.5 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-table:text-foreground prose-th:text-foreground prose-td:text-foreground">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {msg.content}
                   </ReactMarkdown>

@@ -81,14 +81,14 @@
   --chart-4: #9AA6B7;
   --chart-5: #1F3149;
   --radius: 0.5rem;
-  /* Sidebar : dégradé violet #281B59 (sombre charte) */
-  --sidebar: #281B59;
+  /* Sidebar : noir profond (panneau gauche) */
+  --sidebar: #0a0a0a;
   --sidebar-foreground: #F9FAFE;
   --sidebar-primary: #C10058;        /* lien actif + accent 'S */
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #3a2879;         /* violet légèrement éclairci pour hover/active bg */
+  --sidebar-accent: #1f1f1f;         /* hover/active bg */
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #3a2879;
+  --sidebar-border: #1f1f1f;
   --sidebar-ring: #C10058;
 }
 
