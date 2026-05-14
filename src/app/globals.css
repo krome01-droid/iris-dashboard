@@ -49,40 +49,47 @@
 }
 
 :root {
-  /* INRI'S brand : rose #C10058 (hue ~357), deep violet #281B59 (hue ~290) */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.165 0.005 286);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.165 0.005 286);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.165 0.005 286);
-  --primary: oklch(0.50 0.22 357);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.165 0.005 286);
-  --muted: oklch(0.965 0.002 286);
-  --muted-foreground: oklch(0.5 0.01 286);
-  --accent: oklch(0.965 0.025 357);
-  --accent-foreground: oklch(0.42 0.20 357);
-  --destructive: oklch(0.58 0.22 25);
-  --border: oklch(0.92 0 0);
-  --input: oklch(0.92 0 0);
-  --ring: oklch(0.50 0.22 357);
-  --chart-1: oklch(0.50 0.22 357);
-  --chart-2: oklch(0.65 0.15 160);
-  --chart-3: oklch(0.55 0.15 260);
-  --chart-4: oklch(0.7 0.12 80);
-  --chart-5: oklch(0.42 0.18 290);
+  /* === CHARTE GRAPHIQUE INRI'S — couleurs officielles ============================
+     Rose Bamba CH2 0524 : #C10058   (action principale)
+     Dégradé              : #281B59 → #C10058
+     Texte                : #1F3149  (bleu charte)
+     Texte secondaire     : #9AA6B7  (gris)
+     Background           : #F9FAFE
+     Accent secondaire    : #00E5AC  (vert)
+  ============================================================================= */
+  --background: #F9FAFE;
+  --foreground: #1F3149;
+  --card: #ffffff;
+  --card-foreground: #1F3149;
+  --popover: #ffffff;
+  --popover-foreground: #1F3149;
+  --primary: #C10058;                /* Rose Bamba */
+  --primary-foreground: #ffffff;
+  --secondary: #F9FAFE;
+  --secondary-foreground: #1F3149;
+  --muted: #F9FAFE;
+  --muted-foreground: #9AA6B7;
+  --accent: #fde4ed;                 /* rose pâle dérivé #C10058 @ ~10% */
+  --accent-foreground: #C10058;
+  --destructive: #d92d2d;
+  --border: #e6e9f0;                 /* dérivé #9AA6B7 désaturé clair */
+  --input: #e6e9f0;
+  --ring: #C10058;
+  --chart-1: #C10058;
+  --chart-2: #00E5AC;                /* vert charte */
+  --chart-3: #281B59;                /* violet charte */
+  --chart-4: #9AA6B7;
+  --chart-5: #1F3149;
   --radius: 0.5rem;
-  /* Sidebar : dark like Lou/Stan, with violet undertone recalling INRI'S #281B59 */
-  --sidebar: oklch(0.155 0.015 290);
-  --sidebar-foreground: oklch(0.95 0.005 286);
-  --sidebar-primary: oklch(0.66 0.22 357);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.22 0.025 290);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.24 0.02 290);
-  --sidebar-ring: oklch(0.66 0.22 357);
+  /* Sidebar : dégradé violet #281B59 (sombre charte) */
+  --sidebar: #281B59;
+  --sidebar-foreground: #F9FAFE;
+  --sidebar-primary: #C10058;        /* lien actif + accent 'S */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #3a2879;         /* violet légèrement éclairci pour hover/active bg */
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #3a2879;
+  --sidebar-ring: #C10058;
 }
 
 @layer base {

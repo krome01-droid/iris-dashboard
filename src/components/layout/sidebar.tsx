@@ -41,12 +41,12 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
 
   return (
     <aside className="flex h-full w-60 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
-      {/* Logo */}
+      {/* Logo — charte INRI'S (Montserrat Extra Bold + couleur Rose Bamba) */}
       <div className="flex h-16 items-center gap-2 border-b border-sidebar-border px-5">
-        <h1 className="text-xl font-black tracking-tight italic">
-          <span>INRI</span>
-          <span className="text-sidebar-primary">&apos;S</span>
-          <span className="ml-1.5 text-[10px] font-semibold not-italic tracking-[0.2em] text-sidebar-foreground/50 align-middle">
+        <h1 className="font-heading text-xl font-extrabold tracking-tight">
+          <span className="text-white">INRI</span>
+          <span className="text-[#C10058]">&apos;S</span>
+          <span className="ml-1.5 text-[10px] font-semibold tracking-[0.2em] text-white/60 align-middle">
             FORMATIONS
           </span>
         </h1>
