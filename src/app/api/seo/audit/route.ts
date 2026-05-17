@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth/options"
 import { isGoogleConfigured } from "@/lib/google/auth"
 import { getTopKeywords } from "@/lib/google/search-console"
-import { listPosts } from "@/lib/wordpress/client"
+import { listAllArticles } from "@/lib/webflow/client"
 import { query } from "@/lib/db/connection"
 
 export async function GET(req: Request) {
@@ -46,13 +46,13 @@ export async function GET(req: Request) {
       }
     }
 
-    // Get article stats from WordPress
+    // Get article stats from Webflow
     let totalArticles = 0
     try {
-      const posts = await withTimeout(listPosts({ per_page: 100, status: "publish" }), [])
+      const posts = await withTimeout(listAllArticles(), [])
       totalArticles = posts.length
     } catch {
-      // WP may be down
+      // Webflow may be down
     }
 
     // Parse report data

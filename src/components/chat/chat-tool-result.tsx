@@ -6,7 +6,7 @@ import type { ToolCallResult } from "@/lib/ai/types"
 import { Wrench, Check, AlertCircle, ChevronDown, ChevronRight } from "lucide-react"
 
 const TOOL_LABELS: Record<string, string> = {
-  publish_article: "Publication WordPress",
+  publish_article: "Publication article",
   schedule_social: "Programmation sociale",
   send_email: "Envoi email",
   search_wp_posts: "Recherche articles",
@@ -27,7 +27,7 @@ function summarizeResult(toolName: string, result: unknown): string {
 
   switch (toolName) {
     case "publish_article":
-      return r.success ? `Article publié (ID ${r.post_id})` : "Échec publication"
+      return r.success ? `Article ${r.status === "draft" ? "enregistré en brouillon" : "publié"} (ID ${r.item_id})` : "Échec publication"
     case "search_wp_posts":
       return Array.isArray(result) ? `${result.length} article(s) trouvé(s)` : ""
     case "get_calendar":
@@ -60,7 +60,6 @@ function summarizeResult(toolName: string, result: unknown): string {
         : ""
     }
     case "generate_image":
-      if (r.wordpress_media_id) return `Image générée et uploadée (media_id: ${r.wordpress_media_id})`
       if (r.image_url) return "Image générée"
       return ""
     default:
