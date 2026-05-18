@@ -69,6 +69,7 @@ export default function CalendarPage() {
   const [showForm, setShowForm] = useState(false)
   const [selectedDate, setSelectedDate] = useState("")
   const [formLoading, setFormLoading] = useState(false)
+  const [editingId, setEditingId] = useState<number | null>(null)
 
   // Form state
   const [formTitle, setFormTitle] = useState("")
@@ -137,10 +138,21 @@ export default function CalendarPage() {
     } else {
       setSelectedDate("")
     }
+    setEditingId(null)
     setFormTitle("")
     setFormType("article")
     setFormStatus("planned")
     setFormNotes("")
+    setShowForm(true)
+  }
+
+  const openEdit = (ev: CalendarEvent) => {
+    setEditingId(ev.id)
+    setSelectedDate(ev.planned_date?.slice(0, 10) ?? "")
+    setFormTitle(ev.title)
+    setFormType(ev.content_type)
+    setFormStatus(ev.status)
+    setFormNotes(ev.notes ?? "")
     setShowForm(true)
   }
 
@@ -150,18 +162,41 @@ export default function CalendarPage() {
 
     setFormLoading(true)
     try {
-      const res = await fetch("/admin-iris/api/calendar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: formTitle,
-          content_type: formType,
-          planned_date: selectedDate,
-          status: formStatus,
-          notes: formNotes || undefined,
-        }),
-      })
+      const res = await fetch(
+        editingId ? `/admin-iris/api/calendar/${editingId}` : "/admin-iris/api/calendar",
+        {
+          method: editingId ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: formTitle,
+            content_type: formType,
+            planned_date: selectedDate,
+            status: formStatus,
+            notes: formNotes || undefined,
+          }),
+        },
+      )
 
+      if (res.ok) {
+        setShowForm(false)
+        fetchEvents()
+      }
+    } catch {
+      // silent
+    } finally {
+      setFormLoading(false)
+    }
+  }
+
+  const deleteEvent = async () => {
+    if (!editingId) return
+    if (!window.confirm("Supprimer cet evenement ?")) return
+
+    setFormLoading(true)
+    try {
+      const res = await fetch(`/admin-iris/api/calendar/${editingId}`, {
+        method: "DELETE",
+      })
       if (res.ok) {
         setShowForm(false)
         fetchEvents()
@@ -240,8 +275,12 @@ export default function CalendarPage() {
                             return (
                               <div
                                 key={ev.id}
-                                className={`rounded px-1.5 py-0.5 text-[10px] font-medium truncate ${typeConf.color}`}
+                                className={`rounded px-1.5 py-0.5 text-[10px] font-medium truncate cursor-pointer ${typeConf.color}`}
                                 title={`${ev.title} (${STATUS_LABELS[ev.status] || ev.status})`}
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  openEdit(ev)
+                                }}
                               >
                                 {ev.title}
                               </div>
@@ -285,7 +324,11 @@ export default function CalendarPage() {
                   const typeConf = TYPE_CONFIG[ev.content_type] || TYPE_CONFIG.other
                   const Icon = typeConf.icon
                   return (
-                    <div key={ev.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50">
+                    <div
+                      key={ev.id}
+                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer"
+                      onClick={() => openEdit(ev)}
+                    >
                       <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{ev.title}</p>
@@ -317,7 +360,9 @@ export default function CalendarPage() {
             <Card className="w-full max-w-md mx-4">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm">Nouvel evenement</CardTitle>
+                  <CardTitle className="text-sm">
+                    {editingId ? "Modifier l'evenement" : "Nouvel evenement"}
+                  </CardTitle>
                   <Button variant="ghost" size="icon-sm" onClick={() => setShowForm(false)}>
                     <X className="h-4 w-4" />
                   </Button>
@@ -384,8 +429,18 @@ export default function CalendarPage() {
                   <div className="flex gap-2">
                     <Button type="submit" className="flex-1" disabled={formLoading}>
                       {formLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                      Creer
+                      {editingId ? "Enregistrer" : "Creer"}
                     </Button>
+                    {editingId && (
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        onClick={deleteEvent}
+                        disabled={formLoading}
+                      >
+                        Supprimer
+                      </Button>
+                    )}
                     <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
                       Annuler
                     </Button>

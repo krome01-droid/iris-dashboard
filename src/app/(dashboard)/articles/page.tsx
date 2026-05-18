@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback, useMemo } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { Header } from "@/components/layout/header"
 import { Card, CardContent } from "@/components/ui/card"
@@ -12,44 +12,35 @@ import {
   ExternalLink,
   RefreshCw,
   FileText,
-  Eye,
   Clock,
   Filter,
 } from "lucide-react"
 import Link from "next/link"
 
-// Decode HTML entities from WordPress titles (e.g. &#8217; → ') without rendering markup
-function decodeWpTitle(html: string): string {
-  return html.replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
-             .replace(/&amp;/g, "&")
-             .replace(/&lt;/g, "<")
-             .replace(/&gt;/g, ">")
-             .replace(/&quot;/g, '"')
-             .replace(/&apos;/g, "'")
-             .replace(/<[^>]*>/g, "")
-}
-
 interface Article {
-  id: number
+  id: string
+  collectionId: string
+  collection: "permis" | "code"
   title: string
   slug: string
   status: string
-  link: string
+  url: string
   date: string
 }
 
 const STATUS_LABELS: Record<string, string> = {
   publish: "Publie",
   draft: "Brouillon",
-  pending: "En attente",
-  private: "Prive",
 }
 
 const STATUS_VARIANTS: Record<string, "default" | "secondary" | "outline"> = {
   publish: "default",
   draft: "secondary",
-  pending: "outline",
-  private: "outline",
+}
+
+const COLLECTION_LABELS: Record<string, string> = {
+  permis: "Permis",
+  code: "Code",
 }
 
 export default function ArticlesPage() {
@@ -65,12 +56,12 @@ export default function ArticlesPage() {
     setError("")
     try {
       const params = new URLSearchParams({
-        per_page: "20",
+        per_page: "50",
         status: statusFilter,
       })
       if (search) params.set("search", search)
 
-      const res = await fetch(`/admin-iris/api/wordpress/posts?${params}`)
+      const res = await fetch(`/admin-iris/api/articles?${params}`)
       if (!res.ok) throw new Error("Erreur chargement")
       const data = await res.json()
       setArticles(data)
@@ -113,7 +104,7 @@ export default function ArticlesPage() {
 
           <div className="flex items-center gap-2">
             <Filter className="h-4 w-4 text-muted-foreground" />
-            {["publish", "draft", "pending"].map((s) => (
+            {["publish", "draft"].map((s) => (
               <Button
                 key={s}
                 variant={statusFilter === s ? "default" : "outline"}
@@ -175,17 +166,20 @@ export default function ArticlesPage() {
               <Card
                 key={article.id}
                 className="transition-shadow hover:shadow-md cursor-pointer"
-                onClick={() => router.push(`/articles/${article.id}`)}
+                onClick={() =>
+                  router.push(`/articles/${article.id}?collectionId=${article.collectionId}`)
+                }
               >
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-medium text-sm truncate">
-                          {decodeWpTitle(article.title)}
-                        </h3>
+                        <h3 className="font-medium text-sm truncate">{article.title}</h3>
                         <Badge variant={STATUS_VARIANTS[article.status] || "outline"}>
                           {STATUS_LABELS[article.status] || article.status}
+                        </Badge>
+                        <Badge variant="outline">
+                          {COLLECTION_LABELS[article.collection] || article.collection}
                         </Badge>
                       </div>
                       <div className="flex items-center gap-4 text-xs text-muted-foreground">
@@ -206,29 +200,12 @@ export default function ArticlesPage() {
                           variant="ghost"
                           size="icon-sm"
                           render={
-                            <a
-                              href={article.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            />
+                            <a href={article.url} target="_blank" rel="noopener noreferrer" />
                           }
                         >
-                          <Eye className="h-4 w-4" />
+                          <ExternalLink className="h-4 w-4" />
                         </Button>
                       )}
-                      <Button
-                        variant="ghost"
-                        size="icon-sm"
-                        render={
-                          <a
-                            href={`${article.link.split("/wp-json")[0]}/wp-admin/post.php?post=${article.id}&action=edit`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          />
-                        }
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </Button>
                     </div>
                   </div>
                 </CardContent>

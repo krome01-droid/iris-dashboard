@@ -4,33 +4,25 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
   {
     name: "publish_article",
     description:
-      "Publie un article sur WordPress (autoecole-inris.com). Peut créer un brouillon ou publier directement.",
+      "Publie un article de blog sur Webflow (autoecole-inris.com). L'article est créé dans une des deux collections blog : 'permis' ou 'code'. Peut créer un brouillon ou publier directement.",
     input_schema: {
       type: "object" as const,
       properties: {
         title: { type: "string", description: "Titre de l'article" },
         content_markdown: {
           type: "string",
-          description: "Contenu en markdown",
+          description: "Contenu en markdown — converti automatiquement en rich text Webflow",
         },
         slug: { type: "string", description: "Slug URL (ex: auto-ecole-lens)" },
-        category: {
+        collection: {
           type: "string",
-          enum: ["guides", "actualites", "comparatifs", "financement", "villes", "securite-routiere"],
-          description: "Catégorie de l'article",
+          enum: ["permis", "code"],
+          description:
+            "Collection blog Webflow cible : 'permis' (blog permis de conduire) ou 'code' (blog code de la route)",
         },
-        tags: {
-          type: "array",
-          items: { type: "string" },
-          description: "Tags de l'article",
-        },
-        meta_title: {
+        summary: {
           type: "string",
-          description: "Meta title SEO (< 60 caractères)",
-        },
-        meta_description: {
-          type: "string",
-          description: "Meta description SEO (< 155 caractères)",
+          description: "Résumé court de l'article (chapô / blog-post-summary). Optionnel.",
         },
         target_keyword: {
           type: "string",
@@ -41,18 +33,14 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
           enum: ["draft", "publish"],
           description: "Statut de publication (draft par défaut)",
         },
-        featured_media: {
-          type: "number",
-          description: "ID WordPress du média à utiliser comme image à la une (obtenu via generate_image avec upload_to_wordpress: true)",
-        },
       },
-      required: ["title", "content_markdown", "slug", "category", "target_keyword"],
+      required: ["title", "content_markdown", "slug", "collection", "target_keyword"],
     },
   },
   {
     name: "schedule_social",
     description:
-      "Programme un post sur les réseaux sociaux via GoHighLevel Social Planner. Instagram et TikTok exigent une image (media_url ou wordpress_media_id).",
+      "Programme un post sur les réseaux sociaux via GoHighLevel Social Planner. Instagram et TikTok exigent une image (media_url).",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -77,11 +65,7 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
         },
         media_url: {
           type: "string",
-          description: "URL directe de l'image (JPEG/PNG). Obligatoire pour Instagram et TikTok. Pour Instagram, utilise TOUJOURS image_url retourné par generate_image (URL Kie.ai directe), pas wordpress_media_id.",
-        },
-        wordpress_media_id: {
-          type: "number",
-          description: "ID WordPress d'un média (ex: 311644). Utilisé pour featured_media des articles. Pour les posts sociaux Instagram, préférer media_url avec l'URL directe.",
+          description: "URL directe de l'image (JPEG/PNG). Obligatoire pour Instagram et TikTok. Utilise l'URL image_url retournée par generate_image.",
         },
       },
       required: ["platform", "text", "scheduled_at"],
@@ -111,7 +95,7 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
   {
     name: "get_site_content_audit",
     description:
-      "Récupère l'intégralité du contenu du site WordPress en un seul appel : tous les articles avec pagination automatique, stats par catégorie, articles anciens à rafraîchir (> 18 mois), articles récents (< 30 jours). À utiliser quand l'utilisateur demande une analyse complète du site ou un audit de contenu. Remplace les appels multiples à search_wp_posts.",
+      "Récupère l'intégralité du contenu blog du site Webflow en un seul appel : tous les articles des collections Permis et Code (pagination automatique), stats par collection et par statut, articles anciens à rafraîchir (> 18 mois), articles récents (< 30 jours). À utiliser quand l'utilisateur demande une analyse complète du site ou un audit de contenu. Remplace les appels multiples à search_wp_posts.",
     input_schema: {
       type: "object" as const,
       properties: {},
@@ -120,7 +104,7 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
   {
     name: "search_wp_posts",
     description:
-      "Recherche des articles existants sur WordPress par mot-clé ou catégorie.",
+      "Recherche des articles de blog existants sur Webflow (collections Permis et Code) par mot-clé. Le mot-clé est cherché dans le titre, le slug et le résumé.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -132,10 +116,15 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
           type: "number",
           description: "Nombre de résultats (max 20)",
         },
+        collection: {
+          type: "string",
+          enum: ["permis", "code", "all"],
+          description: "Limiter la recherche à une collection blog (défaut: all)",
+        },
         status: {
           type: "string",
           enum: ["publish", "draft", "any"],
-          description: "Filtre par statut",
+          description: "Filtre par statut éditorial",
         },
       },
       required: ["search"],
@@ -524,7 +513,7 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
   {
     name: "get_internal_links",
     description:
-      "Cherche des articles existants sur WordPress pouvant servir de liens internes pertinents pour un article en cours de rédaction. Retourne une liste d'articles avec URL, titre et pertinence.",
+      "Cherche des articles de blog existants sur Webflow (collections Permis et Code) pouvant servir de liens internes pertinents pour un article en cours de rédaction. Retourne une liste d'articles avec URL, titre et pertinence.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -544,51 +533,53 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
   {
     name: "update_article",
     description:
-      "Met à jour un article WordPress existant (contenu, titre, statut, image à la une, meta SEO). Utile pour le content refresh ou corriger un article publié.",
+      "Met à jour un article de blog Webflow existant (contenu, titre, slug, résumé, statut). Utile pour le content refresh ou corriger un article publié. L'item_id s'obtient via search_wp_posts ou get_site_content_audit.",
     input_schema: {
       type: "object" as const,
       properties: {
-        post_id: {
-          type: "number",
-          description: "ID WordPress de l'article à mettre à jour",
+        item_id: {
+          type: "string",
+          description: "ID Webflow de l'article à mettre à jour",
+        },
+        collection: {
+          type: "string",
+          enum: ["permis", "code"],
+          description:
+            "Collection blog de l'article ('permis' ou 'code'). Optionnel — si absent, la collection est détectée automatiquement.",
         },
         title: {
           type: "string",
           description: "Nouveau titre (optionnel)",
         },
+        slug: {
+          type: "string",
+          description: "Nouveau slug URL (optionnel)",
+        },
         content_markdown: {
           type: "string",
           description: "Nouveau contenu en markdown (optionnel)",
+        },
+        summary: {
+          type: "string",
+          description: "Nouveau résumé court (optionnel)",
         },
         status: {
           type: "string",
           enum: ["draft", "publish"],
           description: "Nouveau statut (optionnel)",
         },
-        featured_media: {
-          type: "number",
-          description: "Nouvel ID média WordPress pour l'image à la une (optionnel)",
-        },
-        meta_title: {
-          type: "string",
-          description: "Nouveau meta title SEO (optionnel)",
-        },
-        meta_description: {
-          type: "string",
-          description: "Nouvelle meta description SEO (optionnel)",
-        },
         target_keyword: {
           type: "string",
-          description: "Nouveau mot-clé cible (optionnel)",
+          description: "Nouveau mot-clé cible (optionnel, indicatif)",
         },
       },
-      required: ["post_id"],
+      required: ["item_id"],
     },
   },
   {
     name: "generate_image",
     description:
-      "Génère une image photo-réaliste via IA et l'attache automatiquement à un article WordPress comme image à la une. Fournir post_id pour rattacher directement l'image à l'article — c'est l'usage OBLIGATOIRE quand on génère une image pour un article existant.",
+      "Génère une image photo-réaliste via IA et retourne son URL directe (hébergée par le fournisseur d'images). Utilise cette URL (image_url) comme media_url dans schedule_social pour les posts sociaux.",
     input_schema: {
       type: "object" as const,
       properties: {
@@ -596,21 +587,6 @@ export const IRIS_TOOLS: Anthropic.Tool[] = [
           type: "string",
           description:
             "Description de la scène à générer (ex: 'Jeune femme souriante au volant d'une voiture d'auto-école dans une rue de Paris'). Le style photo-réaliste et les paramètres techniques sont ajoutés automatiquement.",
-        },
-        post_id: {
-          type: "number",
-          description:
-            "ID WordPress de l'article auquel rattacher l'image comme image à la une (featured_media). Si fourni, l'image est automatiquement uploadée ET définie comme image à la une — pas besoin d'appeler update_article séparément.",
-        },
-        upload_to_wordpress: {
-          type: "boolean",
-          description:
-            "Si true (ou si post_id est fourni), l'image est uploadée sur WordPress. Automatiquement true quand post_id est présent.",
-        },
-        filename: {
-          type: "string",
-          description:
-            "Nom de fichier pour l'upload WordPress (ex: 'permis-17-ans.jpg'). Optionnel.",
         },
       },
       required: ["prompt"],

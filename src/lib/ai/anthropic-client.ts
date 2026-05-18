@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk"
 import { IRIS_SYSTEM_PROMPT } from "./iris-prompt"
 import { IRIS_TOOLS } from "./tools"
 import { executeTool } from "./tool-executor"
+import { logAnthropicCost } from "./cost-log"
 import type { StreamEvent, FileAttachment } from "./types"
 
 const MODEL = "claude-sonnet-4-6"
@@ -104,6 +105,13 @@ export function streamChatWithTools(
           return { role: m.role, content: m.content }
         })
 
+        const totalUsage = {
+          input_tokens: 0,
+          output_tokens: 0,
+          cache_creation_input_tokens: 0,
+          cache_read_input_tokens: 0,
+        }
+
         for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
           // Use stream() so text deltas reach the client token-by-token
           const messageStream = client.messages.stream({
@@ -126,6 +134,12 @@ export function streamChatWithTools(
 
           // Collect the final assembled message (tool inputs are now complete)
           const response = await messageStream.finalMessage()
+
+          // Accumulate token usage for cost logging
+          totalUsage.input_tokens += response.usage.input_tokens ?? 0
+          totalUsage.output_tokens += response.usage.output_tokens ?? 0
+          totalUsage.cache_creation_input_tokens += response.usage.cache_creation_input_tokens ?? 0
+          totalUsage.cache_read_input_tokens += response.usage.cache_read_input_tokens ?? 0
 
           // Process tool use blocks, execute tools once and store results
           const toolUseBlocks = response.content.filter(
@@ -171,6 +185,8 @@ export function streamChatWithTools(
             { role: "user", content: toolResults },
           ]
         }
+
+        await logAnthropicCost(totalUsage)
 
         send(controller, { type: "message_stop" })
       } catch (err) {

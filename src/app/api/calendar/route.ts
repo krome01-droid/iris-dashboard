@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth/options"
-import { query, execute } from "@/lib/db/connection"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 import { z } from "zod"
 
 const eventSchema = z.object({
@@ -17,37 +17,31 @@ export async function GET(req: Request) {
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
+  if (!isSupabaseConfigured()) {
+    return Response.json([])
+  }
+
   const { searchParams } = new URL(req.url)
   const month = searchParams.get("month") // format: YYYY-MM
   const status = searchParams.get("status")
 
-  let sql = "SELECT * FROM wp_iris_editorial_calendar WHERE 1=1"
-  const params: (string | number)[] = []
-
-  if (month) {
-    sql += " AND DATE_FORMAT(planned_date, '%Y-%m') = ?"
-    params.push(month)
-  }
-
-  if (status) {
-    sql += " AND status = ?"
-    params.push(status)
-  }
-
-  sql += " ORDER BY planned_date ASC"
-
   try {
-    const events = await query<{
-      id: number
-      title: string
-      content_type: string
-      planned_date: string
-      status: string
-      notes: string | null
-      created_at: string
-    }>(sql, params)
+    let q = getServiceClient()
+      .from("iris_editorial_calendar")
+      .select("id, title, content_type, planned_date, status, notes, created_at")
+      .order("planned_date", { ascending: true })
 
-    return Response.json(events)
+    if (month) {
+      q = q.gte("planned_date", `${month}-01`).lte("planned_date", `${month}-31`)
+    }
+    if (status) {
+      q = q.eq("status", status)
+    }
+
+    const { data, error } = await q
+    if (error) throw new Error(error.message)
+
+    return Response.json(data ?? [])
   } catch (err) {
     return Response.json(
       { error: err instanceof Error ? err.message : "Erreur" },
@@ -62,6 +56,10 @@ export async function POST(req: Request) {
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
+  if (!isSupabaseConfigured()) {
+    return Response.json({ error: "Supabase non configure" }, { status: 503 })
+  }
+
   const body = await req.json()
   const parsed = eventSchema.safeParse(body)
   if (!parsed.success) {
@@ -71,16 +69,21 @@ export async function POST(req: Request) {
   const data = parsed.data
 
   try {
-    const result = await execute(
-      `INSERT INTO wp_iris_editorial_calendar (title, content_type, planned_date, status, notes)
-       VALUES (?, ?, ?, ?, ?)`,
-      [data.title, data.content_type, data.planned_date, data.status, data.notes || null],
-    )
+    const { data: inserted, error } = await getServiceClient()
+      .from("iris_editorial_calendar")
+      .insert({
+        title: data.title,
+        content_type: data.content_type,
+        planned_date: data.planned_date,
+        status: data.status,
+        notes: data.notes || null,
+      })
+      .select("id")
+      .single()
 
-    return Response.json({
-      success: true,
-      id: result.insertId,
-    })
+    if (error) throw new Error(error.message)
+
+    return Response.json({ success: true, id: inserted?.id })
   } catch (err) {
     return Response.json(
       { error: err instanceof Error ? err.message : "Erreur creation" },

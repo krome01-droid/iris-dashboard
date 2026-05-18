@@ -175,6 +175,16 @@ export async function publishItem(
   })
 }
 
+/**
+ * Récupérer un item unique d'une collection.
+ */
+export async function getItem(
+  collectionId: string,
+  itemId: string,
+): Promise<WebflowItem> {
+  return wfFetch<WebflowItem>(`/collections/${collectionId}/items/${itemId}`)
+}
+
 // ─── Articles normalisés (cron jobs IRIS) ────────────────────────────────────
 
 /**
@@ -193,6 +203,7 @@ export interface IrisArticle {
   summary: string      // texte court (blog-post-summary)
   isDraft: boolean
   isArchived: boolean
+  imageUrl?: string    // URL de l'image principale Webflow (fieldData.image)
 }
 
 const SITE_BASE_URL = "https://autoecole-inris.com"
@@ -215,6 +226,7 @@ function normalizeArticle(
 ): IrisArticle {
   const fd = item.fieldData ?? {}
   const slug = asString(fd.slug)
+  const image = fd.image as { url?: string } | undefined
   return {
     id: item.id,
     collectionId,
@@ -227,6 +239,7 @@ function normalizeArticle(
     summary: asString(fd["blog-post-summary"]),
     isDraft: item.isDraft ?? false,
     isArchived: item.isArchived ?? false,
+    imageUrl: typeof image?.url === "string" ? image.url : undefined,
   }
 }
 
@@ -260,4 +273,81 @@ export async function listAllArticles(): Promise<IrisArticle[]> {
     }),
   )
   return perCollection.flat().filter((a) => !a.isDraft && !a.isArchived)
+}
+
+// ─── Articles — gestion admin (dashboard Articles) ───────────────────────────
+
+/** Article Webflow avec son statut éditorial pour l'interface d'admin. */
+export interface IrisArticleAdmin extends IrisArticle {
+  status: "publish" | "draft"
+}
+
+function toAdmin(a: IrisArticle): IrisArticleAdmin {
+  return { ...a, status: a.isDraft ? "draft" : "publish" }
+}
+
+/**
+ * Liste TOUS les articles (Permis + Code), brouillons inclus, pour l'admin.
+ * Exclut uniquement les items archivés.
+ */
+export async function listAllArticlesAdmin(): Promise<IrisArticleAdmin[]> {
+  const perCollection = await Promise.all(
+    BLOG_COLLECTIONS.map(async ({ id, label }) => {
+      const items = await listAllItems(id).catch(() => [] as WebflowItem[])
+      return items.map((it) => toAdmin(normalizeArticle(it, id, label)))
+    }),
+  )
+  return perCollection.flat().filter((a) => !a.isArchived)
+}
+
+/**
+ * Récupère un article par son id Webflow. Si `collectionId` est absent,
+ * tente les deux collections blog (Permis puis Code).
+ */
+export async function getArticleById(
+  itemId: string,
+  collectionId?: string,
+): Promise<IrisArticleAdmin | null> {
+  const pool = collectionId
+    ? (BLOG_COLLECTIONS.filter((c) => c.id === collectionId).length > 0
+        ? BLOG_COLLECTIONS.filter((c) => c.id === collectionId)
+        : BLOG_COLLECTIONS)
+    : BLOG_COLLECTIONS
+
+  for (const { id, label } of pool) {
+    try {
+      const item = await getItem(id, itemId)
+      return toAdmin(normalizeArticle(item, id, label))
+    } catch {
+      // Pas dans cette collection — on tente la suivante.
+    }
+  }
+  return null
+}
+
+/**
+ * Met à jour le titre et/ou le statut d'un article.
+ * status "publish" déclenche aussi la publication live de l'item.
+ */
+export async function updateArticle(
+  collectionId: string,
+  itemId: string,
+  patch: { title?: string; status?: "publish" | "draft" },
+): Promise<void> {
+  const body: Record<string, unknown> = {}
+  if (patch.title !== undefined) body.fieldData = { name: patch.title }
+  if (patch.status !== undefined) body.isDraft = patch.status === "draft"
+
+  if (Object.keys(body).length > 0) {
+    await wfFetch(`/collections/${collectionId}/items/${itemId}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+    })
+  }
+
+  if (patch.status === "publish") {
+    await publishItem(collectionId, itemId).catch(() => {
+      // La publication peut échouer si le site n'est pas prêt — non bloquant.
+    })
+  }
 }

@@ -1,6 +1,5 @@
 import type { ToolCallResult } from "./types"
 import { marked } from "marked"
-import { listPosts, createPost, updatePost, findOrCreateCategory, getMediaUrl, getMediaSizes, uploadMedia, getAllPostsAudit } from "@/lib/wordpress/client"
 import { scheduleSocialPost } from "@/lib/ghl/social-planner"
 import { sendPreviewEmail, sendBulkEmail } from "@/lib/ghl/email"
 import { query, execute } from "@/lib/db/connection"
@@ -18,7 +17,17 @@ import {
   listCalendars, getAppointments, createAppointment,
   getContact,
 } from "@/lib/ghl/crm"
-import { createItem, updateItem, listItems, publishItem, markdownToWebflowRichText } from "@/lib/webflow/client"
+import {
+  createItem, updateItem, listItems, publishItem, markdownToWebflowRichText,
+  listAllArticlesAdmin, getArticleById, updateArticle,
+  type IrisArticleAdmin,
+} from "@/lib/webflow/client"
+
+// IDs des deux collections blog Webflow (Permis / Code).
+const BLOG_COLLECTION_IDS: Record<"permis" | "code", string> = {
+  permis: process.env.WF_COLLECTION_ID_PERMIS_BLOGS ?? "67c976212edb4724b8839729",
+  code: process.env.WF_COLLECTION_ID_CODE_BLOGS ?? "67f3cadace1bbcd2670c8e4e",
+}
 import { getPosition } from "@/lib/dataforseo/serp"
 import { getKeywordVolumes, getKeywordSuggestions } from "@/lib/dataforseo/keywords"
 import { getRankedKeywords, getContentGap } from "@/lib/dataforseo/competitors"
@@ -28,64 +37,64 @@ type ToolHandler = (input: Record<string, unknown>) => Promise<unknown>
 
 const toolHandlers: Record<string, ToolHandler> = {
   async publish_article(input) {
-    const categoryId = await findOrCreateCategory(String(input.category ?? "Non classé"))
+    const collection = String(input.collection ?? "") as "permis" | "code"
+    const collectionId = BLOG_COLLECTION_IDS[collection]
+    if (!collectionId) {
+      throw new Error("collection requise — valeurs autorisées : 'permis' ou 'code'")
+    }
+
     const htmlContent = await marked.parse(String(input.content_markdown ?? ""))
+    const isDraft = input.status !== "publish"
 
-    const post = await createPost({
-      title: String(input.title),
-      content: htmlContent,
-      slug: input.slug ? String(input.slug) : undefined,
-      status: (input.status as "draft" | "publish") ?? "draft",
-      categories: [categoryId],
-      featured_media: input.featured_media ? Number(input.featured_media) : undefined,
-      meta: Object.fromEntries(
-        (
-          [
-            ["_yoast_wpseo_title", input.meta_title ? String(input.meta_title) : null],
-            ["_yoast_wpseo_metadesc", input.meta_description ? String(input.meta_description) : null],
-            ["_yoast_wpseo_focuskw", input.target_keyword ? String(input.target_keyword) : null],
-          ] as [string, string | null][]
-        ).filter(([, v]) => v !== null),
-      ) as Record<string, string>,
-    })
+    const fields: Record<string, unknown> = {
+      name: String(input.title),
+      slug: String(input.slug),
+      "blog-post-richt-text": htmlContent,
+    }
+    if (input.summary) fields["blog-post-summary"] = String(input.summary)
 
-    // Log to content_log
+    const item = await createItem(collectionId, fields, isDraft)
+
+    if (!isDraft) {
+      await publishItem(collectionId, item.id).catch(() => {
+        // La publication peut échouer si le site n'est pas prêt — non bloquant.
+      })
+    }
+
+    const slug = String(input.slug ?? "")
+    const url = slug
+      ? `https://autoecole-inris.com/${collection}/${slug}`
+      : "https://autoecole-inris.com"
+
+    // Log dans le journal de contenu (non bloquant)
     try {
       await execute(
         `INSERT INTO wp_iris_content_log (title, type, status, wp_post_id, wp_url, meta_json, created_by)
          VALUES (?, 'article', ?, ?, ?, ?, 'iris')`,
         [
           String(input.title),
-          input.status === "publish" ? "published" : "draft",
-          post.id,
-          post.link,
-          JSON.stringify({ category: input.category, target_keyword: input.target_keyword }),
+          isDraft ? "draft" : "published",
+          item.id,
+          url,
+          JSON.stringify({ collection, target_keyword: input.target_keyword }),
         ],
       )
     } catch {
       // DB logging failure should not block
     }
 
-    return { success: true, post_id: post.id, url: post.link, status: input.status ?? "draft" }
+    return {
+      success: true,
+      item_id: item.id,
+      collection,
+      url,
+      status: isDraft ? "draft" : "publish",
+    }
   },
 
   async schedule_social(input) {
-    // Resolve media: wordpress_media_id takes priority, then media_url (which may also be an ID)
-    let mediaUrl = input.media_url ? String(input.media_url) : undefined
-    const wpMediaId = input.wordpress_media_id ? Number(input.wordpress_media_id) : null
-
-    if (wpMediaId) {
-      const resolved = await getMediaUrl(wpMediaId)
-      if (resolved) {
-        mediaUrl = resolved
-      } else {
-        throw new Error(`Impossible de résoudre le wordpress_media_id ${wpMediaId} en URL`)
-      }
-    } else if (mediaUrl && /^\d+$/.test(mediaUrl)) {
-      // media_url looks like a numeric ID — resolve it too
-      const resolved = await getMediaUrl(Number(mediaUrl))
-      if (resolved) mediaUrl = resolved
-    }
+    // L'URL de l'image est fournie directement (image_url retournée par generate_image).
+    const mediaUrl = input.media_url ? String(input.media_url) : undefined
 
     const result = await scheduleSocialPost({
       platform: String(input.platform),
@@ -136,41 +145,89 @@ const toolHandlers: Record<string, ToolHandler> = {
   },
 
   async get_site_content_audit(_input) {
-    const audit = await getAllPostsAudit()
+    const articles = await listAllArticlesAdmin()
+
+    const summarize = (a: IrisArticleAdmin) => ({
+      id: a.id,
+      title: a.title,
+      slug: a.slug,
+      collection: a.collection,
+      status: a.status,
+      link: a.url,
+      date: a.date,
+    })
+
+    const cutoff18months = new Date()
+    cutoff18months.setMonth(cutoff18months.getMonth() - 18)
+    const cutoff30days = new Date()
+    cutoff30days.setDate(cutoff30days.getDate() - 30)
+
+    const published = articles.filter((a) => a.status === "publish")
+    const drafts = articles.filter((a) => a.status === "draft")
+
+    const byCollection = {
+      permis: articles.filter((a) => a.collection === "permis").length,
+      code: articles.filter((a) => a.collection === "code").length,
+    }
+
+    const oldArticles = published
+      .filter((a) => new Date(a.date) < cutoff18months)
+      .slice(0, 30)
+      .map(summarize)
+    const recentArticles = published
+      .filter((a) => new Date(a.date) >= cutoff30days)
+      .slice(0, 20)
+      .map(summarize)
 
     return {
-      total_articles: audit.total,
-      published: audit.byStatus["publish"] ?? 0,
-      drafts: audit.byStatus["draft"] ?? 0,
-      by_category: Object.values(audit.byCategory).sort((a, b) => b.count - a.count),
+      total_articles: articles.length,
+      published: published.length,
+      drafts: drafts.length,
+      by_collection: byCollection,
       old_articles_to_refresh: {
-        count: audit.oldArticles.length,
-        note: "Articles non modifiés depuis > 18 mois — candidats au content refresh",
-        articles: audit.oldArticles,
+        count: oldArticles.length,
+        note: "Articles non publiés/modifiés depuis > 18 mois — candidats au content refresh",
+        articles: oldArticles,
       },
       recent_articles: {
-        count: audit.recentArticles.length,
+        count: recentArticles.length,
         note: "Articles publiés dans les 30 derniers jours",
-        articles: audit.recentArticles,
+        articles: recentArticles,
       },
-      sample_published: audit.articles,
+      sample_published: published.slice(0, 50).map(summarize),
     }
   },
 
   async search_wp_posts(input) {
-    const posts = await listPosts({
-      search: input.search ? String(input.search) : undefined,
-      per_page: input.per_page ? Number(input.per_page) : 10,
-      status: input.status ? String(input.status) : "publish",
-    })
+    const term = String(input.search ?? "").toLowerCase().trim()
+    const perPage = Math.min(Number(input.per_page ?? 10), 20)
+    const collectionFilter = input.collection ? String(input.collection) : "all"
+    const statusFilter = input.status ? String(input.status) : "publish"
 
-    return posts.map((p) => ({
-      id: p.id,
-      title: p.title.rendered,
-      slug: p.slug,
-      status: p.status,
-      link: p.link,
-      date: p.date,
+    let articles = await listAllArticlesAdmin()
+
+    if (collectionFilter === "permis" || collectionFilter === "code") {
+      articles = articles.filter((a) => a.collection === collectionFilter)
+    }
+    if (statusFilter === "publish" || statusFilter === "draft") {
+      articles = articles.filter((a) => a.status === statusFilter)
+    }
+    if (term) {
+      articles = articles.filter((a) =>
+        a.title.toLowerCase().includes(term) ||
+        a.slug.toLowerCase().includes(term) ||
+        a.summary.toLowerCase().includes(term),
+      )
+    }
+
+    return articles.slice(0, perPage).map((a) => ({
+      id: a.id,
+      title: a.title,
+      slug: a.slug,
+      collection: a.collection,
+      status: a.status,
+      link: a.url,
+      date: a.date,
     }))
   },
 
@@ -656,18 +713,28 @@ const toolHandlers: Record<string, ToolHandler> = {
     const keywords = (input.keywords as string[]) ?? []
     const limit = Number(input.limit ?? 5)
 
-    const results: { keyword: string; articles: { id: number; title: string; slug: string; link: string; date: string }[] }[] = []
+    // Un seul appel — on filtre ensuite localement par mot-clé.
+    const published = (await listAllArticlesAdmin()).filter((a) => a.status === "publish")
+
+    const results: { keyword: string; articles: { id: string; title: string; slug: string; link: string; date: string }[] }[] = []
 
     for (const kw of keywords.slice(0, 5)) {
-      const posts = await listPosts({ search: kw, per_page: Math.min(limit, 10), status: "publish" })
+      const term = kw.toLowerCase()
+      const matches = published
+        .filter((a) =>
+          a.title.toLowerCase().includes(term) ||
+          a.slug.toLowerCase().includes(term) ||
+          a.summary.toLowerCase().includes(term),
+        )
+        .slice(0, Math.min(limit, 10))
       results.push({
         keyword: kw,
-        articles: posts.map((p) => ({
-          id: p.id,
-          title: p.title.rendered,
-          slug: p.slug,
-          link: p.link,
-          date: p.date,
+        articles: matches.map((a) => ({
+          id: a.id,
+          title: a.title,
+          slug: a.slug,
+          link: a.url,
+          date: a.date,
         })),
       })
     }
@@ -677,7 +744,7 @@ const toolHandlers: Record<string, ToolHandler> = {
     )
 
     // Deduplicate by id
-    const seen = new Set<number>()
+    const seen = new Set<string>()
     const unique = allArticles.filter((a) => {
       if (seen.has(a.id)) return false
       seen.add(a.id)
@@ -694,28 +761,48 @@ const toolHandlers: Record<string, ToolHandler> = {
   },
 
   async update_article(input) {
-    const postId = Number(input.post_id)
-    if (!postId) throw new Error("post_id requis")
+    const itemId = String(input.item_id ?? "")
+    if (!itemId) throw new Error("item_id requis")
 
-    const updateData: Parameters<typeof updatePost>[1] = {}
+    // Détermination de la collection : explicite ou auto-détectée.
+    let collection = input.collection ? (String(input.collection) as "permis" | "code") : null
+    let collectionId = collection ? BLOG_COLLECTION_IDS[collection] : null
 
-    if (input.title) updateData.title = String(input.title)
-    if (input.content_markdown) {
-      updateData.content = await marked.parse(String(input.content_markdown))
-    }
-    if (input.status) updateData.status = input.status as "draft" | "publish"
-    if (input.featured_media) updateData.featured_media = Number(input.featured_media)
-    if (input.meta_title || input.meta_description || input.target_keyword) {
-      updateData.meta = {
-        ...(input.meta_title ? { _yoast_wpseo_title: String(input.meta_title) } : {}),
-        ...(input.meta_description ? { _yoast_wpseo_metadesc: String(input.meta_description) } : {}),
-        ...(input.target_keyword ? { _yoast_wpseo_focuskw: String(input.target_keyword) } : {}),
+    if (!collectionId) {
+      const found = await getArticleById(itemId)
+      if (!found) {
+        throw new Error(
+          `Article Webflow introuvable (item_id: ${itemId}). Vérifier l'ID via search_wp_posts.`,
+        )
       }
+      collection = found.collection
+      collectionId = BLOG_COLLECTION_IDS[found.collection]
     }
 
-    const post = await updatePost(postId, updateData)
+    const fields: Record<string, unknown> = {}
+    if (input.title) fields["name"] = String(input.title)
+    if (input.slug) fields["slug"] = String(input.slug)
+    if (input.content_markdown) {
+      fields["blog-post-richt-text"] = await marked.parse(String(input.content_markdown))
+    }
+    if (input.summary) fields["blog-post-summary"] = String(input.summary)
 
-    return { success: true, post_id: post.id, url: post.link, status: post.status }
+    if (Object.keys(fields).length > 0) {
+      await updateItem(collectionId, itemId, fields)
+    }
+
+    // Changement de statut éditorial (bascule isDraft + publication live).
+    const status = (input.status as "draft" | "publish" | undefined) ?? undefined
+    if (status) {
+      await updateArticle(collectionId, itemId, { status })
+    }
+
+    return {
+      success: true,
+      item_id: itemId,
+      collection,
+      status: status ?? "updated",
+    }
   },
 
   async scrape_serp(input) {
@@ -736,74 +823,11 @@ const toolHandlers: Record<string, ToolHandler> = {
   async generate_image(input) {
     const result = await generateImage(String(input.prompt))
 
-    const postId = input.post_id ? Number(input.post_id) : null
-    const shouldUpload = input.upload_to_wordpress || postId !== null
-
-    if (shouldUpload) {
-      const slug = input.filename
-        ? String(input.filename).replace(/\.[^.]+$/, "")
-        : "iris-image-" + Date.now()
-      const filename = input.filename ? String(input.filename) : `${slug}.jpg`
-
-      const mediaId = await uploadMedia(result.url, filename)
-      if (!mediaId) {
-        return {
-          success: true,
-          image_url: result.url,
-          wordpress_upload_failed: true,
-          note: "Image générée mais l'upload WordPress a échoué. L'URL de l'image reste disponible.",
-        }
-      }
-
-      // Fetch thumbnail URLs — full-size images break in Gmail (2–5 MB proxy timeout)
-      const sizes = await getMediaSizes(mediaId)
-      const emailHeroUrl = sizes?.large ?? sizes?.medium_large ?? sizes?.full ?? result.url
-      const emailThumbnailUrl = sizes?.thumbnail ?? null
-
-      // Si post_id fourni → rattacher automatiquement comme featured image
-      if (postId) {
-        try {
-          await updatePost(postId, { featured_media: mediaId })
-          return {
-            success: true,
-            image_url: result.url,
-            wordpress_media_id: mediaId,
-            filename,
-            featured_image_set: true,
-            post_id: postId,
-            email_hero_url: emailHeroUrl,
-            email_thumbnail_url: emailThumbnailUrl,
-            note: `✅ Image uploadée (media_id: ${mediaId}) et définie comme image à la une de l'article ${postId}. Pour les newsletters : utilise email_hero_url pour l'image principale et email_thumbnail_url pour les vignettes.`,
-          }
-        } catch {
-          return {
-            success: true,
-            image_url: result.url,
-            wordpress_media_id: mediaId,
-            filename,
-            featured_image_set: false,
-            email_hero_url: emailHeroUrl,
-            email_thumbnail_url: emailThumbnailUrl,
-            note: `Image uploadée (media_id: ${mediaId}) mais le rattachement à l'article ${postId} a échoué. Utilise update_article avec featured_media: ${mediaId}.`,
-          }
-        }
-      }
-
-      return {
-        success: true,
-        image_url: result.url,
-        wordpress_media_id: mediaId,
-        filename,
-        email_hero_url: emailHeroUrl,
-        email_thumbnail_url: emailThumbnailUrl,
-        note: `Image uploadée sur WordPress (media_id: ${mediaId}). NEWSLETTER : utilise email_hero_url pour l'image principale et email_thumbnail_url pour les vignettes — jamais image_url (trop lourd pour Gmail).`,
-      }
-    }
-
     return {
       success: true,
       image_url: result.url,
       task_id: result.taskId,
+      note: "Image générée. Utilise image_url comme media_url dans schedule_social pour les posts sociaux.",
     }
   },
 

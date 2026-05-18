@@ -84,12 +84,10 @@ export default function NewsletterPage() {
   const [result, setResult] = useState<SendResult | null>(null)
   const [showPreview, setShowPreview] = useState(false)
   const [confirmSendAll, setConfirmSendAll] = useState(false)
-  const [history, setHistory] = useState<{ id: number; title: string; status: string; meta_json: string; created_at: string }[]>([])
+  const [history, setHistory] = useState<{ title: string; status: string; created_at: string }[]>([])
 
   const fetchHistory = useCallback(async () => {
     try {
-      const res = await fetch("/admin-iris/api/wordpress/posts?per_page=1&status=publish")
-      // Use the dashboard API to fetch newsletter logs
       const nlRes = await fetch("/admin-iris/api/dashboard")
       if (nlRes.ok) {
         const data = await nlRes.json()

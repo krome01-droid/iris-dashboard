@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
 import {
   ArrowLeft,
   ExternalLink,
@@ -20,14 +19,20 @@ import {
 import Link from "next/link"
 
 interface ArticleDetail {
-  id: number
+  id: string
+  collectionId: string
+  collection: "permis" | "code"
   title: string
   content: string
   slug: string
   status: string
-  link: string
+  url: string
   date: string
-  categories: number[]
+}
+
+const COLLECTION_LABELS: Record<string, string> = {
+  permis: "Permis",
+  code: "Code",
 }
 
 export default function ArticleDetailPage() {
@@ -53,7 +58,7 @@ export default function ArticleDetailPage() {
   useEffect(() => {
     async function fetchArticle() {
       try {
-        const res = await fetch(`/admin-iris/api/wordpress/posts/${id}`)
+        const res = await fetch(`/admin-iris/api/articles/${id}`)
         if (!res.ok) throw new Error("Article introuvable")
         const data = await res.json()
         setArticle(data)
@@ -69,19 +74,18 @@ export default function ArticleDetailPage() {
   }, [id])
 
   const handleSave = async () => {
+    if (!article) return
     setSaving(true)
     setSaved(false)
     try {
-      const res = await fetch(`/admin-iris/api/wordpress/posts/${id}`, {
+      const res = await fetch(`/admin-iris/api/articles/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, status }),
+        body: JSON.stringify({ title, status, collectionId: article.collectionId }),
       })
       if (!res.ok) throw new Error("Erreur sauvegarde")
       const data = await res.json()
-      setArticle((prev) =>
-        prev ? { ...prev, title: data.title, status: data.status, link: data.link } : prev,
-      )
+      setArticle((prev) => (prev ? { ...prev, ...data } : prev))
       setSaved(true)
       setTimeout(() => setSaved(false), 3000)
     } catch (err) {
@@ -126,7 +130,7 @@ export default function ArticleDetailPage() {
               variant="outline"
               size="sm"
               render={
-                <a href={article.link} target="_blank" rel="noopener noreferrer" />
+                <a href={article.url} target="_blank" rel="noopener noreferrer" />
               }
             >
               <Eye className="h-4 w-4 mr-1" />
@@ -172,10 +176,16 @@ export default function ArticleDetailPage() {
                 <CardTitle className="text-sm">Contenu</CardTitle>
               </CardHeader>
               <CardContent>
-                <div
-                  className="prose prose-sm max-w-none"
-                  dangerouslySetInnerHTML={{ __html: safeContent }}
-                />
+                {safeContent ? (
+                  <div
+                    className="prose prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{ __html: safeContent }}
+                  />
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Aucun contenu. Le corps de l&apos;article se modifie directement dans Webflow.
+                  </p>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -204,6 +214,13 @@ export default function ArticleDetailPage() {
                 </div>
 
                 <div>
+                  <Label className="text-xs mb-1.5">Collection</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {COLLECTION_LABELS[article.collection] || article.collection}
+                  </p>
+                </div>
+
+                <div>
                   <Label className="text-xs mb-1.5">Slug</Label>
                   <p className="text-sm text-muted-foreground">/{article.slug}</p>
                 </div>
@@ -222,8 +239,8 @@ export default function ArticleDetailPage() {
                 </div>
 
                 <div>
-                  <Label className="text-xs mb-1.5">ID WordPress</Label>
-                  <p className="text-sm text-muted-foreground">#{article.id}</p>
+                  <Label className="text-xs mb-1.5">ID Webflow</Label>
+                  <p className="text-sm text-muted-foreground break-all">{article.id}</p>
                 </div>
               </CardContent>
             </Card>
@@ -236,14 +253,14 @@ export default function ArticleDetailPage() {
                   className="w-full"
                   render={
                     <a
-                      href={`${article.link.replace(/\/[^/]*\/?$/, "")}/wp-admin/post.php?post=${article.id}&action=edit`}
+                      href="https://webflow.com/dashboard"
                       target="_blank"
                       rel="noopener noreferrer"
                     />
                   }
                 >
                   <ExternalLink className="h-4 w-4 mr-1" />
-                  Editer dans WordPress
+                  Ouvrir Webflow
                 </Button>
               </CardContent>
             </Card>

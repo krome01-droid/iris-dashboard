@@ -26,6 +26,7 @@ interface DashboardData {
   recentActivity: { title: string; type: string; status: string; created_at: string }[]
   upcomingEvents: { title: string; content_type: string; planned_date: string }[]
   latestSeoScore: number | null
+  top10Keywords: number | null
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -75,8 +76,8 @@ export default function DashboardPage() {
           />
           <MetricCard
             title="Mots-cles top 10"
-            value={loading ? "..." : "—"}
-            description="Search Console"
+            value={loading ? "..." : (data?.top10Keywords ?? "—")}
+            description="Positions Google"
             icon={Search}
           />
           <MetricCard

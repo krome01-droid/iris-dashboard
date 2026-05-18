@@ -168,8 +168,18 @@ export default function CostsPage() {
     try {
       const res = await fetch("/admin-iris/api/costs", { cache: "no-store" })
       if (res.ok) {
-        const data = (await res.json()) as { services?: CostService[] }
-        if (data.services?.length) setServices(data.services)
+        const data = (await res.json()) as {
+          services?: (Partial<CostService> & { key: string })[]
+        }
+        if (data.services?.length) {
+          const patchByKey = new Map(data.services.map((p) => [p.key, p]))
+          setServices(
+            FALLBACK_SERVICES.map((s) => {
+              const patch = patchByKey.get(s.key)
+              return patch ? { ...s, ...patch } : s
+            }),
+          )
+        }
       }
     } catch {
       // silent — keep fallback

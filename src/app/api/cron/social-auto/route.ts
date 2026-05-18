@@ -107,6 +107,7 @@ Réponds en JSON : { "posts": [{ "article_index": number, "text": string, "hasht
           hashtags: post.hashtags,
           scheduled_at: scheduleTime.toISOString(),
           link_url: article.url,
+          media_url: article.imageUrl,
         })
 
         if (sb) {
@@ -115,7 +116,12 @@ Réponds en JSON : { "posts": [{ "article_index": number, "text": string, "hasht
             scheduled_at: scheduleTime.toISOString(),
             status: "scheduled",
             caption: `${post.text}\n\n${post.hashtags.map((h) => `#${h}`).join(" ")}`,
-            media_urls: { link: article.url, article_id: article.id, article_slug: article.slug },
+            media_urls: {
+              link: article.url,
+              media: article.imageUrl,
+              article_id: article.id,
+              article_slug: article.slug,
+            },
           })
         }
 

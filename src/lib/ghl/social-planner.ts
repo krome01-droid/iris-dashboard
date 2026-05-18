@@ -85,16 +85,6 @@ async function getCurrentUserId(): Promise<string> {
   return userId
 }
 
-/** Infer GHL media type from URL extension. Defaults to "jpeg". */
-function inferMediaType(url: string): string {
-  const ext = url.split("?")[0].split(".").pop()?.toLowerCase() ?? ""
-  const map: Record<string, string> = {
-    jpg: "jpeg", jpeg: "jpeg", png: "png",
-    gif: "gif", webp: "webp", mp4: "video", mov: "video",
-  }
-  return map[ext] ?? "jpeg"
-}
-
 /**
  * Schedule a social media post via GHL Social Planner API v2.
  * Endpoint: POST /social-media-posting/{locationId}/posts
@@ -142,9 +132,9 @@ export async function scheduleSocialPost(input: SocialPostInput) {
     type: "post",          // was "postType" — GHL expects "type"
     scheduleDate: input.scheduled_at,  // was "scheduledAt" — GHL expects "scheduleDate"
     summary: finalCaption,
-    media: input.media_url
-      ? [{ url: input.media_url, type: inferMediaType(input.media_url) }]
-      : [],
+    // GHL média : { url, caption } uniquement — un champ « type » non documenté
+    // fait silencieusement échouer l'attachement et le post part sans image.
+    media: input.media_url ? [{ url: input.media_url }] : [],
   }
 
   return ghlFetchV2(`/social-media-posting/${locationId}/posts`, {

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth/options"
-import { execute } from "@/lib/db/connection"
+import { getServiceClient, isSupabaseConfigured } from "@/lib/supabase/client"
 import { z } from "zod"
 
 const updateSchema = z.object({
@@ -20,6 +20,10 @@ export async function PUT(
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
+  if (!isSupabaseConfigured()) {
+    return Response.json({ error: "Supabase non configure" }, { status: 503 })
+  }
+
   const { id } = await params
   const body = await req.json()
   const parsed = updateSchema.safeParse(body)
@@ -28,26 +32,24 @@ export async function PUT(
   }
 
   const data = parsed.data
-  const sets: string[] = []
-  const values: (string | number | null)[] = []
+  const patch: Record<string, string | null> = {}
+  if (data.title !== undefined) patch.title = data.title
+  if (data.content_type !== undefined) patch.content_type = data.content_type
+  if (data.planned_date !== undefined) patch.planned_date = data.planned_date
+  if (data.status !== undefined) patch.status = data.status
+  if (data.notes !== undefined) patch.notes = data.notes || null
 
-  if (data.title !== undefined) { sets.push("title = ?"); values.push(data.title) }
-  if (data.content_type !== undefined) { sets.push("content_type = ?"); values.push(data.content_type) }
-  if (data.planned_date !== undefined) { sets.push("planned_date = ?"); values.push(data.planned_date) }
-  if (data.status !== undefined) { sets.push("status = ?"); values.push(data.status) }
-  if (data.notes !== undefined) { sets.push("notes = ?"); values.push(data.notes || null) }
-
-  if (sets.length === 0) {
+  if (Object.keys(patch).length === 0) {
     return Response.json({ error: "Aucun champ a mettre a jour" }, { status: 400 })
   }
 
-  values.push(Number(id))
-
   try {
-    await execute(
-      `UPDATE wp_iris_editorial_calendar SET ${sets.join(", ")} WHERE id = ?`,
-      values,
-    )
+    const { error } = await getServiceClient()
+      .from("iris_editorial_calendar")
+      .update(patch)
+      .eq("id", Number(id))
+
+    if (error) throw new Error(error.message)
     return Response.json({ success: true })
   } catch (err) {
     return Response.json(
@@ -66,10 +68,19 @@ export async function DELETE(
     return Response.json({ error: "Non autorise" }, { status: 401 })
   }
 
+  if (!isSupabaseConfigured()) {
+    return Response.json({ error: "Supabase non configure" }, { status: 503 })
+  }
+
   const { id } = await params
 
   try {
-    await execute("DELETE FROM wp_iris_editorial_calendar WHERE id = ?", [Number(id)])
+    const { error } = await getServiceClient()
+      .from("iris_editorial_calendar")
+      .delete()
+      .eq("id", Number(id))
+
+    if (error) throw new Error(error.message)
     return Response.json({ success: true })
   } catch (err) {
     return Response.json(
