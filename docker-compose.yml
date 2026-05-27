@@ -173,9 +173,23 @@ configs:
             service: iris-dashboard
             tls:
               certResolver: letsencrypt
+          # Route partagée — angele-dashboard tourne sur le même VPS
+          # (host port 3849) mais sans son propre Traefik (cohabitation).
+          angele-dashboard:
+            rule: "Host(`angele.inris-formations.com`)"
+            entryPoints:
+              - websecure
+            service: angele-dashboard
+            tls:
+              certResolver: letsencrypt
         services:
           iris-dashboard:
             loadBalancer:
               servers:
                 - url: "http://host.docker.internal:3848"
+              passHostHeader: true
+          angele-dashboard:
+            loadBalancer:
+              servers:
+                - url: "http://host.docker.internal:3849"
               passHostHeader: true
