@@ -185,6 +185,23 @@ configs:
             service: angele-dashboard
             tls:
               certResolver: letsencrypt
+          # Postiz — l'instance qui publie pour TOUT l'écosystème INRIS.
+          #
+          # Elle tourne sur ce VPS sans le moindre label Traefik, et ce Traefik
+          # lit un fichier au lieu d'écouter Docker : sa route ne peut donc
+          # exister qu'ici. Elle avait été posée à la main sur la machine, et
+          # le déploiement du 2 août 2026 l'a effacée — crome.orgapro.io a
+          # répondu 404 jusqu'à ce qu'elle soit remise dans le dépôt.
+          #
+          # Ne pas la retirer : ce compose ne gouverne pas seulement IRIS, il
+          # gouverne le routage complet de la machine.
+          postiz:
+            rule: "Host(`crome.orgapro.io`)"
+            entryPoints:
+              - websecure
+            service: postiz
+            tls:
+              certResolver: letsencrypt
         services:
           iris-dashboard:
             loadBalancer:
@@ -195,4 +212,10 @@ configs:
             loadBalancer:
               servers:
                 - url: "http://host.docker.internal:3849"
+              passHostHeader: true
+          # Le conteneur postiz publie 5000 sur le port hôte 4007.
+          postiz:
+            loadBalancer:
+              servers:
+                - url: "http://host.docker.internal:4007"
               passHostHeader: true
