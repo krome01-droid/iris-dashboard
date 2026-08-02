@@ -89,6 +89,12 @@ services:
       # Cron secret (interne, auth des jobs)
       - CRON_SECRET=${CRON_SECRET}
 
+      # CROME OS — soumission des posts sociaux. Le hub applique le palier
+      # d'autonomie, les quotas et le garde-fou éditorial, puis publie.
+      # Sans ces deux variables, `social-auto` s'arrête avant de rédiger.
+      - CROME_INGEST_URL=${CROME_INGEST_URL}
+      - CROME_INGEST_SECRET=${CROME_INGEST_SECRET}
+
     healthcheck:
       # 127.0.0.1 et non `localhost` : dans cette image, `localhost` résout
       # d'abord en ::1, or Next.js n'écoute qu'en IPv4 — le healthcheck
