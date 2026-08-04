@@ -7,8 +7,17 @@
 # Veille (actualités sécurité routière) — Lun-Ven à 7h
 0 7 * * 1-5 /usr/local/bin/call-cron.sh veille
 
-# Posts sociaux — Lun/Mer/Ven à 9h
-0 9 * * 1,3,5 /usr/local/bin/call-cron.sh social-auto
+# Posts sociaux — DÉSACTIVÉ le 4 août 2026.
+#
+# autoecole-inris.com n'a pas de page sociale, et n'en aura pas : le contenu
+# social de l'enseigne INRI'S est porté par ANGÈLE, qui publie le même fond
+# depuis inris-formations.com. IRIS reste sur les articles de blog et le SEO.
+#
+# La route /api/cron/social-auto existe toujours et fonctionne — il suffira de
+# décommenter cette ligne, et de réactiver le job dans CROME OS, si une page
+# est ouverte un jour. La laisser active brûlait un appel au modèle et une
+# génération d'image trois fois par semaine pour un refus certain.
+# 0 9 * * 1,3,5 /usr/local/bin/call-cron.sh social-auto
 
 # Newsletter — Lundi à 8h
 0 8 * * 1 /usr/local/bin/call-cron.sh newsletter
