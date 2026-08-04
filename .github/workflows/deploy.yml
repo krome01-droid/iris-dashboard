@@ -102,3 +102,5 @@ jobs:
             SENTRY_DSN=${{ secrets.SENTRY_DSN }}
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             CRON_SECRET=${{ secrets.CRON_SECRET }}
+            CROME_INGEST_URL=https://lrutxrgpgmayqjepqoed.supabase.co/functions/v1/submit-post
+            CROME_INGEST_SECRET=${{ secrets.CROME_INGEST_SECRET }}
