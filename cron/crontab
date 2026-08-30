@@ -27,3 +27,23 @@
 
 # Tracking positions SERP (DataForSEO) — Lundi à 7h
 0 7 * * 1 /usr/local/bin/call-cron.sh seo-positions
+
+# Rédaction d'un article SEO/GEO — Mardi et Jeudi à 6h.
+#
+# Branchée le 30/08/2026. IRIS était la seule des cinq marques à ne rien
+# écrire : son `seo-report` mesurait un blog qui ne bougeait plus et sa
+# newsletter du lundi sortait chaque semaine par « aucun article cette
+# semaine », faute d'articles à résumer. L'article est déposé dans la
+# collection Webflow « Permis blogs ».
+#
+# 6h : avant `veille` (7h) et `seo-positions` (7h). Même heure que LOU, ANGÈLE
+# et MAYA — c'est le hub qui rédige, séquentiellement, et non le studio
+# d'images qu'ils se disputeraient.
+#
+# Cela ne remet PAS `social-auto` en service : autoecole-inris.com n'a toujours
+# aucun canal social actif. Ces articles servent le site, le référencement et
+# la newsletter du lundi.
+#
+# L'article part publié, sauf si le hub l'a retenu pour relecture ; dans ce cas
+# il reste en brouillon dans Webflow et le hub prévient par Telegram.
+0 6 * * 2,4 /usr/local/bin/call-cron.sh redaction-seo

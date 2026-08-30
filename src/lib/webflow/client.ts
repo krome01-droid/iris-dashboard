@@ -203,7 +203,7 @@ export interface IrisArticle {
   summary: string      // texte court (blog-post-summary)
   isDraft: boolean
   isArchived: boolean
-  imageUrl?: string    // URL de l'image principale Webflow (fieldData.image)
+  imageUrl?: string    // URL de l'image Webflow : featured-image en priorité, sinon thumbnail
 }
 
 const SITE_BASE_URL = "https://autoecole-inris.com"
@@ -226,7 +226,9 @@ function normalizeArticle(
 ): IrisArticle {
   const fd = item.fieldData ?? {}
   const slug = asString(fd.slug)
-  const image = fd.image as { url?: string } | undefined
+  const image =
+    (fd["blog-post-featured-image-photo"] as { url?: string } | null | undefined) ??
+    (fd["blog-post-thumbnail-image-illustration"] as { url?: string } | null | undefined)
   return {
     id: item.id,
     collectionId,
@@ -350,4 +352,111 @@ export async function updateArticle(
       // La publication peut échouer si le site n'est pas prêt — non bloquant.
     })
   }
+}
+
+// ─── Dépôt d'un article rédigé (cron redaction-seo) ──────────────────────────
+
+/** La collection où IRIS dépose ses articles rédigés. « Permis » est la
+ *  collection principale du blog ; « Code » traite un autre sujet et n'est pas
+ *  alimentée automatiquement. */
+const COLLECTION_REDACTION =
+  process.env.WF_COLLECTION_ID_PERMIS_BLOGS ?? "67c976212edb4724b8839729"
+
+export interface DepotArticle {
+  title: string
+  slug: string
+  /** HTML — le champ Webflow `blog-post-richt-text` est un Rich Text. */
+  content: string
+  excerpt: string
+  /** `draft` retient l'article dans Webflow sans le mettre en ligne. */
+  status: "publish" | "draft"
+  imageUrl?: string | null
+}
+
+export interface ArticleDepose {
+  id: string
+  slug: string
+  url: string
+  published: boolean
+  /** Ce qui a empêché la mise en ligne, l'item étant tout de même créé. */
+  publishError?: string
+}
+
+/**
+ * Rend un slug libre. Webflow REFUSE un slug déjà pris dans la collection, et
+ * le refus arrive après plusieurs minutes de rédaction : on vérifie avant.
+ */
+function slugLibre(voulu: string, pris: Set<string>): string {
+  const base = (voulu || "article").toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "")
+  if (!pris.has(base)) return base
+  for (let n = 2; n < 100; n++) {
+    const essai = `${base}-${n}`
+    if (!pris.has(essai)) return essai
+  }
+  return `${base}-${Date.now()}`
+}
+
+/** Les slugs déjà pris dans la collection de rédaction, brouillons compris. */
+export async function slugsExistants(): Promise<Set<string>> {
+  const items = await listAllItems(COLLECTION_REDACTION).catch(() => [] as WebflowItem[])
+  return new Set(items.map((it) => asString(it.fieldData?.slug)).filter(Boolean))
+}
+
+/**
+ * Dépose un article dans la collection blog « Permis ».
+ *
+ * Deux champs seulement sont obligatoires côté Webflow (`name`, `slug`) —
+ * vérifié sur le schéma de la collection le 30/08/2026. Les autres sont
+ * remplis quand on les a, et leur absence ne fait pas échouer le dépôt.
+ *
+ * La mise en ligne est un SECOND appel (`publishItem`). Son échec ne perd pas
+ * l'article : l'item existe, il est simplement resté en brouillon, et on le
+ * dit plutôt que de laisser croire à une publication.
+ */
+export async function createArticle(a: DepotArticle): Promise<ArticleDepose> {
+  const pris = await slugsExistants()
+  const slug = slugLibre(a.slug, pris)
+
+  const fields: Record<string, unknown> = {
+    name: a.title,
+    slug,
+    "blog-post-richt-text": a.content,
+    "blog-post-summary": a.excerpt,
+    "blog-post-excerpt": a.excerpt,
+  }
+  if (a.imageUrl) {
+    // Les deux champs image de la collection : leurs noms d'affichage sont
+    // inversés par rapport à leurs slugs (« Featured Image » porte le slug
+    // `…-thumbnail-…`), et le gabarit peut utiliser l'un ou l'autre. On pose
+    // la même image dans les deux plutôt que de parier sur le bon.
+    fields["blog-post-featured-image-photo"] = { url: a.imageUrl }
+    fields["blog-post-thumbnail-image-illustration"] = { url: a.imageUrl }
+  }
+
+  const item = await createItem(COLLECTION_REDACTION, fields, a.status === "draft")
+
+  let published = false
+  let publishError: string | undefined
+  if (a.status === "publish") {
+    try {
+      await publishItem(COLLECTION_REDACTION, item.id)
+      published = true
+    } catch (e) {
+      publishError = e instanceof Error ? e.message.slice(0, 200) : "publication refusée"
+    }
+  }
+
+  return {
+    id: item.id,
+    slug,
+    url: `${SITE_BASE_URL}/permis/${slug}`,
+    published,
+    publishError,
+  }
+}
+
+/** Les titres déjà en ligne ou en brouillon, pour éviter la cannibalisation. */
+export async function titresExistants(): Promise<string[]> {
+  const items = await listAllItems(COLLECTION_REDACTION).catch(() => [] as WebflowItem[])
+  return items.map((it) => asString(it.fieldData?.name)).filter(Boolean)
 }
