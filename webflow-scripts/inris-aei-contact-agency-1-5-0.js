@@ -187,6 +187,37 @@
     return String(raw || "").trim();
   }
 
+  /* Listes déroulantes du formulaire. La première option reste vide : rien n'est
+     obligatoire ici, et un choix par défaut fausserait la statistique. */
+  var FORMATIONS = [
+    "Permis B — boîte manuelle",
+    "Permis B — boîte automatique",
+    "Conduite accompagnée (AAC)",
+    "Code de la route",
+    "Permis moto (A1, A2, A)",
+    "Permis remorque (BE) ou poids lourd",
+    "Stage de récupération de points",
+    "Je ne sais pas encore",
+  ];
+
+  var PROVENANCES = [
+    "Recherche Google",
+    "Réseaux sociaux",
+    "Recommandation d'un proche",
+    "Déjà élève chez INRI'S",
+    "En passant devant l'agence",
+    "Publicité",
+    "Autre",
+  ];
+
+  function options(list) {
+    var html = '<option value="">Sélectionnez…</option>';
+    for (var i = 0; i < list.length; i++) {
+      html += '<option value="' + esc(list[i]) + '">' + esc(list[i]) + "</option>";
+    }
+    return html;
+  }
+
   /* ---------- 3. Les cartes : on garde tout, on retire seulement l'achat ---------- */
 
   /* La mention "Réserver en ligne en payant 10 %" n'a pas de classe propre :
@@ -245,11 +276,32 @@
         champ.value =
           "Je souhaite des informations sur : " + stage + (price ? " (" + price + " €)" : "");
       }
+      /* Le nom du stage dit souvent le type : on présélectionne quand c'est net,
+         sans écraser un choix déjà fait. */
+      var sel = bloc.querySelector("[name=typeFormation]");
+      if (sel && !sel.value && stage) {
+        var t = stage.toLowerCase();
+        var devine =
+          t.indexOf("moto") >= 0 || /\ba1\b|\ba2\b/.test(t)
+            ? "Permis moto (A1, A2, A)"
+            : t.indexOf("automatique") >= 0 || t.indexOf("boite auto") >= 0
+              ? "Permis B — boîte automatique"
+              : t.indexOf("manuelle") >= 0
+                ? "Permis B — boîte manuelle"
+                : t.indexOf("code") >= 0
+                  ? "Code de la route"
+                  : t.indexOf("accompagn") >= 0
+                    ? "Conduite accompagnée (AAC)"
+                    : /\bce\b|\bbe\b|remorque|poids lourd/.test(t)
+                      ? "Permis remorque (BE) ou poids lourd"
+                      : "";
+        if (devine) sel.value = devine;
+      }
       bloc.scrollIntoView({ behavior: "smooth", block: "start" });
-      var nom = bloc.querySelector("[name=nom]");
-      if (nom) {
+      var prenom = bloc.querySelector("[name=prenom]");
+      if (prenom) {
         setTimeout(function () {
-          nom.focus();
+          prenom.focus();
         }, 400);
       }
     });
@@ -311,14 +363,20 @@
       "<h3>Être rappelé</h3>" +
       '<p class="aei-contact__hint">Renseignez vos coordonnées, l\'auto-école vous recontacte.</p>' +
       '<form class="aei-contact__form" novalidate>' +
-      '<div class="aei-contact__field"><label for="aei-nom">Nom et prénom <span class="req">*</span></label>' +
-      '<input id="aei-nom" name="nom" type="text" required maxlength="80" autocomplete="name"></div>' +
+      '<div class="aei-contact__row">' +
+      '<div class="aei-contact__field"><label for="aei-prenom">Prénom <span class="req">*</span></label>' +
+      '<input id="aei-prenom" name="prenom" type="text" required maxlength="80" autocomplete="given-name"></div>' +
+      '<div class="aei-contact__field"><label for="aei-nom">Nom <span class="req">*</span></label>' +
+      '<input id="aei-nom" name="nom" type="text" required maxlength="80" autocomplete="family-name"></div>' +
+      "</div>" +
       '<div class="aei-contact__row">' +
       '<div class="aei-contact__field"><label for="aei-tel">Téléphone <span class="req">*</span></label>' +
       '<input id="aei-tel" name="telephone" type="tel" required autocomplete="tel" placeholder="06 12 34 56 78"></div>' +
       '<div class="aei-contact__field"><label for="aei-mail">E-mail</label>' +
       '<input id="aei-mail" name="email" type="email" autocomplete="email"></div>' +
       "</div>" +
+      '<div class="aei-contact__field"><label for="aei-type">Type de formation</label>' +
+      '<select id="aei-type" name="typeFormation">' + options(FORMATIONS) + "</select></div>" +
       '<div class="aei-contact__field"><label for="aei-creneau">Quand vous rappeler ?</label>' +
       '<select id="aei-creneau" name="creneau">' +
       '<option value="Peu importe">Peu importe</option>' +
@@ -326,8 +384,10 @@
       '<option value="Après-midi (12h-17h)">Après-midi (12h-17h)</option>' +
       '<option value="Fin de journée (17h-19h)">Fin de journée (17h-19h)</option>' +
       "</select></div>" +
-      '<div class="aei-contact__field"><label for="aei-msg">La formation qui vous intéresse</label>' +
-      '<textarea id="aei-msg" name="message" maxlength="1000" placeholder="Permis B en conduite accélérée, boîte auto, code…"></textarea></div>' +
+      '<div class="aei-contact__field"><label for="aei-provenance">Comment nous avez-vous connu ?</label>' +
+      '<select id="aei-provenance" name="provenance">' + options(PROVENANCES) + "</select></div>" +
+      '<div class="aei-contact__field"><label for="aei-msg">Votre projet (facultatif)</label>' +
+      '<textarea id="aei-msg" name="message" maxlength="1000" placeholder="Une question, une précision, la formation qui vous intéresse…"></textarea></div>' +
       '<div class="aei-contact__hp"><label for="aei-website">Ne pas remplir</label>' +
       '<input id="aei-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>' +
       '<button class="aei-contact__submit" type="submit">Demander à être rappelé</button>' +
@@ -354,14 +414,22 @@
         /* Le code backoffice, pas l'URL : l'API ne résout ni le domaine sans
            "www" ni le sous-domaine de staging. */
         code: code,
+        /* Le slug de page en second : le serveur essaie l'un puis l'autre, si
+           bien qu'un alignement des codes du backoffice sur les slugs ne casse
+           rien, quel que soit l'ordre des mises en production. */
+        codeAlt: slug,
+        prenom: form.prenom.value.trim(),
         nom: form.nom.value.trim(),
         telephone: form.telephone.value.trim(),
         email: form.email.value.trim(),
+        typeFormation: form.typeFormation.value,
         creneau: form.creneau.value,
+        provenance: form.provenance.value,
         message: form.message.value.trim(),
         website: form.website.value,
       };
 
+      if (payload.prenom.length < 2) return fail("Merci d'indiquer votre prénom.");
       if (payload.nom.length < 2) return fail("Merci d'indiquer votre nom.");
       if (payload.telephone.replace(/[^0-9+]/g, "").length < 10) {
         return fail("Merci d'indiquer un numéro de téléphone valide.");
@@ -454,20 +522,30 @@
     });
   }
 
-  /* Filet : une agence créée après ce script est rattrapée via le backoffice. */
-  ready(function () {
-    fetch(BOOKING_API + "/api/agencies/get?code=" + encodeURIComponent(code))
+  /* Filet : une agence créée après ce script est rattrapée via le backoffice.
+     On tente le code puis le slug, pour rester juste avant comme après un
+     éventuel alignement des codes sur les slugs. */
+  function lookup(c) {
+    return fetch(BOOKING_API + "/api/agencies/get?code=" + encodeURIComponent(c))
       .then(function (r) {
         return r.ok ? r.text() : "";
       })
       .then(function (t) {
-        if (!t || !t.trim()) return;
-        var rec;
+        if (!t || !t.trim()) return null;
         try {
-          rec = JSON.parse(t);
+          return JSON.parse(t);
         } catch (e) {
-          return;
+          return null;
         }
+      });
+  }
+
+  ready(function () {
+    lookup(code)
+      .then(function (rec) {
+        return rec || (code !== slug ? lookup(slug) : null);
+      })
+      .then(function (rec) {
         if (!rec || rec.type !== "agency" || rec.code === MELUN) return;
         apply(rec.phone || rec.mobile || "", rec.name || "");
         var el = document.getElementById("aei-contact");

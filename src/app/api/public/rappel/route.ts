@@ -255,6 +255,10 @@ export async function POST(req: NextRequest) {
   if (str("website")) return json({ ok: true }, 200, origin)
 
   const code = str("code")
+  // Le slug de page, quand il diffère du code backoffice. Les deux sont tentés :
+  // le jour où les codes seront alignés sur les slugs, ni ce service ni le script
+  // n'auront besoin d'être redéployés en même temps.
+  const codeAlt = str("codeAlt")
   const nom = str("nom")
   // Optionnel : les pages servent encore l'ancien formulaire le temps que le
   // script se propage sur les deux sites.
@@ -287,7 +291,8 @@ export async function POST(req: NextRequest) {
     return json({ error: "Requête invalide" }, 400, origin)
   }
 
-  const agency = await getAgency(code)
+  let agency = await getAgency(code)
+  if (!agency && codeAlt && codeAlt !== code) agency = await getAgency(codeAlt)
   if (!agency) {
     return json({ error: "Centre introuvable." }, 404, origin)
   }

@@ -414,6 +414,10 @@
         /* Le code backoffice, pas l'URL : l'API ne résout ni le domaine sans
            "www" ni le sous-domaine de staging. */
         code: code,
+        /* Le slug de page en second : le serveur essaie l'un puis l'autre, si
+           bien qu'un alignement des codes du backoffice sur les slugs ne casse
+           rien, quel que soit l'ordre des mises en production. */
+        codeAlt: slug,
         prenom: form.prenom.value.trim(),
         nom: form.nom.value.trim(),
         telephone: form.telephone.value.trim(),
@@ -518,20 +522,30 @@
     });
   }
 
-  /* Filet : une agence créée après ce script est rattrapée via le backoffice. */
-  ready(function () {
-    fetch(BOOKING_API + "/api/agencies/get?code=" + encodeURIComponent(code))
+  /* Filet : une agence créée après ce script est rattrapée via le backoffice.
+     On tente le code puis le slug, pour rester juste avant comme après un
+     éventuel alignement des codes sur les slugs. */
+  function lookup(c) {
+    return fetch(BOOKING_API + "/api/agencies/get?code=" + encodeURIComponent(c))
       .then(function (r) {
         return r.ok ? r.text() : "";
       })
       .then(function (t) {
-        if (!t || !t.trim()) return;
-        var rec;
+        if (!t || !t.trim()) return null;
         try {
-          rec = JSON.parse(t);
+          return JSON.parse(t);
         } catch (e) {
-          return;
+          return null;
         }
+      });
+  }
+
+  ready(function () {
+    lookup(code)
+      .then(function (rec) {
+        return rec || (code !== slug ? lookup(slug) : null);
+      })
+      .then(function (rec) {
         if (!rec || rec.type !== "agency" || rec.code === MELUN) return;
         apply(rec.phone || rec.mobile || "", rec.name || "");
         var el = document.getElementById("aei-contact");
