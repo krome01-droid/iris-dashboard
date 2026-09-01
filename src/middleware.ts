@@ -11,6 +11,10 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith("/api/auth") ||
     pathname.startsWith("/api/cron") ||
     pathname.startsWith("/api/public") ||
+    // Script de mise en relation, chargé par inris-formations.com depuis une URL
+    // stable : c'est ce qui évite de resynchroniser le snippet WordPress à
+    // chaque version.
+    pathname === "/contact-agency.js" ||
     pathname.startsWith("/api/google") ||
     pathname.startsWith("/_next") ||
     pathname === "/favicon.ico"
