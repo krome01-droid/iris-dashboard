@@ -16,6 +16,13 @@ const ALLOWED_ORIGINS = [
 const BOOKING_API =
   process.env.INRIS_BOOKING_API ?? "https://connect.inris-formations.com"
 
+// Charte INRI'S : dégradé violet → magenta, corps blanc, pied bleu nuit.
+const VIOLET = "#281B59"
+const MAGENTA = "#C10058"
+const NAVY = "#1F3149"
+const LOGO =
+  "https://cdn.prod.website-files.com/67c976202edb4724b88395f9/685d4f98141023c622fdc5fb_logo_inris_hor_blanc-p-500.png"
+
 // Fenêtre glissante anti-spam, par IP. Mono-instance : suffisant pour ce volume.
 const RATE_LIMIT_MAX = 5
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
@@ -76,6 +83,120 @@ async function getAgency(code: string): Promise<Agency | null> {
   }
 }
 
+// Une ligne du récapitulatif. Les tableaux restent le seul agencement fiable
+// d'un client de messagerie à l'autre.
+function row(label: string, valueHtml: string): string {
+  return `
+    <tr>
+      <td style="padding:10px 0;border-bottom:1px solid #eef0f4;color:#6b7280;font-size:14px;width:170px;vertical-align:top">${esc(label)}</td>
+      <td style="padding:10px 0;border-bottom:1px solid #eef0f4;color:${NAVY};font-size:15px;vertical-align:top">${valueHtml}</td>
+    </tr>`
+}
+
+function buildEmail(params: {
+  agencyName: string
+  agencyUrl: string
+  prenom: string
+  nom: string
+  telephone: string
+  telDigits: string
+  email: string
+  typeFormation: string
+  creneau: string
+  provenance: string
+  message: string
+}): string {
+  const p = params
+  const identite = [p.prenom, p.nom].filter(Boolean).join(" ")
+
+  const lignes = [
+    row("Nom", `<strong>${esc(p.nom)}</strong>`),
+    p.prenom ? row("Prénom", `<strong>${esc(p.prenom)}</strong>`) : "",
+    row(
+      "Téléphone",
+      `<a href="tel:${esc(p.telDigits)}" style="color:${MAGENTA};text-decoration:none;font-weight:700">${esc(p.telephone)}</a>`,
+    ),
+    p.email
+      ? row(
+          "E-mail",
+          `<a href="mailto:${esc(p.email)}" style="color:${MAGENTA};text-decoration:none">${esc(p.email)}</a>`,
+        )
+      : "",
+    p.typeFormation ? row("Type de formation", esc(p.typeFormation)) : "",
+    p.creneau ? row("Créneau souhaité", esc(p.creneau)) : "",
+    p.provenance ? row("Nous a connus par", esc(p.provenance)) : "",
+  ].join("")
+
+  return `<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f4f4f7">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f7;padding:24px 12px">
+    <tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:Arial,Helvetica,sans-serif">
+
+        <tr>
+          <td align="center" style="background-color:${VIOLET};background-image:linear-gradient(120deg,${VIOLET} 0%,${MAGENTA} 100%);padding:30px 24px">
+            <img src="${LOGO}" alt="INRI'S Formations" width="240" style="display:block;border:0;width:240px;max-width:70%;height:auto">
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:34px 36px 10px">
+            <p style="margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:${MAGENTA};font-weight:700">Nouvelle demande de rappel</p>
+            <p style="margin:0 0 24px;font-size:20px;line-height:1.35;color:${NAVY};font-weight:700">${esc(p.agencyName)}</p>
+            <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#4b5563">
+              ${esc(identite || "Un élève")} souhaite être rappelé au sujet d'une formation.
+            </p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${lignes}</table>
+          </td>
+        </tr>
+        ${
+          p.message
+            ? `<tr><td style="padding:8px 36px 0">
+                 <p style="margin:0 0 8px;color:#6b7280;font-size:14px">Message</p>
+                 <p style="margin:0;padding:16px 18px;background:#f6f7f9;border-left:3px solid ${MAGENTA};border-radius:8px;color:${NAVY};font-size:15px;line-height:1.6;white-space:pre-wrap">${esc(p.message)}</p>
+               </td></tr>`
+            : ""
+        }
+
+        <tr>
+          <td style="padding:26px 36px 34px">
+            <table role="presentation" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding-right:10px">
+                  <a href="tel:${esc(p.telDigits)}" style="display:inline-block;background:#00B87C;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 24px;border-radius:9999px">Appeler ${esc(p.prenom || p.nom)}</a>
+                </td>
+                ${
+                  p.email
+                    ? `<td><a href="mailto:${esc(p.email)}" style="display:inline-block;background:#ffffff;color:${NAVY};border:1px solid #d8dce4;text-decoration:none;font-weight:700;font-size:15px;padding:12px 24px;border-radius:9999px">Répondre par e-mail</a></td>`
+                    : ""
+                }
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="background:${NAVY};padding:26px 36px;text-align:center">
+            <p style="margin:0 0 8px;color:#ffffff;font-size:14px;font-weight:700">Répondez directement à cet e-mail</p>
+            <p style="margin:0 0 14px;color:#aab3c4;font-size:13px;line-height:1.6">
+              Votre réponse part vers l'élève. Merci de le recontacter sous 24 h ouvrées.
+            </p>
+            <a href="${esc(p.agencyUrl)}" style="color:#ffffff;font-size:13px;text-decoration:underline">Voir la fiche de l'agence</a>
+          </td>
+        </tr>
+
+      </table>
+      <p style="margin:16px 0 0;color:#9ca3af;font-size:12px;font-family:Arial,Helvetica,sans-serif">
+        Demande envoyée depuis le site INRI'S Formations
+      </p>
+    </td></tr>
+  </table>
+</body>
+</html>`
+}
+
 // Diagnostic : dit si l'environnement d'envoi est complet, sans rien révéler
 // des valeurs. Sert à trancher entre « variable absente du conteneur » et
 // « message parti mais non remis », que le 200 d'un POST ne distingue pas.
@@ -128,14 +249,22 @@ export async function POST(req: NextRequest) {
 
   const code = str("code")
   const nom = str("nom")
+  // Optionnel : les pages servent encore l'ancien formulaire le temps que le
+  // script se propage sur les deux sites.
+  const prenom = str("prenom")
   const telephone = str("telephone")
   const email = str("email")
   const message = str("message")
   const creneau = str("creneau")
+  const typeFormation = str("typeFormation")
+  const provenance = str("provenance")
 
   if (!code) return json({ error: "Centre non identifié" }, 400, origin)
   if (nom.length < 2 || nom.length > 80) {
     return json({ error: "Merci d'indiquer votre nom." }, 400, origin)
+  }
+  if (prenom.length > 80) {
+    return json({ error: "Prénom trop long." }, 400, origin)
   }
   const telDigits = telephone.replace(/[^0-9+]/g, "")
   if (telDigits.length < 10 || telDigits.length > 15) {
@@ -146,6 +275,9 @@ export async function POST(req: NextRequest) {
   }
   if (message.length > 1000) {
     return json({ error: "Message trop long (1000 caractères maximum)." }, 400, origin)
+  }
+  if (typeFormation.length > 120 || provenance.length > 120 || creneau.length > 120) {
+    return json({ error: "Requête invalide" }, 400, origin)
   }
 
   const agency = await getAgency(code)
@@ -167,33 +299,29 @@ export async function POST(req: NextRequest) {
   }
 
   const libelle = agency.name || agency.city || code
-  const html = `
-    <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#1F3149;line-height:1.6">
-      <p style="margin:0 0 4px"><strong>Nouvelle demande de rappel</strong></p>
-      <p style="margin:0 0 20px;color:#6b7280">${esc(libelle)}</p>
-      <table cellpadding="6" cellspacing="0" style="border-collapse:collapse">
-        <tr><td style="color:#6b7280">Nom</td><td><strong>${esc(nom)}</strong></td></tr>
-        <tr><td style="color:#6b7280">Téléphone</td><td><a href="tel:${esc(telDigits)}"><strong>${esc(telephone)}</strong></a></td></tr>
-        ${email ? `<tr><td style="color:#6b7280">E-mail</td><td><a href="mailto:${esc(email)}">${esc(email)}</a></td></tr>` : ""}
-        ${creneau ? `<tr><td style="color:#6b7280">Créneau souhaité</td><td>${esc(creneau)}</td></tr>` : ""}
-      </table>
-      ${
-        message
-          ? `<p style="margin:20px 0 4px;color:#6b7280">Message</p>
-             <p style="margin:0;padding:12px;background:#f6f7f9;border-radius:8px;white-space:pre-wrap">${esc(message)}</p>`
-          : ""
-      }
-      <p style="margin:24px 0 0;font-size:13px;color:#9ca3af">
-        Envoyé depuis ${esc(agency.url || code)}
-      </p>
-    </div>
-  `
+  const html = buildEmail({
+    agencyName: libelle,
+    agencyUrl: agency.url || "https://www.autoecole-inris.com",
+    prenom,
+    nom,
+    telephone,
+    telDigits,
+    email,
+    typeFormation,
+    creneau,
+    provenance,
+    message,
+  })
+
+  // L'objet porte le nom du prospect : l'agence trie ses demandes d'un coup d'œil.
+  const identite = [prenom, nom].filter(Boolean).join(" ")
+  const subject = `Demande de rappel — ${identite || "nouveau contact"} (${libelle})`
 
   try {
     await sendEmail({
       to: destinataire,
       bcc: process.env.IRIS_RAPPEL_BCC || undefined,
-      subject: `Demande de rappel — ${libelle}`,
+      subject,
       html,
       from: process.env.RESEND_RAPPEL_FROM || undefined,
       replyTo: email || undefined,
