@@ -83,6 +83,7 @@ jobs:
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
             RESEND_FROM_EMAIL=iris@agent.autoecole-inris.com
             RESEND_AUDIENCE_ID=${{ vars.RESEND_AUDIENCE_ID }}
+            IRIS_RAPPEL_BCC=${{ vars.IRIS_RAPPEL_BCC }}
             ONESIGNAL_APP_ID=${{ vars.ONESIGNAL_APP_ID }}
             ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY }}
             KIE_API_KEY=${{ secrets.KIE_API_KEY }}
