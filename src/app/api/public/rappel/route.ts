@@ -20,6 +20,10 @@ const BOOKING_API =
 const VIOLET = "#281B59"
 const MAGENTA = "#C10058"
 const NAVY = "#1F3149"
+// Nom affiché à la réception. L'agence doit reconnaître l'expéditeur avant même
+// d'ouvrir : l'adresse technique seule ne dit rien.
+const EXPEDITEUR = "Réseau INRI'S"
+
 const LOGO =
   "https://cdn.prod.website-files.com/67c976202edb4724b88395f9/685d4f98141023c622fdc5fb_logo_inris_hor_blanc-p-500.png"
 
@@ -317,13 +321,22 @@ export async function POST(req: NextRequest) {
   const identite = [prenom, nom].filter(Boolean).join(" ")
   const subject = `Demande de rappel — ${identite || "nouveau contact"} (${libelle})`
 
+  // L'adresse configurée n'est qu'une boîte technique : on lui accole le nom
+  // affiché, sauf si elle en porte déjà un.
+  const adresse = process.env.RESEND_RAPPEL_FROM || process.env.RESEND_FROM_EMAIL || ""
+  const from = adresse
+    ? adresse.includes("<")
+      ? adresse
+      : `${EXPEDITEUR} <${adresse}>`
+    : undefined
+
   try {
     await sendEmail({
       to: destinataire,
       bcc: process.env.IRIS_RAPPEL_BCC || undefined,
       subject,
       html,
-      from: process.env.RESEND_RAPPEL_FROM || undefined,
+      from,
       replyTo: email || undefined,
     })
   } catch (err) {
