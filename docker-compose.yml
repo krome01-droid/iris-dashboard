@@ -51,6 +51,9 @@ services:
       - RESEND_API_KEY=${RESEND_API_KEY}
       - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-iris@agent.autoecole-inris.com}
       - RESEND_AUDIENCE_ID=${RESEND_AUDIENCE_ID}
+      # Copie cachée des demandes de rappel vers le siège. À déclarer ici
+      # ET dans deploy.yml : Compose n'injecte que ce qu'il liste.
+      - IRIS_RAPPEL_BCC=${IRIS_RAPPEL_BCC}
 
       # OneSignal (push web)
       - ONESIGNAL_APP_ID=${ONESIGNAL_APP_ID}
