@@ -11,6 +11,7 @@ export type SendEmailParams = {
   html: string
   from?: string
   replyTo?: string
+  bcc?: string | string[]
 }
 
 export async function sendEmail(params: SendEmailParams): Promise<{ id: string }> {
@@ -31,6 +32,9 @@ export async function sendEmail(params: SendEmailParams): Promise<{ id: string }
       subject: params.subject,
       html: params.html,
       reply_to: params.replyTo,
+      ...(params.bcc
+        ? { bcc: Array.isArray(params.bcc) ? params.bcc : [params.bcc] }
+        : {}),
     }),
   })
 
