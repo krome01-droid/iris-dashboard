@@ -76,6 +76,25 @@ async function getAgency(code: string): Promise<Agency | null> {
   }
 }
 
+// Diagnostic : dit si l'environnement d'envoi est complet, sans rien révéler
+// des valeurs. Sert à trancher entre « variable absente du conteneur » et
+// « message parti mais non remis », que le 200 d'un POST ne distingue pas.
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin")
+  return json(
+    {
+      resendConfigured: isResendConfigured(),
+      bccConfigured: Boolean(process.env.IRIS_RAPPEL_BCC),
+      fallbackConfigured: Boolean(process.env.IRIS_RAPPEL_FALLBACK_EMAIL),
+      fromDomain: (process.env.RESEND_RAPPEL_FROM || process.env.RESEND_FROM_EMAIL || "")
+        .split("@")[1] ?? null,
+      bookingApi: BOOKING_API,
+    },
+    200,
+    origin,
+  )
+}
+
 export async function OPTIONS(req: NextRequest) {
   return new Response(null, { status: 204, headers: corsHeaders(req.headers.get("origin")) })
 }
