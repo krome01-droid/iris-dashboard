@@ -24,8 +24,11 @@ const NAVY = "#1F3149"
 // d'ouvrir : l'adresse technique seule ne dit rien.
 const EXPEDITEUR = "Réseau INRI'S"
 
+// Logo recadré à ses bords réels : la version du site est un carré 500×500 dont
+// le logo n'occupe qu'une bande centrale, ce qui gonflait le bandeau du double.
+// Servi en 944×432 pour les écrans à haute densité, affiché à 200 px.
 const LOGO =
-  "https://cdn.prod.website-files.com/67c976202edb4724b88395f9/685d4f98141023c622fdc5fb_logo_inris_hor_blanc-p-500.png"
+  "https://cdn.prod.website-files.com/67c976202edb4724b88395f9/6a9746da895c7fabd2b47743_logo-inris-blanc-email.png"
 
 // Fenêtre glissante anti-spam, par IP. Mono-instance : suffisant pour ce volume.
 const RATE_LIMIT_MAX = 5
@@ -140,8 +143,8 @@ function buildEmail(params: {
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:Arial,Helvetica,sans-serif">
 
         <tr>
-          <td align="center" style="background-color:${VIOLET};background-image:linear-gradient(120deg,${VIOLET} 0%,${MAGENTA} 100%);padding:30px 24px">
-            <img src="${LOGO}" alt="INRI'S Formations" width="240" style="display:block;border:0;width:240px;max-width:70%;height:auto">
+          <td align="center" style="background-color:${VIOLET};background-image:linear-gradient(120deg,${VIOLET} 0%,${MAGENTA} 100%);padding:20px 24px">
+            <img src="${LOGO}" alt="INRI'S Formations" width="200" height="92" style="display:block;border:0;width:200px;max-width:60%;height:auto">
           </td>
         </tr>
 
