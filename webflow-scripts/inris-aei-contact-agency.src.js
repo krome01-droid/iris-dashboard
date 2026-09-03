@@ -201,6 +201,31 @@
       btn.setAttribute("data-price", old.getAttribute("data-traineeship-price") || "");
       old.parentNode.replaceChild(btn, old);
     }
+    swapLegacyLinks(root);
+  }
+
+  /* WordPress n'a pas encore le systeme de cartes V13 : ses fiches rendent un lien
+     ".btn-lien-prix" ("Voir le stage") qui ouvre le tunnel de paiement en ligne.
+     Sans ce traitement, le bandeau "reservez aupres de l'auto-ecole" cohabite avec
+     un bouton d'achat. Ce lien ne porte aucun attribut data-, donc le nom du stage
+     et le prix sont relus dans la carte. */
+  function swapLegacyLinks(root) {
+    var links = root.querySelectorAll("a.btn-lien-prix");
+    for (var i = 0; i < links.length; i++) {
+      var link = links[i];
+      var wrap = link.parentNode;
+      if (!wrap) continue;
+      var card = link.closest ? link.closest(".row.box") : null;
+      var titre = card ? card.querySelector(".h5.font-weight-bold") : null;
+      var prix = wrap.querySelector(".h5.font-weight-bold");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "aei-btn-rappel";
+      btn.textContent = "Demander un rappel";
+      btn.setAttribute("data-stage", titre ? titre.textContent.replace(/\s+/g, " ").trim() : "");
+      btn.setAttribute("data-price", prix ? prix.textContent.replace(/[^0-9]/g, "") : "");
+      wrap.replaceChild(btn, link);
+    }
   }
 
   function decorateCards() {
